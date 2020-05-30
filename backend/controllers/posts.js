@@ -22,7 +22,8 @@ exports.getUserWall = (req, res, next) => {
           // ]
           // ,
           include: {
-            model: sequelize.User
+            model: sequelize.User,
+            attributes: ["firstname", "lastname"]
           }
         })
         .then(posts => {

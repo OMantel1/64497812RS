@@ -7,8 +7,8 @@ POST http://localhost:3000/user/login/
 Content-Type: application/json
 
 {
-    "mail": "user@user.com",
-    "mdp": "user"
+    "mail": "test@test.com",
+    "mdp": "test"
 }
 
 ###
@@ -17,20 +17,20 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU5MDgzMzc4OSwiZXhwIjoxNTkwOTIwMTg5fQ.iecczn4YEG1x6Sj0ZDAsyxPy9SKlKSttMz9KvBVnZ34
 
 {
-    "title": "mon troisieme post",
-    "content": "mon troisieme contenu",
-    "url_image":"https://cdn.pixabay.com/photo/2019/08/07/06/31/landscape-4389957_960_720.jpg",
-    "UserId": 2
+    "title": "un autre post",
+    "content": "mon premier post!",
+    "url_image":"https://media.giphy.com/media/rY93u9tQbybks/giphy.gif",
+    "UserId": 3
 }
 ###
 POST http://localhost:3000/user/signup/
 Content-Type: application/json
 
 {
-    "firstname": "user",
-    "lastname": "user",
-    "mail": "user@user.com",
-    "mdp": "user"
+    "firstname": "test",
+    "lastname": "test",
+    "mail": "test@test.com",
+    "mdp": "test"
 }
 
 

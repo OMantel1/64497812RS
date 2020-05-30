@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.TEXT,
     content: DataTypes.TEXT,
     url_image: DataTypes.TEXT,
-    id_user: DataTypes.INTEGER
+    // id_user: DataTypes.INTEGER
   }, {});
   Post.associate = function (models) {
     models.Post.belongsTo(models.User, {

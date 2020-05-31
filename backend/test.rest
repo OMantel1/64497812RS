@@ -1,6 +1,6 @@
 GET http://localhost:3000/posts/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU5MDgzMzc4OSwiZXhwIjoxNTkwOTIwMTg5fQ.iecczn4YEG1x6Sj0ZDAsyxPy9SKlKSttMz9KvBVnZ34
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MDkyODkyNiwiZXhwIjoxNTkxMDE1MzI2fQ.cSDMaMafv5SG-ey36ZPK3OLIDguOO76ZAVp6Z8xsY9I
 
 ###
 POST http://localhost:3000/user/login/
@@ -27,18 +27,18 @@ POST http://localhost:3000/user/signup/
 Content-Type: application/json
 
 {
-    "firstname": "test",
-    "lastname": "test",
-    "mail": "test@test.com",
-    "mdp": "test"
+    "firstname": "user",
+    "lastname": "user",
+    "mail": "user@user.com",
+    "mdp": "user"
 }
 
 
-# ###
-# GET http://localhost:3000/posts/:id
-# Content-Type: application/json
-# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU5MDc1NzY5MiwiZXhwIjoxNTkwODQ0MDkyfQ.LUWy1bni8be9e2e9YqTMDmuTniNPxAly7ztE8CFi9iA
+###
+GET http://localhost:3000/posts/:id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MDkyODkyNiwiZXhwIjoxNTkxMDE1MzI2fQ.cSDMaMafv5SG-ey36ZPK3OLIDguOO76ZAVp6Z8xsY9I
 
-# {
-#     "id": 3
-# }
+{
+    "id": 2
+}

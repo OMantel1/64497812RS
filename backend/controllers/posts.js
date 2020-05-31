@@ -60,9 +60,13 @@ exports.getOnePost = (req, res, next) => {
   db.sequelize.sync()
     .then(() => {
       console.log('database connected...');
-      sequelize.Post.findAll({
+      sequelize.Post.findOne({
           where: {
-            id_post: req.body.id
+            id: req.body.id
+          },
+          include: {
+            model: sequelize.User,
+            attributes: ["firstname", "lastname", "admin"]
           }
         })
         .then(post => {
@@ -77,3 +81,4 @@ exports.getOnePost = (req, res, next) => {
       error
     }));
 }
+

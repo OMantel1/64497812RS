@@ -42,3 +42,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 {
     "id": 2
 }
+
+###
+DELETE http://localhost:3000/posts/:id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MDkyODkyNiwiZXhwIjoxNTkxMDE1MzI2fQ.cSDMaMafv5SG-ey36ZPK3OLIDguOO76ZAVp6Z8xsY9I
+
+{
+    "id": 2
+}

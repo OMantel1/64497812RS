@@ -82,3 +82,24 @@ exports.getOnePost = (req, res, next) => {
     }));
 }
 
+exports.deleteOnePost = (req, res, next) => {
+  db.sequelize.sync()
+    .then(() => {
+      console.log('database connected...');
+      sequelize.Post.destroy({
+          where: {
+            id: req.body.id
+          }
+        })
+        .then(post => {
+          console.log(post);
+          res.status(200).json({message: "post bien supprimé"});
+        })
+        .catch(error => res.status(400).json({
+          error
+        }));
+    })
+    .catch(error => res.status(500).json({
+      error
+    }));
+}

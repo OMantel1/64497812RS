@@ -114,6 +114,7 @@ exports.signup = (req, res, next) => {
   let firstname = req.body.firstname;
   let mail = req.body.mail;
   let mdpHash = hash;
+  let admin = 0;
   console.log(mail);
 
   db.sequelize.sync()
@@ -124,7 +125,8 @@ exports.signup = (req, res, next) => {
             lastname: lastname,
             firstname: firstname,
             mail: mail,
-            mdp: mdpHash
+            mdp: mdpHash,
+            admin: admin
           })
           .then(() => res.status(201).json({
             message: "utilisateur bien crée"

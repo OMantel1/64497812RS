@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     firstname: DataTypes.TEXT,
     lastname: DataTypes.TEXT,
     mail: DataTypes.TEXT,
-    mdp: DataTypes.TEXT
+    mdp: DataTypes.TEXT,
+    admin: DataTypes.INTEGER
   }, {});
   User.associate = function (models) {
     models.User.hasMany(models.Post);

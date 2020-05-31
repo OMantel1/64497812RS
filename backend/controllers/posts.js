@@ -17,14 +17,14 @@ exports.getUserWall = (req, res, next) => {
     .then(() => {
       console.log('database connected...');
       sequelize.Post.findAll({
-          // order: [
-          //   ['createdAt', 'DESC']
-          // ]
-          // ,
+          
           include: {
             model: sequelize.User,
-            attributes: ["firstname", "lastname"]
-          }
+            attributes: ["firstname", "lastname", "admin"]
+          },
+          order: [
+            ['createdAt', 'DESC']
+          ]
         })
         .then(posts => {
           console.log(posts);

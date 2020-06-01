@@ -1,26 +1,26 @@
 GET http://localhost:3000/posts/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MDkyODkyNiwiZXhwIjoxNTkxMDE1MzI2fQ.cSDMaMafv5SG-ey36ZPK3OLIDguOO76ZAVp6Z8xsY9I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTAxMzI2NSwiZXhwIjoxNTkxMDk5NjY1fQ.fZI0oJLUApYoOrd5fo2mKswu30PNeV5gABhCYOPVWHs
 
 ###
 POST http://localhost:3000/user/login/
 Content-Type: application/json
 
 {
-    "mail": "test@test.com",
-    "mdp": "test"
+    "mail": "user@user.com",
+    "mdp": "user"
 }
 
 ###
 POST http://localhost:3000/posts/new/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MDkyODkyNiwiZXhwIjoxNTkxMDE1MzI2fQ.cSDMaMafv5SG-ey36ZPK3OLIDguOO76ZAVp6Z8xsY9I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTAxMzI2NSwiZXhwIjoxNTkxMDk5NjY1fQ.fZI0oJLUApYoOrd5fo2mKswu30PNeV5gABhCYOPVWHs
 
 {
-    "title": "un autre post",
-    "content": "mon premier post!",
+    "title": "voici un autre post",
+    "content": "em ad adulescentiam perduxissent, dirimi tamen interdum contentione vel uxoriae condicionis vel commodi alicuius, quod idem adipisci uterque non posset. Quod si qui longius in amicitia provecti essent, tamen saepe labefactari, si in honoris contentionem incidissent; pestem enim nullam maiorem esse ",
     "url_image":"https://media.giphy.com/media/rY93u9tQbybks/giphy.gif",
-    "UserId":1
+    "UserId":3
 }
 ###
 POST http://localhost:3000/user/signup/
@@ -33,23 +33,33 @@ Content-Type: application/json
     "mdp": "user"
 }
 
+###
+DELETE http://localhost:3000/user/delete/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTAxMzI2NSwiZXhwIjoxNTkxMDk5NjY1fQ.fZI0oJLUApYoOrd5fo2mKswu30PNeV5gABhCYOPVWHs
+
+{
+    "mail": "user@user.com"
+}
+
+
 
 ###
 GET http://localhost:3000/posts/:id
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MDkyODkyNiwiZXhwIjoxNTkxMDE1MzI2fQ.cSDMaMafv5SG-ey36ZPK3OLIDguOO76ZAVp6Z8xsY9I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTAxMzI2NSwiZXhwIjoxNTkxMDk5NjY1fQ.fZI0oJLUApYoOrd5fo2mKswu30PNeV5gABhCYOPVWHs
 
 {
-    "id": 2
+    "id": 8
 }
 
 ### 
 DELETE http://localhost:3000/posts/:id
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MDkyODkyNiwiZXhwIjoxNTkxMDE1MzI2fQ.cSDMaMafv5SG-ey36ZPK3OLIDguOO76ZAVp6Z8xsY9I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTAxMzI2NSwiZXhwIjoxNTkxMDk5NjY1fQ.fZI0oJLUApYoOrd5fo2mKswu30PNeV5gABhCYOPVWHs
 
 {
-    "id": 2
+    "id": 8
 }
 
 ###

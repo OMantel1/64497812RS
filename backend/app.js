@@ -183,5 +183,6 @@ app.use(bodyParser.json());
 // //enregistre routers
 app.use('/user', require('./routes/user'));
 app.use('/posts', require('./routes/posts'));
+app.use('/comments', require('./routes/comments'));
 
 module.exports = app;

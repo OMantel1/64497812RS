@@ -1,45 +1,59 @@
 GET http://localhost:3000/posts/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTAxMzI2NSwiZXhwIjoxNTkxMDk5NjY1fQ.fZI0oJLUApYoOrd5fo2mKswu30PNeV5gABhCYOPVWHs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTEwNTIyMCwiZXhwIjoxNTkxMTkxNjIwfQ.G6sqDTb8MaOIZw97TS3sXEwvbUiB3EtK2EiQur7xhd0
 
 ###
 POST http://localhost:3000/user/login/
 Content-Type: application/json
 
 {
-    "mail": "user@user.com",
-    "mdp": "user"
+    "mail": "aze@aze.com",
+    "mdp": "aze"
 }
 
 ###
 POST http://localhost:3000/posts/new/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTAxMzI2NSwiZXhwIjoxNTkxMDk5NjY1fQ.fZI0oJLUApYoOrd5fo2mKswu30PNeV5gABhCYOPVWHs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTExODYyMSwiZXhwIjoxNTkxMjA1MDIxfQ.7dNlW7ursQ6Zc08B0Z-Pgj-o4cs7EqpneRSAwhN_VQM
 
 {
-    "title": "voici un autre post",
+    "UserId": 1,
+    "title": "voici un premier post",
     "content": "em ad adulescentiam perduxissent, dirimi tamen interdum contentione vel uxoriae condicionis vel commodi alicuius, quod idem adipisci uterque non posset. Quod si qui longius in amicitia provecti essent, tamen saepe labefactari, si in honoris contentionem incidissent; pestem enim nullam maiorem esse ",
-    "url_image":"https://media.giphy.com/media/rY93u9tQbybks/giphy.gif",
-    "UserId":3
+    "url_image":"https://media.giphy.com/media/rY93u9tQbybks/giphy.gif"
 }
+
+###
+POST http://localhost:3000/comments/new/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTExODYyMSwiZXhwIjoxNTkxMjA1MDIxfQ.7dNlW7ursQ6Zc08B0Z-Pgj-o4cs7EqpneRSAwhN_VQM
+
+{
+    "content":" premier commentaire", 
+    "PostId": 1,
+    "UserId": 1
+}
+
 ###
 POST http://localhost:3000/user/signup/
 Content-Type: application/json
 
 {
-    "firstname": "user",
-    "lastname": "user",
-    "mail": "user@user.com",
-    "mdp": "user"
+    "firstname": "aze",
+    "lastname": "aze",
+    "mail": "aze@aze.com",
+    "mdp": "aze"
 }
 
 ###
 DELETE http://localhost:3000/user/delete/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTAxMzI2NSwiZXhwIjoxNTkxMDk5NjY1fQ.fZI0oJLUApYoOrd5fo2mKswu30PNeV5gABhCYOPVWHs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTU5MTAzMTQxMCwiZXhwIjoxNTkxMTE3ODEwfQ.3GYTOw-Zb43GNe-xvIGxCLAd11mELO_x4nH8esOiwA0
 
 {
-    "mail": "user@user.com"
+    "userId": 5,
+    "mail": "aze@aze.com",
+    "mdp": "aze"
 }
 
 
@@ -47,27 +61,28 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhd
 ###
 GET http://localhost:3000/posts/:id
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTAxMzI2NSwiZXhwIjoxNTkxMDk5NjY1fQ.fZI0oJLUApYoOrd5fo2mKswu30PNeV5gABhCYOPVWHs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTEwMzIwMywiZXhwIjoxNTkxMTg5NjAzfQ.UI-9jt7TySVXCQwh5EoPFtpzpltQO-I1MDkxI3PZ81o
 
 {
-    "id": 8
+    "id": 1
 }
 
 ### 
 DELETE http://localhost:3000/posts/:id
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTAxMzI2NSwiZXhwIjoxNTkxMDk5NjY1fQ.fZI0oJLUApYoOrd5fo2mKswu30PNeV5gABhCYOPVWHs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTU5MTAzMTQxMCwiZXhwIjoxNTkxMTE3ODEwfQ.3GYTOw-Zb43GNe-xvIGxCLAd11mELO_x4nH8esOiwA0
 
 {
-    "id": 8
+    "id": 21
 }
 
 ###
 PUT http://localhost:3000/posts/:id/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MDkyODkyNiwiZXhwIjoxNTkxMDE1MzI2fQ.cSDMaMafv5SG-ey36ZPK3OLIDguOO76ZAVp6Z8xsY9I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTU5MTAzMTQxMCwiZXhwIjoxNTkxMTE3ODEwfQ.3GYTOw-Zb43GNe-xvIGxCLAd11mELO_x4nH8esOiwA0
 
 {
+    "userId": 4,
     "id": 3,
     "title": "mon post modifié 2 fois",
     "content": "mon premier post modifié",

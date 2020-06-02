@@ -8,6 +8,7 @@ const {
 const sequelize = require('../models/index.js');
 const Post = require('../models/Post');
 const User = require('../models/User');
+const Comment = require('../models/Comment');
 const db = require('../models');
 
 
@@ -44,14 +45,17 @@ exports.newPost = (req, res, next) => {
     .then(() => {
       console.log('database connected...');
       sequelize.Post.create({
+          UserId: req.body.UserId,
           title: req.body.title,
           content: req.body.content,
-          url_image: req.body.url_image,
-          UserId: req.body.UserId,
-
+          url_image: req.body.url_image
         })
-        .then()
-        .catch();
+        .then(response => res.status(200).json({
+          message: "Post bien crée"
+        }))
+        .catch(error => res.status(400).json({
+          error: "Ce post n'as pas pu etre crée"
+        }));
     })
     .catch(error => console.log(error));
 }
@@ -65,8 +69,8 @@ exports.getOnePost = (req, res, next) => {
             id: req.body.id
           },
           include: {
-            model: sequelize.User,
-            attributes: ["firstname", "lastname", "admin"]
+            model: sequelize.Comment
+            // attributes: ["firstname", "lastname", "admin"]
           }
         })
         .then(post => {

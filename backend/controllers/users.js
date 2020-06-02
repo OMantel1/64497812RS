@@ -8,6 +8,7 @@ const {
 const sequelize = require('../models/index.js');
 const Post = require('../models/Post');
 const User = require('../models/User');
+const Comment = require ('../models/Comment');
 const db = require('../models');
 
 exports.login = (req, res, next) => {
@@ -52,8 +53,8 @@ exports.login = (req, res, next) => {
     .catch(error => console.log(error));
 }
 
-//supprimer compte user
-exports.deleteUser = (req, res, next) => {
+
+exports.deleteAccount = (req, res, next) => {
   db.sequelize.sync()
     .then(() => {
       // console.log('database connected...');
@@ -65,33 +66,27 @@ exports.deleteUser = (req, res, next) => {
         .then(user => {
           if (!user) {
             return res.status(401).json({
-              message: "utilisateur non trouvé"
+              error: "Utilisateur non trouvé"
             })
           }
+          // console.log(user);
           bcrypt.compare(req.body.mdp, user.mdp)
             .then(valid => {
               if (!valid) {
-                return res.status(402).json({
-                  error: "mot de pas incorrect"
+                return res.status(401).json({
+                  error: "pass invalide"
                 })
               }
-              res.status(200).json({
-                message: "mot de passe valide"
-              })
-            })
-            .then(() => {
-              User.destroy({
+              sequelize.User.destroy({
                   where: {
                     mail: req.body.mail
                   }
                 })
-                .then(() => {
-                  res.status(201).json({
-                    message: "utilisateur bien supprimé"
-                  })
-                })
-                .catch(error => res.status(500).json({
-                  error: "erreur bcrypt"
+                .then(() => res.status(201).json({
+                  message: "utilisateur bien supprimé"
+                }))
+                .catch(error => res.status(400).json({
+                  error: "Utilisateur n'a pas pu  etre supprimé"
                 }));
             })
             .catch(error => res.status(500).json({
@@ -102,6 +97,36 @@ exports.deleteUser = (req, res, next) => {
     })
     .catch(error => console.log(error));
 }
+
+//supprimer compte user
+// exports.deleteAccount = (req, res, next) => {
+//   db.sequelize.sync()
+//   bcrypt.compare(req.body.mdp, user.mdp)
+//     .then(valid => {
+//       if (!valid) {
+//         return res.status(401).json({
+//           error: "password invalide"
+//         })
+//       }
+//       // console.log('database connected...');
+//       sequelize.User.destroy({
+//           where: {
+//             mail: req.body.mail
+//           }
+//         })
+//         .then(() => res.status(201).json({
+//           message: "utilisateur bien supprimé"
+//         }))
+//         .catch(error => res.status(400).json({
+//           error: "Utilisateur n'a pas pu  etre supprimé"
+//         }));
+//     })
+
+//     .catch(error => res.status(500).json({
+//       error: "erreur bcrypt"
+//     }));
+
+// }
 
 
 

@@ -13,8 +13,6 @@ const {
 
 router.post('/login', user.login);
 router.post('/signup', user.signup);
-router.post('/signup', user.signup);
-
-router.post('/delete', auth, user.deleteUser);
+router.delete('/delete', auth, user.deleteAccount);
 
 module.exports = router;

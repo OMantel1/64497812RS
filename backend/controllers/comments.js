@@ -1,0 +1,35 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const {
+  Sequelize,
+  DataTypes,
+  Model
+} = require('sequelize');
+const sequelize = require('../models/index.js');
+const Post = require('../models/Post');
+const User = require('../models/User');
+const Comment = require('../models/Comment');
+const db = require('../models');
+
+
+/* Nouveau commentaire */
+exports.newComment = (req, res, next) => {
+  db.sequelize.sync()
+    .then(() => {
+      console.log('database connected...');
+      sequelize.Comment.create({
+          UserId: req.body.UserId,
+          PostId: req.body.PostId,
+          content: req.body.content
+        })
+        .then(response => res.status(200).json({
+          message: "commentaire bien crée"
+        }))
+        .catch(error => res.status(400).json({
+          error: "commentaire n'as pas pu etre crée"
+        }));
+    })
+    .catch(error => res.status(500).json({
+      error: "erreur"
+    }));
+}

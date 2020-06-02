@@ -13,7 +13,7 @@ const {
 
 // router.get('/', auth, comments.getAllComments);
 router.post('/new',auth, comments.newComment);
-// router.put('/:id', auth, comments.updateOneComment);
+router.put('/:id', auth, comments.updateOneComment);
 // router.delete('/:id', auth, comments.deleteComment);
 
 

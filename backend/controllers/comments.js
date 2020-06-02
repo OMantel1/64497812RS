@@ -33,3 +33,23 @@ exports.newComment = (req, res, next) => {
       error: "erreur"
     }));
 }
+
+exports.updateOneComment = (req, res, next) => {
+  db.sequelize.sync()
+    .then(post => {
+      sequelize.Comment.update({
+          content: req.body.content
+        }, {
+          where: {
+            id: req.body.id
+          }
+        })
+        .then(response => res.status(200).json({
+          message: "commentaire bien modifié"
+        }))
+        .catch(error => console.log("ERREUR updateValue"));
+    })
+    .catch(error => res.status(500).json({
+      error
+    }));
+}

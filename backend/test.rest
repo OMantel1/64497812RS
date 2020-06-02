@@ -79,12 +79,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhd
 ###
 PUT http://localhost:3000/posts/:id/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTU5MTAzMTQxMCwiZXhwIjoxNTkxMTE3ODEwfQ.3GYTOw-Zb43GNe-xvIGxCLAd11mELO_x4nH8esOiwA0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTEwMzIwMywiZXhwIjoxNTkxMTg5NjAzfQ.UI-9jt7TySVXCQwh5EoPFtpzpltQO-I1MDkxI3PZ81o
 
 {
-    "userId": 4,
+    "userId": 1,
     "id": 3,
-    "title": "mon post modifié 2 fois",
+    "title": "mon post modifié",
     "content": "mon premier post modifié",
     "url_image":"https://media.giphy.com/media/rY93u9tQbybks/giphy.gif"
+}
+
+###
+PUT http://localhost:3000/comments/:id/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTEwMzIwMywiZXhwIjoxNTkxMTg5NjAzfQ.UI-9jt7TySVXCQwh5EoPFtpzpltQO-I1MDkxI3PZ81o
+
+{
+    "id": 10,
+    "content": "mon premier commentaire modifié"
 }

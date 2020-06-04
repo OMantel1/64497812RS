@@ -14,7 +14,7 @@ const {
 // router.get('/', auth, comments.getAllComments);
 router.post('/new',auth, comments.newComment);
 router.put('/:id', auth, comments.updateOneComment);
-// router.delete('/:id', auth, comments.deleteComment);
+router.delete('/:id', auth, comments.deleteOneComment);
 
 
 module.exports = router;

@@ -1,6 +1,9 @@
 GET http://localhost:3000/posts/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTEwNTIyMCwiZXhwIjoxNTkxMTkxNjIwfQ.G6sqDTb8MaOIZw97TS3sXEwvbUiB3EtK2EiQur7xhd0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTI5OTA3NSwiZXhwIjoxNTkxMzg1NDc1fQ.hyPob8qnq5snR5B1A7KUVhILSezg3W-ZE4l1krItQ90
+
+
+##################### POST ###
 
 ###
 POST http://localhost:3000/user/login/
@@ -14,7 +17,7 @@ Content-Type: application/json
 ###
 POST http://localhost:3000/posts/new/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTExODYyMSwiZXhwIjoxNTkxMjA1MDIxfQ.7dNlW7ursQ6Zc08B0Z-Pgj-o4cs7EqpneRSAwhN_VQM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5OTE5MCwiZXhwIjoxNTkxMzg1NTkwfQ._5pHSJ0MwpHir0hLTotD8A8C7tQTBj6KS36mNT7_sno
 
 {
     "UserId": 1,
@@ -26,7 +29,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 ###
 POST http://localhost:3000/comments/new/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTExODYyMSwiZXhwIjoxNTkxMjA1MDIxfQ.7dNlW7ursQ6Zc08B0Z-Pgj-o4cs7EqpneRSAwhN_VQM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5OTE5MCwiZXhwIjoxNTkxMzg1NTkwfQ._5pHSJ0MwpHir0hLTotD8A8C7tQTBj6KS36mNT7_sno
 
 {
     "content":" premier commentaire", 
@@ -45,45 +48,53 @@ Content-Type: application/json
     "mdp": "aze"
 }
 
+
+
+
+
+##################### DELETE ###
+### 
+DELETE http://localhost:3000/posts/:id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU5MTI5ODY4MSwiZXhwIjoxNTkxMzg1MDgxfQ.sXKh0a07qG6g56N1ZiHVtqqZad1JQH7saUSXMcoFWY0
+
+{
+    "id": 5
+}
+
+### 
+DELETE http://localhost:3000/comments/:id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5NzkyMiwiZXhwIjoxNTkxMzg0MzIyfQ.1MKubc4FBoI60clEUxEy4F0BXarvTWixEeb6L5jHIRM
+
+{
+    "id":2 
+}
+
+
+
 ###
 DELETE http://localhost:3000/user/delete/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTU5MTAzMTQxMCwiZXhwIjoxNTkxMTE3ODEwfQ.3GYTOw-Zb43GNe-xvIGxCLAd11mELO_x4nH8esOiwA0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5OTE5MCwiZXhwIjoxNTkxMzg1NTkwfQ._5pHSJ0MwpHir0hLTotD8A8C7tQTBj6KS36mNT7_sno
 
 {
-    "userId": 5,
+    "userId": 1,
     "mail": "aze@aze.com",
     "mdp": "aze"
 }
 
 
 
-###
-GET http://localhost:3000/posts/:id
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTEwMzIwMywiZXhwIjoxNTkxMTg5NjAzfQ.UI-9jt7TySVXCQwh5EoPFtpzpltQO-I1MDkxI3PZ81o
-
-{
-    "id": 1
-}
-
-### 
-DELETE http://localhost:3000/posts/:id
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImlhdCI6MTU5MTAzMTQxMCwiZXhwIjoxNTkxMTE3ODEwfQ.3GYTOw-Zb43GNe-xvIGxCLAd11mELO_x4nH8esOiwA0
-
-{
-    "id": 21
-}
-
+##################### PUT ###
 ###
 PUT http://localhost:3000/posts/:id/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTEwMzIwMywiZXhwIjoxNTkxMTg5NjAzfQ.UI-9jt7TySVXCQwh5EoPFtpzpltQO-I1MDkxI3PZ81o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU5MTI5ODY4MSwiZXhwIjoxNTkxMzg1MDgxfQ.sXKh0a07qG6g56N1ZiHVtqqZad1JQH7saUSXMcoFWY0
 
 {
-    "userId": 1,
-    "id": 3,
+    "userId": 3,
+    "id": 4,
     "title": "mon post modifié",
     "content": "mon premier post modifié",
     "url_image":"https://media.giphy.com/media/rY93u9tQbybks/giphy.gif"
@@ -92,7 +103,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 ###
 PUT http://localhost:3000/comments/:id/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTEwMzIwMywiZXhwIjoxNTkxMTg5NjAzfQ.UI-9jt7TySVXCQwh5EoPFtpzpltQO-I1MDkxI3PZ81o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU5MTI5NjgyNCwiZXhwIjoxNTkxMzgzMjI0fQ.KIDakStX0sPfb8aXn-kdjcOVcBa4DwoAzIohw0FhGnU
 
 {
     "id": 10,

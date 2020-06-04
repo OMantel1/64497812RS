@@ -5,8 +5,14 @@ module.exports = (sequelize, DataTypes) => {
     content: DataTypes.TEXT
   }, {});
   Comment.associate = function(models) {
-    models.Comment.belongsTo(models.Post);
-    models.Comment.belongsTo(models.User);
+    models.Comment.belongsTo(models.Post,{
+      onDelete: 'CASCADE',
+      hooks: true
+    });
+    models.Comment.belongsTo(models.User,{
+      onDelete: 'CASCADE',
+      hooks: true,
+    });
   
   };
   return Comment;

@@ -21,8 +21,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 
 {
     "UserId": 1,
-    "title": "voici un premier post",
-    "content": "em ad adulescentiam perduxissent, dirimi tamen interdum contentione vel uxoriae condicionis vel commodi alicuius, quod idem adipisci uterque non posset. Quod si qui longius in amicitia provecti essent, tamen saepe labefactari, si in honoris contentionem incidissent; pestem enim nullam maiorem esse ",
+    "title": "Nouveau !",
+    "content": " provecti essent, tamen saepe labefactari, si in honoris contentionem incidissent; pestem enim nullam maiorem esse ",
     "url_image":"https://media.giphy.com/media/rY93u9tQbybks/giphy.gif"
 }
 
@@ -32,7 +32,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5OTE5MCwiZXhwIjoxNTkxMzg1NTkwfQ._5pHSJ0MwpHir0hLTotD8A8C7tQTBj6KS36mNT7_sno
 
 {
-    "content":" premier commentaire", 
+    "content":" Nouveau commentaire", 
     "PostId": 1,
     "UserId": 1
 }
@@ -90,11 +90,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 ###
 PUT http://localhost:3000/posts/:id/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU5MTI5ODY4MSwiZXhwIjoxNTkxMzg1MDgxfQ.sXKh0a07qG6g56N1ZiHVtqqZad1JQH7saUSXMcoFWY0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5OTE5MCwiZXhwIjoxNTkxMzg1NTkwfQ._5pHSJ0MwpHir0hLTotD8A8C7tQTBj6KS36mNT7_sno
 
 {
-    "userId": 3,
-    "id": 4,
+    "userId": 1,
+    "id": 2,
     "title": "mon post modifié",
     "content": "mon premier post modifié",
     "url_image":"https://media.giphy.com/media/rY93u9tQbybks/giphy.gif"
@@ -103,9 +103,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhd
 ###
 PUT http://localhost:3000/comments/:id/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU5MTI5NjgyNCwiZXhwIjoxNTkxMzgzMjI0fQ.KIDakStX0sPfb8aXn-kdjcOVcBa4DwoAzIohw0FhGnU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5OTE5MCwiZXhwIjoxNTkxMzg1NTkwfQ._5pHSJ0MwpHir0hLTotD8A8C7tQTBj6KS36mNT7_sno
 
 {
-    "id": 10,
-    "content": "mon premier commentaire modifié"
+    "id": 3,
+    "content": "mon commentaire modifié"
 }

@@ -1,111 +1,124 @@
+##################### POST ##########################################
 GET http://localhost:3000/posts/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTI5OTA3NSwiZXhwIjoxNTkxMzg1NDc1fQ.hyPob8qnq5snR5B1A7KUVhILSezg3W-ZE4l1krItQ90
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTU5MTUzNTc3NCwiZXhwIjoxNTkxNjIyMTc0fQ.yv-XQI5jTJJ-OXeSXSGk7ljUahZxYEIl7J9n-Dh_nzQ
 
-
-##################### POST ###
 
 ###
-POST http://localhost:3000/user/login/
+GET http://localhost:3000/posts/1
 Content-Type: application/json
-
-{
-    "mail": "aze@aze.com",
-    "mdp": "aze"
-}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTUxNjM2NiwiZXhwIjoxNTkxNjAyNzY2fQ.Ildfil9cM7Ngrn3G_9Kva2Kk_Z4KzD6KotwygdYakQk
 
 ###
 POST http://localhost:3000/posts/new/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5OTE5MCwiZXhwIjoxNTkxMzg1NTkwfQ._5pHSJ0MwpHir0hLTotD8A8C7tQTBj6KS36mNT7_sno
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTU5MTUzNTc3NCwiZXhwIjoxNTkxNjIyMTc0fQ.yv-XQI5jTJJ-OXeSXSGk7ljUahZxYEIl7J9n-Dh_nzQ
 
 {
-    "UserId": 1,
-    "title": "Nouveau !",
-    "content": " provecti essent, tamen saepe labefactari, si in honoris contentionem incidissent; pestem enim nullam maiorem esse ",
-    "url_image":"https://media.giphy.com/media/rY93u9tQbybks/giphy.gif"
+    "UserId": 4,
+    "title": "Fender",
+    "content":"Fender Musical Instruments Corporation, nommé initialement Fender's Radio Service puis Fender Electric Instrument Manufacturing Company, est une société créée par Leo Fender aux États-Unis dans les années 1940.",
+    "url_image":""
 }
 
 ###
-POST http://localhost:3000/comments/new/
+PUT http://localhost:3000/posts/14
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5OTE5MCwiZXhwIjoxNTkxMzg1NTkwfQ._5pHSJ0MwpHir0hLTotD8A8C7tQTBj6KS36mNT7_sno
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTUxNjM2NiwiZXhwIjoxNTkxNjAyNzY2fQ.Ildfil9cM7Ngrn3G_9Kva2Kk_Z4KzD6KotwygdYakQk
 
 {
-    "content":" Nouveau commentaire", 
-    "PostId": 1,
-    "UserId": 1
+    "userId": 1,
+    "title": "nouveau contenu",
+    "content": "contenu modifié",
+    "url_image":""
 }
+
+
+### 
+DELETE http://localhost:3000/posts/6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTUxNjM2NiwiZXhwIjoxNTkxNjAyNzY2fQ.Ildfil9cM7Ngrn3G_9Kva2Kk_Z4KzD6KotwygdYakQk
+
+
+
+
+
+
+
+##################### USER ##########################################
 
 ###
 POST http://localhost:3000/user/signup/
 Content-Type: application/json
 
 {
-    "firstname": "aze",
-    "lastname": "aze",
-    "mail": "aze@aze.com",
-    "mdp": "aze"
+    "firstname": "martin",
+    "lastname": "dupond",
+    "mail": "martin@dupond.com",
+    "mdp": "Azerty1@"
 }
 
 
-
-
-
-##################### DELETE ###
-### 
-DELETE http://localhost:3000/posts/:id
+###
+POST http://localhost:3000/user/login/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU5MTI5ODY4MSwiZXhwIjoxNTkxMzg1MDgxfQ.sXKh0a07qG6g56N1ZiHVtqqZad1JQH7saUSXMcoFWY0
 
 {
-    "id": 5
+    "mail": "user@user.com",
+    "mdp": "Azerty1@"
 }
-
-### 
-DELETE http://localhost:3000/comments/:id
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5NzkyMiwiZXhwIjoxNTkxMzg0MzIyfQ.1MKubc4FBoI60clEUxEy4F0BXarvTWixEeb6L5jHIRM
-
-{
-    "id":2 
-}
-
 
 
 ###
 DELETE http://localhost:3000/user/delete/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5OTE5MCwiZXhwIjoxNTkxMzg1NTkwfQ._5pHSJ0MwpHir0hLTotD8A8C7tQTBj6KS36mNT7_sno
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlhdCI6MTU5MTUzNjczNywiZXhwIjoxNTkxNjIzMTM3fQ.DQoYExbmfVJhm_x7JYrxtlKJCq4kl383TM38i8uPdqs
 
 {
-    "userId": 1,
-    "mail": "aze@aze.com",
-    "mdp": "aze"
+    "userId": 2,
+    "mail": "user@user.com",
+    "mdp": "Azerty1@"
 }
 
 
-
-##################### PUT ###
+##################### COMMENTS ##########################################
 ###
-PUT http://localhost:3000/posts/:id/
+POST http://localhost:3000/comments/new/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5OTE5MCwiZXhwIjoxNTkxMzg1NTkwfQ._5pHSJ0MwpHir0hLTotD8A8C7tQTBj6KS36mNT7_sno
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTUzNTkzMCwiZXhwIjoxNTkxNjIyMzMwfQ.uwgG8WoQlxYTV8ozEwZhqOs3PPMXHNN4PklzrvD2jV8
 
 {
-    "userId": 1,
-    "id": 2,
-    "title": "mon post modifié",
-    "content": "mon premier post modifié",
-    "url_image":"https://media.giphy.com/media/rY93u9tQbybks/giphy.gif"
+    "content":"très interessant !", 
+    "PostId": 1,
+    "UserId": 3
 }
+
+# ###
+# GET http://localhost:3000/comments/
+# Content-Type: application/json
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTQyODc4MSwiZXhwIjoxNTkxNTE1MTgxfQ.IlT_GCX83Nq-oaq6ziCWvahyzjsGdFDD_AP3MjsuaF8
+
+# {
+#     "content":" Nouveau commentaire", 
+#     "PostId": 1,
+#     "UserId": 1
+# }
+
+
+### 
+DELETE http://localhost:3000/comments/6
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTQyODc4MSwiZXhwIjoxNTkxNTE1MTgxfQ.IlT_GCX83Nq-oaq6ziCWvahyzjsGdFDD_AP3MjsuaF8
+
+
 
 ###
-PUT http://localhost:3000/comments/:id/
+PUT http://localhost:3000/comments/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTI5OTE5MCwiZXhwIjoxNTkxMzg1NTkwfQ._5pHSJ0MwpHir0hLTotD8A8C7tQTBj6KS36mNT7_sno
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTQyODc4MSwiZXhwIjoxNTkxNTE1MTgxfQ.IlT_GCX83Nq-oaq6ziCWvahyzjsGdFDD_AP3MjsuaF8
 
 {
-    "id": 3,
-    "content": "mon commentaire modifié"
+    "content": "lorem"
 }
+
+

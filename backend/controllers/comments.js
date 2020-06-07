@@ -12,68 +12,93 @@ const Comment = require('../models/Comment');
 const db = require('../models');
 
 
-/* Nouveau commentaire */
+/***** CREATE COMMENT *****/
 exports.newComment = (req, res, next) => {
-  db.sequelize.sync()
-    .then(() => {
-      console.log('database connected...');
-      sequelize.Comment.create({
-          UserId: req.body.UserId,
-          PostId: req.body.PostId,
-          content: req.body.content
-        })
-        .then(response => res.status(200).json({
-          message: "commentaire bien crée"
-        }))
-        .catch(error => res.status(400).json({
-          error: "commentaire n'as pas pu etre crée"
-        }));
+  //vérification des données
+  try {
+    if (req.body.content === "") throw "Veuillez renseigner un contenu";
+  } catch (error) {
+    return res.status(400).json({
+      error: error
+    });
+  }
+  //creation authorisée du commentaire
+  sequelize.Comment.create({
+      UserId: req.body.UserId,
+      PostId: req.body.PostId,
+      content: req.body.content
     })
-    .catch(error => res.status(500).json({
-      error: "erreur"
+    .then(response => res.status(200).json({
+      message: "commentaire bien crée"
+    }))
+    .catch(error => res.status(400).json({
+      error: "commentaire n'as pas pu etre crée"
     }));
 }
 
+
+// /***** FIND ALL COMMENTS *****/
+// exports.getAllComments = (req, res, next) => {
+//   //récupération de tous les commentaires présents dans la bdd
+//   sequelize.Comment.findAll({
+//       where: {
+//         UserId: req.body.UserId
+//       },
+//       order: [
+//         ['createdAt', 'DESC']
+//       ]
+//     })
+//     .then(comments => {
+//       console.log(comments);
+//       res.status(200).json(comments);
+//     })
+//     .catch(error => res.status(400).json({
+//       error
+//     }));
+// }
+
+
+/***** UPDATE COMMENT *****/
 exports.updateOneComment = (req, res, next) => {
-  db.sequelize.sync()
-    .then(post => {
-      sequelize.Comment.update({
-          content: req.body.content
-        }, {
-          where: {
-            id: req.body.id
-          }
-        })
-        .then(response => res.status(200).json({
-          message: "commentaire bien modifié"
-        }))
-        .catch(error => console.log("ERREUR updateValue"));
+
+  //vérifcation des données
+  try {
+    if (req.body.content === "") throw "Veuillez renseigner un contenu";
+  } catch (error) {
+    return res.status(400).json({
+      error: error
+    });
+  }
+  //modification du commentaire
+  sequelize.Comment.update({
+      content: req.body.content
+    }, {
+      where: {
+        id: req.params.id
+      }
     })
-    .catch(error => res.status(500).json({
-      error
-    }));
+    .then(response => res.status(200).json({
+      message: "commentaire bien modifié"
+    }))
+    .catch(error => console.log("ERREUR updateValue"));
 }
 
+
+
+/***** DELETE COMMENT *****/
 exports.deleteOneComment = (req, res, next) => {
-  db.sequelize.sync()
-    .then(() => {
-      console.log('database connected...');
-      sequelize.Comment.destroy({
-          where: {
-            id: req.body.id
-          }
-        })
-        .then(comment => {
-          console.log(comment);
-          res.status(200).json({
-            message: "Commentaire bien supprimé"
-          });
-        })
-        .catch(error => res.status(400).json({
-          error
-        }));
+  sequelize.Comment.destroy({
+      where: {
+        id: req.params.id
+      }
     })
-    .catch(error => res.status(500).json({
+    .then(comment => {
+      console.log(comment);
+      res.status(200).json({
+        message: "Commentaire bien supprimé"
+      });
+    })
+    .catch(error => res.status(400).json({
       error
     }));
 }

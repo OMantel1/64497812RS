@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
-    "password": "mysqluser1567",
+    "username": "newuser1",
+    "password": "User#6789",
     "database": "grp1",
     "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "test": {
-    "username": "root",
-    "password": "mysqluser1567",
+    "username": "newuser1",
+    "password": "User#6789",
     "database": "grp1",
     "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "production": {
-    "username": "root",
-    "password": "mysqluser1567",
+    "username": "newuser1",
+    "password": "User#6789",
     "database": "grp1",
     "host": "localhost",
     "dialect": "mysql",

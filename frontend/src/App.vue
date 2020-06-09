@@ -1,32 +1,57 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <div id="app" class="">
+    <!-- <div id="nav">
+      <router-link to="/home">Login</router-link> |
+      <router-link to="/signup">Signup</router-link>
+    </div> -->
     <router-view/>
   </div>
 </template>
 
 <style lang="scss">
+
+$primary-color: #747474;
+$main-color: #264672;
+$background-color: #F7F7F7;
+$important-color: #FF4A4A;
+$second-color: #407AC9;
+$font-family: 'Jost', sans-serif;
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: white;
+  font-size: 18px;
 }
 
-#nav {
-  padding: 30px;
+.container {
+  min-height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  background-color: #264672;
+}
 
+
+.auth {
+  padding: 8px;
+  letter-spacing:0.9px;
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: rgb(212, 211, 211);
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+      color: white;
+    }
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #ffffff;
+      text-decoration: underline;
+      font-size: 22px;
     }
   }
 }
+
 </style>

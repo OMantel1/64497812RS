@@ -4,16 +4,13 @@ export default {
   name: "DashboardItemNew",
   props: {
     title: {
-      type: String,
-      required: true
+      type: String
     },
     content: {
-      type: String,
-      required: true
+      type: String
     },
     url_image: {
-      type: String,
-      required: true
+      type: String
     }
   },
   data() {
@@ -21,7 +18,7 @@ export default {
       isHidden: true
     };
   },
-  
+
   methods: {
     sendNewContent: function(e) {
       e.preventDefault();
@@ -57,7 +54,7 @@ export default {
           url: "http://localhost:3000/posts/new/",
           data: user
         })
-        .then(response => {
+          .then(response => {
             if (response.status === 201) {
               return response;
             } else {
@@ -65,19 +62,19 @@ export default {
             }
           })
           .then(function() {
-            this.$router.push({ name: 'dashboard' })
-          })
+            this.$router.push({ name: "dashboard" });
+          });
 
         // axios
         //   .post("http://localhost:3000/posts/new/", options, data)
-          
+
         //   .then(response => {
         //     console.log(response);
         //     // this.$router.push({ name: 'login' });
         //     // sessionStorage.setItem("key", response.data.token);
         //     // sessionStorage.setItem("user", response.data.userId);
         //   })
-        //   
+        //
         //   .catch(error => {
         //     // console.log(error.response);
         //     try {
@@ -100,55 +97,46 @@ export default {
 // url_image: req.body.url_image
 
 <template>
-  <div class="DashboardItemNew">
-    <div class="addContent">
-      <div class="addContent_linkBox">
-        <img src="../assets/icon.svg" class="addContent_logo" />
-        <button v-on:click="isHidden = false" class="addContent_Link">Créer un nouveau post</button>
-      </div>
-
-      <form v-if="!isHidden" class="addContent_form">
-        <a href="#" class="close-button" v-on:click="isHidden = true">×</a>
-        <input type="text" v-model.lazy="title" placeholder="TITRE" />
-        <input type="text" v-model.lazy="content" placeholder="VOTRE MESSAGE" />
-        <input type="text" v-model.lazy="url_image" placeholder="Lien vers une image ou gif" />
-        <button v-on:click="sendNewContent" class="button button-login">Envoyer</button>
-        <!-- ajouter croix pour fermer boit de dialog -->
-        <!-- <p>{{title}} + {{content}} +{{url_image}}</p> -->
-      </form>
+  <div class="DashboardItemNew addContent">
+    <div class="addContent_linkBox">
+      <img src="../assets/icon.svg" class="addContent_logo" />
+      <button v-on:click="isHidden = false" class="addContent_Link">Créer un nouveau post</button>
     </div>
+
+    <form v-if="!isHidden" class="addContent_form">
+      <a href="#" class="close-button" v-on:click="isHidden = true">×</a>
+      <input type="text" v-model.lazy="title" placeholder="TITRE" />
+      <input type="text" v-model.lazy="content" placeholder="VOTRE MESSAGE" />
+      <input type="text" v-model.lazy="url_image" placeholder="Lien vers une image ou gif" />
+      <button v-on:click="sendNewContent" class="button button-login">Envoyer</button>
+      <!-- ajouter croix pour fermer boit de dialog -->
+      <!-- <p>{{title}} + {{content}} +{{url_image}}</p> -->
+    </form>
   </div>
 </template>
 
 <style lang="scss">
 $primary-color: #747474;
 $main-color: #264672;
-$background-color: #f7f7f7;
+$background-color: rgb(232, 230, 230);
+$old-background-color: #f7f7f7;
 $important-color: #ff4a4a;
 $second-color: #407ac9;
 $font-family: "Jost", sans-serif;
 
-.dashboard-Items {
-  background: $background-color;
-  box-sizing: border-box;
-  width: 80%;
-  overflow: auto;
-  margin: 8px auto;
-  padding: 16px;
-}
-
 .addContent {
   padding: 16px;
-  background: $background-color;
+  background: white;
+  border: solid lighten($primary-color, 40%) 1px;
+  border-radius: 4px;
   color: $primary-color;
   box-sizing: border-box;
-  width: 80%;
+  width: 60%;
   margin: 8px auto;
   padding-left: 16px;
   display: flex;
   flex-direction: column;
   position: relative;
-  
 
   &_linkBox {
     display: flex;
@@ -158,7 +146,7 @@ $font-family: "Jost", sans-serif;
     border: solid lighten($primary-color, 40%) 1px;
     border-radius: 4px;
     color: $primary-color;
-    background-color: white;
+    background-color: $background-color;
     padding: 8px 64px 8px 8px;
     margin: 0 8px;
     text-decoration: none;
@@ -183,7 +171,7 @@ $font-family: "Jost", sans-serif;
   }
 }
 
-.close-button{
+.close-button {
   text-decoration: none;
   color: black;
   width: 20px;
@@ -192,7 +180,7 @@ $font-family: "Jost", sans-serif;
   position: absolute;
   right: 8px;
   top: 20px;
-  &:hover{
+  &:hover {
     color: red;
   }
 }

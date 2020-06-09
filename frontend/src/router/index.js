@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Dashboard from '../views/Dashboard.vue'
+import Post from '../views/Post.vue'
 
 Vue.use(VueRouter)
 
@@ -20,7 +21,11 @@ const routes = [{
     name: 'dashboard',
     component: Dashboard
   },
-
+  {
+    path: '/post/:id',
+    name: 'post',
+    component: Post
+  },
   {
     path: '/signup',
     name: 'signup',

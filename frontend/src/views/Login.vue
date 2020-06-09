@@ -24,14 +24,14 @@ export default {
 </script>
 
 <style lang="scss">
+
 $primary-color: #747474;
 $main-color: #264672;
-$background-color: #F7F7F7;
+$background-color: rgb(206, 206, 206);
+$old-background-color: #F7F7F7;
 $important-color: #FF4A4A;
 $second-color: #407AC9;
 $font-family: 'Jost', sans-serif;
-
-
 
 .form {
   padding: 32px;

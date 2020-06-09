@@ -12,14 +12,15 @@
 
 $primary-color: #747474;
 $main-color: #264672;
-$background-color: #F7F7F7;
+$background-color: rgb(206, 206, 206);
+$old-background-color: #F7F7F7;
 $important-color: #FF4A4A;
 $second-color: #407AC9;
 $font-family: 'Jost', sans-serif;
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  // -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: white;
   font-size: 18px;
@@ -37,6 +38,7 @@ $font-family: 'Jost', sans-serif;
 .auth {
   padding: 8px;
   letter-spacing:0.9px;
+  text-align: center;
   a {
     font-weight: bold;
     color: rgb(212, 211, 211);
@@ -52,6 +54,9 @@ $font-family: 'Jost', sans-serif;
       font-size: 22px;
     }
   }
+}
+.underline-disable{
+  text-decoration: none;
 }
 
 </style>

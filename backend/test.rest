@@ -1,23 +1,23 @@
 ##################### POST ##########################################
 GET http://localhost:3000/posts/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTU5MTUzNTc3NCwiZXhwIjoxNTkxNjIyMTc0fQ.yv-XQI5jTJJ-OXeSXSGk7ljUahZxYEIl7J9n-Dh_nzQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTU5MTY5NjcwNSwiZXhwIjoxNTkxNzgzMTA1fQ.WyOMgYlJrJ_sc7MqVW-R5bKdbRMOUErKtASr7HAlQXs
 
 
 ###
 GET http://localhost:3000/posts/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTUxNjM2NiwiZXhwIjoxNTkxNjAyNzY2fQ.Ildfil9cM7Ngrn3G_9Kva2Kk_Z4KzD6KotwygdYakQk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTU5MTY5NjcwNSwiZXhwIjoxNTkxNzgzMTA1fQ.WyOMgYlJrJ_sc7MqVW-R5bKdbRMOUErKtASr7HAlQXs
 
 ###
 POST http://localhost:3000/posts/new/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTU5MTUzNTc3NCwiZXhwIjoxNTkxNjIyMTc0fQ.yv-XQI5jTJJ-OXeSXSGk7ljUahZxYEIl7J9n-Dh_nzQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTU5MTY5NjcwNSwiZXhwIjoxNTkxNzgzMTA1fQ.WyOMgYlJrJ_sc7MqVW-R5bKdbRMOUErKtASr7HAlQXs
 
 {
-    "UserId": 4,
-    "title": "Fender",
-    "content":"Fender Musical Instruments Corporation, nommé initialement Fender's Radio Service puis Fender Electric Instrument Manufacturing Company, est une société créée par Leo Fender aux États-Unis dans les années 1940.",
+    "UserId": 1,
+    "title": "gibson",
+    "content":"gibson Musical Instruments Corporation, nommé initialement Fender's Radio Service puis Fender Electric Instrument Manufacturing Company, est une société créée par Leo Fender aux États-Unis dans les années 1940.",
     "url_image":""
 }
 
@@ -35,7 +35,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 
 
 ### 
-DELETE http://localhost:3000/posts/6
+DELETE http://localhost:3000/posts/7
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTUxNjM2NiwiZXhwIjoxNTkxNjAyNzY2fQ.Ildfil9cM7Ngrn3G_9Kva2Kk_Z4KzD6KotwygdYakQk
 
@@ -64,7 +64,7 @@ POST http://localhost:3000/user/login/
 Content-Type: application/json
 
 {
-    "mail": "user@user.com",
+    "mail": "luc@dupond.com",
     "mdp": "Azerty1@"
 }
 
@@ -88,7 +88,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTUzNTkzMCwiZXhwIjoxNTkxNjIyMzMwfQ.uwgG8WoQlxYTV8ozEwZhqOs3PPMXHNN4PklzrvD2jV8
 
 {
-    "content":"très interessant !", 
+    "content":"merci !", 
     "PostId": 1,
     "UserId": 3
 }
@@ -106,9 +106,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhd
 
 
 ### 
-DELETE http://localhost:3000/comments/6
+DELETE http://localhost:3000/comments/7
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTQyODc4MSwiZXhwIjoxNTkxNTE1MTgxfQ.IlT_GCX83Nq-oaq6ziCWvahyzjsGdFDD_AP3MjsuaF8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTUzNTkzMCwiZXhwIjoxNTkxNjIyMzMwfQ.uwgG8WoQlxYTV8ozEwZhqOs3PPMXHNN4PklzrvD2jV8
 
 
 

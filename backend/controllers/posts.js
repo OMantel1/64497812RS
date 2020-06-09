@@ -19,8 +19,7 @@ const db = require('../models');
 exports.getUserWall = (req, res, next) => {
   //récupération de tous les posts présents dans la bdd
   sequelize.Post.findAll({
-      include: [
-        {
+      include: [{
           model: sequelize.User,
           attributes: ["firstname", "lastname", "admin"]
         },
@@ -79,10 +78,18 @@ exports.getOnePost = (req, res, next) => {
       where: {
         id: req.params.id
       },
-      include: {
-        model: sequelize.Comment
-        // attributes: ["firstname", "lastname", "admin"]
-      }
+      include: [{
+          model: sequelize.User,
+          attributes: ["firstname", "lastname"]
+        },
+        {
+          model: sequelize.Comment,
+          include: [{
+            model: sequelize.User,
+            attributes: ["firstname", "lastname"]
+          }]
+        }
+      ],
     })
     .then(post => {
       console.log(post);

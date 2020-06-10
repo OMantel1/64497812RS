@@ -10,17 +10,14 @@
       <p href class="logout" id="profileLink">Mon profil ▾</p>
     </header>
 
-    <div class="dashboard-Items">
-      <div id="post" class="post">
-        <!-- <p>
-          (information: l'id du post est le {{this.$route.params.id
-          }})
-        </p> -->
-
-        <div class="post_header">
-          <p id="post_user_id" class="post_name">Posté par {{user.User.firstname}} {{user.User.lastname}}</p>
-          <p id="post_title" class="post_title">{{user.title}}</p>
-        </div>
+    <div id="post" class="post post-width">
+      <p id="post_user_id" class="post_aside">
+        Posté par
+        <br />
+        {{user.User.firstname}} {{user.User.lastname}}
+      </p>
+      <div class="post_main" :id="user.id">
+        <p id="post_title" class="post_title">{{user.title}}</p>
         <p id="post_content" class="post_content">{{user.content}}</p>
         <img class="post_image" :src="user.url_image" />
         <div class="post_comments">
@@ -31,9 +28,13 @@
             >{{comment.User.firstname}} {{comment.User.lastname}} dit: {{comment.content}}</li>
           </ul>
           <p v-else>Pas de commentaires</p>
+
+         <CommentItemNew 
+         :postId="user.id"
+         />
         </div>
       </div>
-    </div>d
+    </div>
   </div>
 </template>
 
@@ -41,20 +42,19 @@
 
 <script>
 const axios = require("axios");
+import CommentItemNew from "@/components/CommentItemNew.vue";
 
 export default {
   name: "Post",
-  //   components: {
-  //     DashboardItems,
-  //     DashboardItemNew
-  //   },
+  components: {CommentItemNew},
   data() {
     return {
       user: {},
-      comments: {}
+      comments: {},
+      comment: {}
     };
   },
-  
+
   // computed(){
   //   generate
   // },

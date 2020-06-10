@@ -42,7 +42,7 @@ export default {
 <template>
   <div class="dashboard-Items">
     <router-link :to="{ name: 'post', params: { id: postId }} " class="underline-disable">
-      <div id="post" class="post">
+      <div id="post" class="post post_link">
         <p id="post_user_id" class="post_aside">
           Posté par
           <br />
@@ -54,7 +54,7 @@ export default {
           <img class="post_image" :src="image" />
           <!-- <p class="post_comments" v-if="comments === null">{{comments}}Pas de commentaires</p>
           <p class="post_comments" v-else>{{comments}}pas de com</p>-->
-          <p class="post_comments"> Commentaires</p>
+          <p class="post_comments-icon"> Commentaires</p>
         </div>
       </div>
     </router-link>

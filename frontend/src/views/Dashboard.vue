@@ -165,16 +165,22 @@ img {
   text-decoration: none;
   background-color: white;
   display: flex;
-  &:hover {
+  &_link{
+    &:hover {
+    background-color: darken(white, 3%);
     .post_title {
       text-decoration: underline;
     }
   }
+  }
+  
 
   &_aside {
     color: $primary-color;
     width: 20%;
-    font-size: 14px;
+    font-size: 12px;
+    border-right: solid 1px $background-color;
+    margin-right: 8px;
   }
 
   &_main {
@@ -183,6 +189,10 @@ img {
 
   &_title {
     color: black;
+    font-size: 16px;
+  }
+  &_content{
+    font-size: 14px;
   }
 
   &_image {
@@ -201,6 +211,7 @@ img {
       margin: 8px 0;
       background-color: $background-color;
       border: solid 1px $background-color;
+      border-radius: 4px;
     }
     ul {
       margin: 0;
@@ -208,10 +219,17 @@ img {
     }
   }
 
-  &_comments:before {
+  &_comments{
+    &-icon:before {
     font-family: 'Font Awesome\ 5 Free';
     content: '\f4ad';
-    font-size: 20px;
+    font-size: 18px;
   }
+  }
+}
+
+.post-width{
+  width: 80%;
+  margin: auto;
 }
 </style>

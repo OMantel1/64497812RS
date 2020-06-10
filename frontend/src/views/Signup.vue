@@ -44,7 +44,7 @@ export default {
 .loginForm {
   display: grid;
   justify-content: center;
-  font-size: 18px;
+  font-size: 16px;
   .signupLink {
     text-decoration: none;
     color: #747474;

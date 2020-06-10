@@ -60,7 +60,7 @@ $font-family: 'Jost', sans-serif;
   }
   input, label{
     padding: 8px;
-    font-size: 18px;
+    font-size: 16px;
   }
   input{
     border-radius: 8px;
@@ -92,7 +92,7 @@ $font-family: 'Jost', sans-serif;
   margin: 8px auto;
   color: white;
   background-color: #407ac9;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 </style>

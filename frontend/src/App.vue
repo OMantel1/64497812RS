@@ -23,7 +23,7 @@ $font-family: 'Jost', sans-serif;
   // -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .container {
@@ -51,7 +51,7 @@ $font-family: 'Jost', sans-serif;
     &.router-link-exact-active {
       color: #ffffff;
       text-decoration: underline;
-      font-size: 22px;
+      font-size: 18px;
     }
   }
 }

@@ -11,6 +11,7 @@ const {
     Model
   } = require('sequelize');
 
+router.get('/:id', auth, user.getUsername);
 router.post('/login', user.login);
 router.post('/signup', user.signup);
 router.delete('/delete', auth, user.deleteAccount);

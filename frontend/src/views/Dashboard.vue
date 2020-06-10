@@ -2,7 +2,8 @@
   <div class="box">
     <header id="header">
       <section id>
-        <p>Bonjour</p>
+        <p>Bonjour {{userInfos.firstname}}</p>
+        <a href="#" v-if="userInfos.admin == 1" style="color:white; text-decoration: underline; font-size: 14px;">Modération</a>
       </section>
       <div class="header_image">
         <img src="../assets/icon-left-font-monochrome-white.svg" />
@@ -63,7 +64,8 @@ export default {
         // }
       ],
       comments: [],
-      actualUser: ""
+      actualUser: "",
+      userInfos: {}
     };
   },
   computed: {
@@ -71,23 +73,62 @@ export default {
     //   thisCount = utilisateurs.comments.length
     // }
   },
-  mounted() {
-    this.content = "loading...";
-    const options = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + sessionStorage.getItem("key")
-      }
-    };
-    axios
-      .get("http://localhost:3000/posts/", options)
-      .then(response => {
-        this.messageContent = response.data;
-        this.comments = response.data.Comments;
-        console.log(response.data);
-      })
-      .catch(error => console.log(error));
+
+  mounted: function() {
+    this.$nextTick(function dashboardLoading() {
+      this.content = "loading...";
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("key")
+        }
+      };
+      axios
+        .get("http://localhost:3000/posts/", options)
+        .then(response => {
+          this.messageContent = response.data;
+          this.comments = response.data.Comments;
+          console.log(response.data);
+        })
+        .catch(error => console.log(error));
+    });
+
+    this.$nextTick(function getmessage() {
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("key")
+        }
+      };
+      axios
+        .get(
+          "http://localhost:3000/user/" + sessionStorage.getItem("user"),
+          options
+        )
+        .then(userInfos => {
+          this.userInfos = userInfos.data;
+          console.log(userInfos.data);
+        })
+        .catch(error => console.log(error));
+    });
   },
+  // mounted() {
+  //   this.content = "loading...";
+  //   const options = {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: "Bearer " + sessionStorage.getItem("key")
+  //     }
+  //   };
+  //   axios
+  //     .get("http://localhost:3000/posts/", options)
+  //     .then(response => {
+  //       this.messageContent = response.data;
+  //       this.comments = response.data.Comments;
+  //       console.log(response.data);
+  //     })
+  //     .catch(error => console.log(error));
+  // },
   methods: {
     forceRerender() {
       this.title += 1;
@@ -213,7 +254,7 @@ img {
       border-radius: 4px;
     }
     .fa-trash-alt {
-     float: right;
+      float: right;
     }
     ul {
       margin: 0;

@@ -18,6 +18,20 @@ let mdpRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,1
 // interdit les les chiffres et les caracteres spéciaux, longeur minimum de 3.
 let nameRegex = /^((?=.*[A-Z])|(?=.*[a-z]))([- 'éàèùêûiîàça-zA-Z]{3,})$/;
 
+/**** find one user ****/
+exports.getUsername = (req, res, next) => {
+  sequelize.User.findOne({
+      where: {
+        id: req.params.id
+      },
+      attributes: ["firstname", "lastname", "admin"]
+    })
+    .then(user => {
+      console.log(user);
+      res.status(200).json(user);
+    })
+    .catch(error => console.log(error));
+}
 
 /***** USER LOGIN *****/
 exports.login = (req, res, next) => {

@@ -1,13 +1,13 @@
 ##################### POST ##########################################
 GET http://localhost:3000/posts/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTU5MTY5NjcwNSwiZXhwIjoxNTkxNzgzMTA1fQ.WyOMgYlJrJ_sc7MqVW-R5bKdbRMOUErKtASr7HAlQXs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU5MTgyODA5MywiZXhwIjoxNTkxOTE0NDkzfQ.WKzBx3jsPd0TIzhMi3NKHpAtdW039M0DComrIYEcITM
 
 
 ###
 GET http://localhost:3000/posts/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTU5MTY5NjcwNSwiZXhwIjoxNTkxNzgzMTA1fQ.WyOMgYlJrJ_sc7MqVW-R5bKdbRMOUErKtASr7HAlQXs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU5MTgyODA5MywiZXhwIjoxNTkxOTE0NDkzfQ.WKzBx3jsPd0TIzhMi3NKHpAtdW039M0DComrIYEcITM
 
 ###
 POST http://localhost:3000/posts/new/
@@ -37,7 +37,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 ### 
 DELETE http://localhost:3000/posts/7
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MTUxNjM2NiwiZXhwIjoxNTkxNjAyNzY2fQ.Ildfil9cM7Ngrn3G_9Kva2Kk_Z4KzD6KotwygdYakQk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU5MTgyODA5MywiZXhwIjoxNTkxOTE0NDkzfQ.WKzBx3jsPd0TIzhMi3NKHpAtdW039M0DComrIYEcITM
 
 
 
@@ -46,6 +46,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhd
 
 
 ##################### USER ##########################################
+###
+GET http://localhost:3000/user/7
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU5MTgyODA5MywiZXhwIjoxNTkxOTE0NDkzfQ.WKzBx3jsPd0TIzhMi3NKHpAtdW039M0DComrIYEcITM
+
 
 ###
 POST http://localhost:3000/user/signup/
@@ -64,7 +69,7 @@ POST http://localhost:3000/user/login/
 Content-Type: application/json
 
 {
-    "mail": "luc@dupond.com",
+    "mail": "admin@admin.com",
     "mdp": "Azerty1@"
 }
 

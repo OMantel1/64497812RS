@@ -165,15 +165,14 @@ img {
   text-decoration: none;
   background-color: white;
   display: flex;
-  &_link{
+  &_link {
     &:hover {
-    background-color: darken(white, 3%);
-    .post_title {
-      text-decoration: underline;
+      background-color: darken(white, 3%);
+      .post_title {
+        text-decoration: underline;
+      }
     }
   }
-  }
-  
 
   &_aside {
     color: $primary-color;
@@ -191,7 +190,7 @@ img {
     color: black;
     font-size: 16px;
   }
-  &_content{
+  &_content {
     font-size: 14px;
   }
 
@@ -213,22 +212,25 @@ img {
       border: solid 1px $background-color;
       border-radius: 4px;
     }
+    .fa-trash-alt {
+     float: right;
+    }
     ul {
       margin: 0;
       padding: 0 8px;
     }
   }
 
-  &_comments{
+  &_comments {
     &-icon:before {
-    font-family: 'Font Awesome\ 5 Free';
-    content: '\f4ad';
-    font-size: 18px;
-  }
+      font-family: "Font Awesome\ 5 Free";
+      content: "\f4ad";
+      font-size: 18px;
+    }
   }
 }
 
-.post-width{
+.post-width {
   width: 80%;
   margin: auto;
 }

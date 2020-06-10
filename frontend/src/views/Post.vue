@@ -22,16 +22,20 @@
         <img class="post_image" :src="user.url_image" />
         <div class="post_comments">
           <ul v-if="comments.length">
-            <li
-              v-for="comment in comments"
-              v-bind:key="comment.UserId"
-            >{{comment.User.firstname}} {{comment.User.lastname}} dit: {{comment.content}}</li>
+            <li v-for="comment in comments" v-bind:key="comment.UserId">
+              {{comment.User.firstname}} {{comment.User.lastname}} dit: {{comment.content}} {{comment.UserId}} {{userLoggedId}}
+              <a
+                id="commentIdClicked"
+                href="#"
+                @click="deleteComment(comment.id)"
+              >
+                <i class="far fa-trash-alt" v-if="comment.UserId == userLoggedId"></i>
+              </a>
+            </li>
           </ul>
           <p v-else>Pas de commentaires</p>
 
-         <CommentItemNew 
-         :postId="user.id"
-         />
+          <CommentItemNew :postId="user.id" />
         </div>
       </div>
     </div>
@@ -46,20 +50,18 @@ import CommentItemNew from "@/components/CommentItemNew.vue";
 
 export default {
   name: "Post",
-  components: {CommentItemNew},
+  components: { CommentItemNew },
   data() {
     return {
       user: {},
       comments: {},
-      comment: {}
+      comment: {},
+      userLoggedId: ""
     };
   },
-
-  // computed(){
-  //   generate
-  // },
   mounted() {
     this.content = "loading...";
+    this.userLoggedId = sessionStorage.getItem("user");
     const options = {
       headers: {
         "Content-Type": "application/json",
@@ -78,6 +80,23 @@ export default {
   methods: {
     forceRerender() {
       this.title += 1;
+    },
+    deleteComment(element) {
+      console.log(element);
+      axios({
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + sessionStorage.getItem("key")
+          },
+          method: "DELETE",
+          url: "http://localhost:3000/comments/" + element
+        })
+        .then(response => {
+          // this.user = response.data;
+          // this.comments = response.data.Comments;
+          console.log(response.data);
+        })
+        .catch(error => console.log(error));
     }
   }
 };

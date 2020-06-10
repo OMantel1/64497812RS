@@ -86,7 +86,7 @@ exports.getOnePost = (req, res, next) => {
           model: sequelize.Comment,
           include: [{
             model: sequelize.User,
-            attributes: ["firstname", "lastname"]
+            attributes: ["firstname", "lastname", "id"]
           }]
         }
       ],

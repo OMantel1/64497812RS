@@ -1,9 +1,8 @@
 <template>
   <div class="login container">
-    <div class="logo">
+    <!-- <div class="logo">
       <img src="../assets/icon-left-font-monochrome-white.svg" />
-    </div>
-
+    </div> -->
     <LoginForm />
 
     <div class="auth">
@@ -16,7 +15,9 @@
 
 // @ is an alias to /src
 import LoginForm from "@/components/LoginForm.vue";
+
 export default {
+  name: "Login",
   components: {
      LoginForm
   }

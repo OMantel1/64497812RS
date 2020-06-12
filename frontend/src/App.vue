@@ -1,29 +1,24 @@
 <template>
-  <div id="app" class="">
-    <!-- <div id="nav">
-      <router-link to="/home">Login</router-link> |
-      <router-link to="/signup">Signup</router-link>
-    </div> -->
-    <router-view/>
+  <div id="app" class>
+    <Home />
   </div>
 </template>
 
 <style lang="scss">
-
 $primary-color: #747474;
 $main-color: #264672;
 $background-color: rgb(206, 206, 206);
-$old-background-color: #F7F7F7;
-$important-color: #FF4A4A;
-$second-color: #407AC9;
-$font-family: 'Jost', sans-serif;
+$old-background-color: #f7f7f7;
+$important-color: #ff4a4a;
+$second-color: #407ac9;
+$font-family: "Jost", sans-serif;
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   // -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: white;
   font-size: 16px;
+  color: white;
 }
 
 .container {
@@ -33,11 +28,46 @@ $font-family: 'Jost', sans-serif;
   align-content: center;
   background-color: #264672;
 }
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $main-color;
+  padding: 8px 8px;
+  color: white;
+  font-weight: 200;
+  border-bottom: solid 2px white;
 
+  .header_image {
+    width: 190px;
+  }
+  .header_links {
+    color: white;
+    font-size: 0.8em;
+    text-decoration: none;
+    padding-right: 4px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .logout {
+    color: white;
+    text-decoration: none;
+    .fa-user,
+    .fa-users-cog {
+      font-size: 1.2em;
+    }
+
+    &:hover {
+      color: $important-color;
+    }
+  }
+}
 
 .auth {
   padding: 8px;
-  letter-spacing:0.9px;
+  letter-spacing: 0.9px;
   text-align: center;
   a {
     font-weight: bold;
@@ -55,8 +85,16 @@ $font-family: 'Jost', sans-serif;
     }
   }
 }
-.underline-disable{
+.underline-disable {
   text-decoration: none;
 }
-
 </style>
+
+<script>
+import Home from "@/views/Home.vue";
+export default {
+  components: {
+    Home
+  }
+};
+</script>

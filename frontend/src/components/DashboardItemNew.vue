@@ -4,13 +4,16 @@ export default {
   name: "DashboardItemNew",
   props: {
     title: {
-      type: String
+      type: String,
+      required: false
     },
     content: {
-      type: String
+      type: String,
+      required: false
     },
     url_image: {
-      type: String
+      type: String,
+      required: false
     }
   },
   data() {
@@ -61,9 +64,17 @@ export default {
               throw (error = response);
             }
           })
-          .then(function() {
-            this.$router.push({ name: "dashboard" });
-          });
+          .then(response => {
+          if (response) {
+            this.$router.go({ name: "login" });
+          }
+        })
+          // .then(() => {
+          //   this.$router.go()
+          //   // window.location = "/home/"
+          //   // this.$router.push({ name: "dashboard" });
+          //   // window.location = "/home/";
+          // });
 
         // axios
         //   .post("http://localhost:3000/posts/new/", options, data)

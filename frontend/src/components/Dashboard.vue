@@ -1,18 +1,15 @@
 <template>
   <div class="box">
-    <header id="header">
-      <section id>
-        <p>Bonjour {{userInfos.firstname}}</p>
-        <a href="#" v-if="userInfos.admin == 1" style="color:white; text-decoration: underline; font-size: 14px;">Modération</a>
-      </section>
-      <div class="header_image">
-        <img src="../assets/icon-left-font-monochrome-white.svg" />
-      </div>
-      <p href class="logout" id="profileLink">Mon profil ▾</p>
-    </header>
+    <!-- <Header :prenom="userInfos.firstname" :role="userInfos.admin" /> -->
+    <!-- 
+    <div id="profileBox" class="hidden" v-if="hover">
+      <a href class="logout profile-link" id="logOutButton">Se deconnecter</a>
+      <br />
+      <a href class="delete profile-link" id="deleteUser">Supprimer mon compte</a>
+    </div>-->
 
     <DashboardItemNew />
-
+    
     <DashboardItems
       v-for="message in messageContent"
       v-bind:key="message.UserId"
@@ -32,50 +29,30 @@ const axios = require("axios");
 
 import DashboardItems from "@/components/DashboardItems.vue";
 import DashboardItemNew from "@/components/DashboardItemNew.vue";
+// import Header from "@/components/Header.vue";
 
 export default {
   name: "Dashboard",
   components: {
     DashboardItems,
     DashboardItemNew
+    // Header
   },
   data() {
     return {
-      messageContent: [
-        // {
-        //   user: "olivier",
-        //   title: "titre de mon post",
-        //   content: "mon super contenu de post"
-        // },
-        // {
-        //   user: "liam",
-        //   title: "titre de mon deuxieme post",
-        //   content: "mon super contenu de troisieme post"
-        // },
-        // {
-        //   user: "marc",
-        //   title: "titre de mon post",
-        //   content: "mon super contenu de post"
-        // },
-        // {
-        //   user: "patrick",
-        //   title: "titre de mon deuxieme post",
-        //   content: "mon super contenu de troisieme post"
-        // }
-      ],
+      messageContent: [],
       comments: [],
       actualUser: "",
-      userInfos: {}
+      userInfos: {},
+      userFirstname: "",
+      hover: false
     };
   },
-  computed: {
-    // commentsCount(){
-    //   thisCount = utilisateurs.comments.length
-    // }
-  },
-
-  mounted: function() {
-    this.$nextTick(function dashboardLoading() {
+  methods: {
+    forceRerender() {
+      this.title += 1;
+    },
+    dashboardLoading() {
       this.content = "loading...";
       const options = {
         headers: {
@@ -91,29 +68,14 @@ export default {
           console.log(response.data);
         })
         .catch(error => console.log(error));
-    });
-
-    this.$nextTick(function getmessage() {
-      const options = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("key")
-        }
-      };
-      axios
-        .get(
-          "http://localhost:3000/user/" + sessionStorage.getItem("user"),
-          options
-        )
-        .then(userInfos => {
-          this.userInfos = userInfos.data;
-          console.log(userInfos.data);
-        })
-        .catch(error => console.log(error));
-    });
+    }
   },
-  // mounted() {
-  //   this.content = "loading...";
+  // mounted: function() {
+  mounted() {
+    this.dashboardLoading();
+  }
+
+  // this.$nextTick(function getmessage() {
   //   const options = {
   //     headers: {
   //       "Content-Type": "application/json",
@@ -121,22 +83,19 @@ export default {
   //     }
   //   };
   //   axios
-  //     .get("http://localhost:3000/posts/", options)
-  //     .then(response => {
-  //       this.messageContent = response.data;
-  //       this.comments = response.data.Comments;
-  //       console.log(response.data);
+  //     .get(
+  //       "http://localhost:3000/user/" + sessionStorage.getItem("user"),
+  //       options
+  //     )
+  //     .then(userInfos => {
+  //       this.userInfos = userInfos.data;
+  //       console.log(userInfos.data);
   //     })
   //     .catch(error => console.log(error));
-  // },
-  methods: {
-    forceRerender() {
-      this.title += 1;
-    }
-  }
+  // });
+
 };
 </script>
-
 
 
 <style lang="scss">
@@ -152,42 +111,17 @@ img {
   width: 100%;
 }
 
-.logo {
-  max-width: 300px;
-  height: auto;
-  margin: auto;
-  padding: 16px;
-  p {
-    color: white;
-  }
-}
+// .logo {
+//   max-width: 300px;
+//   height: auto;
+//   margin: auto;
+//   padding: 16px;
+//   p {
+//     color: white;
+//   }
+// }
 .box {
   background-color: $old-background-color;
-}
-
-#header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $main-color;
-  padding: 0px 8px;
-  color: white;
-  font-weight: 500;
-  border-bottom: solid 2px white;
-
-  .header_image {
-    width: 250px;
-    margin: auto;
-  }
-
-  .logout {
-    color: white;
-    text-decoration: none;
-
-    &:hover {
-      color: $important-color;
-    }
-  }
 }
 
 .dashboard-Items {
@@ -274,5 +208,29 @@ img {
 .post-width {
   width: 80%;
   margin: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+#profileBox {
+  background-color: $background-color;
+  width: 2o0px;
+  padding: 8px;
+  position: absolute;
+  right: 12px;
+  text-align: right;
+  box-shadow: 0px 0px 5px $background-color;
+
+  .profile-link {
+    text-decoration: none;
+    color: $primary-color;
+
+    &:hover {
+      text-decoration: underline;
+      color: $primary-color;
+    }
+  }
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
   <div class="signup container">
-    <div class="logo">
+    <!-- <div class="logo">
       <p>Welcome to</p>
       <img src="../assets/icon-left-font-monochrome-white.svg" />
-    </div>
+    </div>-->
 
-    <SignupForm/>
-    
+    <SignupForm />
+
     <div class="auth">
       <router-link to="/login">Login</router-link>
     </div>
@@ -14,13 +14,13 @@
 </template>
 
 <script>
-
 // @ is an alias to /src
 import SignupForm from "@/components/SignupForm.vue";
 
 export default {
+  name: "signup",
   components: {
-     SignupForm
+    SignupForm
   }
 };
 </script>
@@ -30,14 +30,13 @@ export default {
   padding: 32px;
   border-radius: 8px;
   background-color: #f7f7f7;
-  
+
   .form_field {
     width: 95%;
     padding: 8px;
     display: flex;
     justify-content: space-between;
     color: #747474;
-    
   }
 }
 
@@ -59,5 +58,4 @@ export default {
   color: red;
   text-align: center;
 }
-
 </style>

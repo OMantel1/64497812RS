@@ -1,21 +1,50 @@
 <template>
-  <div class="home container">
-    <div class="logo">
-      <p>Welcome to</p>
-      <img src="../assets/icon-left-font-monochrome-white.svg" />
-    </div>
-    <div class="auth">
-      <router-link to="/login">Login</router-link> |
-      <router-link to="/signup">Signup</router-link>
-    </div>
+  <div>
+    <Header :prenom="userInfos.firstname" :role="userInfos.admin" />
+    
+    <router-view></router-view>
   </div>
 </template>
 
 
-
 <script>
+import Header from "@/components/Header.vue";
+const axios = require("axios");
+
 export default {
-  name: "home"
+  name: "Home",
+  components: {
+    Header
+  },
+  data() {
+    return {
+      messageContent: [],
+      comments: [],
+      actualUser: "",
+      userInfos: {},
+      userFirstname: ""
+    };
+  },
+  mounted: function() {
+    this.$nextTick(function getmessage() {
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("key")
+        }
+      };
+      axios
+        .get(
+          "http://localhost:3000/user/" + sessionStorage.getItem("user"),
+          options
+        )
+        .then(userInfos => {
+          this.userInfos = userInfos.data;
+          console.log(userInfos.data);
+        })
+        .catch(error => console.log(error));
+    });
+  }
 };
 </script>
 
@@ -35,5 +64,4 @@ img {
     color: white;
   }
 }
-
 </style>

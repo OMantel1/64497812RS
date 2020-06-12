@@ -1,15 +1,5 @@
 <template>
   <div>
-    <header id="header">
-      <section id>
-        <p>Bonjour</p>
-      </section>
-      <div class="header_image">
-        <img src="../assets/icon-left-font-monochrome-white.svg" />
-      </div>
-      <p href class="logout" id="profileLink">Mon profil ▾</p>
-    </header>
-
     <div id="post" class="post post-width">
       <p id="post_user_id" class="post_aside">
         Posté par

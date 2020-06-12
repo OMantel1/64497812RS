@@ -1,7 +1,7 @@
-##################### POST ##########################################
+##################### POSTS ##########################################
 GET http://localhost:3000/posts/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU5MTgyODA5MywiZXhwIjoxNTkxOTE0NDkzfQ.WKzBx3jsPd0TIzhMi3NKHpAtdW039M0DComrIYEcITM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU5MTkxNDAwMCwiZXhwIjoxNTkyMDAwNDAwfQ.rkjIR9qy5feKYVl1_O-lL8rWYqNNwleUewWKCimbxsw
 
 
 ###
@@ -46,10 +46,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhd
 
 
 ##################### USER ##########################################
-###
-GET http://localhost:3000/user/7
+### ONE USER
+GET http://localhost:3000/user/6
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU5MTgyODA5MywiZXhwIjoxNTkxOTE0NDkzfQ.WKzBx3jsPd0TIzhMi3NKHpAtdW039M0DComrIYEcITM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU5MTkxNDAwMCwiZXhwIjoxNTkyMDAwNDAwfQ.rkjIR9qy5feKYVl1_O-lL8rWYqNNwleUewWKCimbxsw
+
+### ALL USERS
+GET http://localhost:3000/user/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU5MTkxNDAwMCwiZXhwIjoxNTkyMDAwNDAwfQ.rkjIR9qy5feKYVl1_O-lL8rWYqNNwleUewWKCimbxsw
 
 
 ###

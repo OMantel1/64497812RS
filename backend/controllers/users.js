@@ -33,6 +33,28 @@ exports.getUsername = (req, res, next) => {
     .catch(error => console.log(error));
 }
 
+/**** find all users ****/
+exports.getAllUsers = (req, res, next) => {
+  sequelize.User.findAll({
+      attributes: ["firstname", "lastname", "admin"],
+      include: [{
+        model: sequelize.Post
+      },
+      {
+        model: sequelize.Comment
+      }
+    ],
+    order: [
+      ['createdAt', 'DESC']
+    ]
+    })
+    .then(user => {
+      console.log(user);
+      res.status(200).json(user);
+    })
+    .catch(error => console.log(error));
+}
+
 /***** USER LOGIN *****/
 exports.login = (req, res, next) => {
   //vérification des inputs

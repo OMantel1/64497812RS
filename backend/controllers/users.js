@@ -36,17 +36,7 @@ exports.getUsername = (req, res, next) => {
 /**** find all users ****/
 exports.getAllUsers = (req, res, next) => {
   sequelize.User.findAll({
-      attributes: ["firstname", "lastname", "admin"],
-      include: [{
-        model: sequelize.Post
-      },
-      {
-        model: sequelize.Comment
-      }
-    ],
-    order: [
-      ['createdAt', 'DESC']
-    ]
+      attributes: ["id", "firstname", "lastname", "admin"]
     })
     .then(user => {
       console.log(user);
@@ -54,6 +44,7 @@ exports.getAllUsers = (req, res, next) => {
     })
     .catch(error => console.log(error));
 }
+
 
 /***** USER LOGIN *****/
 exports.login = (req, res, next) => {
@@ -95,8 +86,10 @@ exports.login = (req, res, next) => {
           //mdp valide, envoi d'un token d'authentification
           res.status(200).json({
             userId: user.id,
+            userRole: user.admin,
             token: jwt.sign({
-                userId: user.id
+                userId: user.id,
+                userRole: user.admin,
               },
               'MY_SECRET_TOKEN', {
                 expiresIn: '24h'

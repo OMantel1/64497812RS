@@ -102,3 +102,26 @@ exports.deleteOneComment = (req, res, next) => {
       error
     }));
 }
+
+
+
+/***** FIND ONE USER LAST COMMENTS *****/
+exports.getUserComments = (req, res, next) => {
+  //récupération de tous les posts présents dans la bdd
+  sequelize.Comment.findAll({
+      where: {
+        UserId: req.params.id
+      },
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      limit: 5
+    })
+    .then(comments => {
+      console.log(comments);
+      res.status(200).json(comments);
+    })
+    .catch(error => res.status(400).json({
+      error
+    }));
+}

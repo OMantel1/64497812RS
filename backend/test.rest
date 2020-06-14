@@ -1,7 +1,13 @@
 ##################### POSTS ##########################################
+###
+GET http://localhost:3000/posts/user/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoxLCJpYXQiOjE1OTIxNjI3NzcsImV4cCI6MTU5MjI0OTE3N30.ungPLXiTAGeT93JD4O3H7iGnsapqlqw6A4U4LnVefBE
+
+###
 GET http://localhost:3000/posts/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU5MTkxNDAwMCwiZXhwIjoxNTkyMDAwNDAwfQ.rkjIR9qy5feKYVl1_O-lL8rWYqNNwleUewWKCimbxsw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoxLCJpYXQiOjE1OTIxNjI3NzcsImV4cCI6MTU5MjI0OTE3N30.ungPLXiTAGeT93JD4O3H7iGnsapqlqw6A4U4LnVefBE
 
 
 ###
@@ -49,12 +55,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhd
 ### ONE USER
 GET http://localhost:3000/user/6
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU5MTkxNDAwMCwiZXhwIjoxNTkyMDAwNDAwfQ.rkjIR9qy5feKYVl1_O-lL8rWYqNNwleUewWKCimbxsw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MjA1MzcyMSwiZXhwIjoxNTkyMTQwMTIxfQ.D9LreAnqzgOFQmktjeFYPofTrYEsDNSM8-eK2eHvlDY
 
 ### ALL USERS
 GET http://localhost:3000/user/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTU5MTkxNDAwMCwiZXhwIjoxNTkyMDAwNDAwfQ.rkjIR9qy5feKYVl1_O-lL8rWYqNNwleUewWKCimbxsw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MjA1MzcyMSwiZXhwIjoxNTkyMTQwMTIxfQ.D9LreAnqzgOFQmktjeFYPofTrYEsDNSM8-eK2eHvlDY
+
+### USER ALL CONTENT
+GET http://localhost:3000/user/content/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MjA1MzcyMSwiZXhwIjoxNTkyMTQwMTIxfQ.D9LreAnqzgOFQmktjeFYPofTrYEsDNSM8-eK2eHvlDY
 
 
 ###
@@ -74,7 +85,7 @@ POST http://localhost:3000/user/login/
 Content-Type: application/json
 
 {
-    "mail": "admin@admin.com",
+    "mail": "marc@dupond.com",
     "mdp": "Azerty1@"
 }
 

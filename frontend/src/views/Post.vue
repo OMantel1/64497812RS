@@ -1,11 +1,20 @@
 <template>
   <div>
     <div id="post" class="post post-width">
-      <p id="post_user_id" class="post_aside">
-        Posté par
-        <br />
-        {{user.User.firstname}} {{user.User.lastname}}
-      </p>
+      <div class="post_aside">
+        <p id="post_user_id">
+          Posté par
+          <br />
+          {{user.User.firstname}} {{user.User.lastname}}
+        </p>
+        <a
+          v-if="user.UserId == userLoggedId"
+          href="#"
+          @click="deletePost(postId)"
+          class="post_delete-link"
+        >Supprimer ce post</a>
+      </div>
+
       <div class="post_main" :id="user.id">
         <p id="post_title" class="post_title">{{user.title}}</p>
         <p id="post_content" class="post_content">{{user.content}}</p>
@@ -15,6 +24,7 @@
             <li v-for="comment in comments" v-bind:key="comment.UserId">
               {{comment.User.firstname}} {{comment.User.lastname}} dit: {{comment.content}} {{comment.UserId}} {{userLoggedId}}
               <a
+              class="post_delete-link"
                 id="commentIdClicked"
                 href="#"
                 @click="deleteComment(comment.id)"
@@ -24,7 +34,6 @@
             </li>
           </ul>
           <p v-else>Pas de commentaires</p>
-
           <CommentItemNew :postId="user.id" />
         </div>
       </div>
@@ -43,6 +52,7 @@ export default {
   components: { CommentItemNew },
   data() {
     return {
+      postId: "",
       user: {},
       comments: {},
       comment: {},
@@ -63,30 +73,49 @@ export default {
       .then(response => {
         this.user = response.data;
         this.comments = response.data.Comments;
-        console.log(response.data);
+        this.postId = response.data.id;
+        // console.log(response.data);
+        // console.log(response.data.id);
       })
       .catch(error => console.log(error));
   },
   methods: {
-    forceRerender() {
-      this.title += 1;
-    },
     deleteComment(element) {
       console.log(element);
       axios({
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + sessionStorage.getItem("key")
-          },
-          method: "DELETE",
-          url: "http://localhost:3000/comments/" + element
-        })
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("key")
+        },
+        method: "DELETE",
+        url: "http://localhost:3000/comments/" + element
+      })
         .then(response => {
           // this.user = response.data;
           // this.comments = response.data.Comments;
           console.log(response.data);
+          // this.$router.go();
         })
         .catch(error => console.log(error));
+      this.$router.go();
+    },
+
+    deletePost(element) {
+      console.log(element);
+      axios({
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("key")
+        },
+        method: "DELETE",
+        url: "http://localhost:3000/posts/" + element
+      })
+        .then(response => {
+          this.$router.push({ name: 'dashboard' });
+          console.log(response.data);
+        })
+        .catch(error => console.log(error));
+        
     }
   }
 };
@@ -95,6 +124,14 @@ export default {
 
 
 <style lang="scss">
+$primary-color: #747474;
+$main-color: #264672;
+$background-color: rgb(235, 235, 235);
+$old-background-color: #f7f7f7;
+$important-color: #ff4a4a;
+$second-color: #407ac9;
+$font-family: "Jost", sans-serif;
+
 img {
   width: 100%;
 }
@@ -106,6 +143,16 @@ img {
   padding: 16px;
   p {
     color: white;
+  }
+}
+
+.post_delete-link {
+  color: $primary-color;
+  text-decoration: none;
+
+  &:hover{
+    color: red;
+    text-decoration: underline;
   }
 }
 </style>

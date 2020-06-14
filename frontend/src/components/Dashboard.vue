@@ -1,15 +1,24 @@
 <template>
   <div class="box">
-    <!-- <Header :prenom="userInfos.firstname" :role="userInfos.admin" /> -->
-    <!-- 
-    <div id="profileBox" class="hidden" v-if="hover">
-      <a href class="logout profile-link" id="logOutButton">Se deconnecter</a>
-      <br />
-      <a href class="delete profile-link" id="deleteUser">Supprimer mon compte</a>
-    </div>-->
+    <div class="DashboardItemNew addContent" v-if="isUserLogged">
+      <!-- Form new post button-->
+      <div class="addContent_linkBox">
+        <img src="../assets/icon.svg" class="addContent_logo" />
+        <button v-on:click="isHidden = false" class="addContent_Link">Créer un nouveau post</button>
+      </div>
 
-    <DashboardItemNew />
-    
+      <!-- Form new post-->
+      <form v-if="!isHidden" class="addContent_form">
+        <a href="#" class="close-button" v-on:click="isHidden = true">×</a>
+        <input type="text" v-model.lazy="title" placeholder="TITRE" />
+        <input type="text" v-model.lazy="content" placeholder="VOTRE MESSAGE" />
+        <input type="text" v-model.lazy="url_image" placeholder="Lien vers une image ou gif" />
+        <button v-on:click="sendNewContent" class="button button-login">Envoyer</button>
+        <p id="alert">{{msgError}}</p>
+      </form>
+    </div>
+
+    <!-- posts list -->
     <DashboardItems
       v-for="message in messageContent"
       v-bind:key="message.UserId"
@@ -28,32 +37,98 @@
 const axios = require("axios");
 
 import DashboardItems from "@/components/DashboardItems.vue";
-import DashboardItemNew from "@/components/DashboardItemNew.vue";
 // import Header from "@/components/Header.vue";
 
 export default {
   name: "Dashboard",
   components: {
-    DashboardItems,
-    DashboardItemNew
+    DashboardItems
     // Header
   },
   data() {
     return {
+      isUserLogged: "",
       messageContent: [],
       comments: [],
       actualUser: "",
       userInfos: {},
       userFirstname: "",
-      hover: false
+      hover: false,
+      isHidden: true
     };
   },
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    content: {
+      type: String,
+      required: true
+    },
+    url_image: {
+      type: String,
+      required: false
+    },
+    msgError: {
+      type: String,
+      required: true
+    }
+  },
   methods: {
-    forceRerender() {
-      this.title += 1;
+    sendNewContent: function(e) {
+      e.preventDefault();
+
+      this.msgError = "";
+      let error;
+      if (this.title === undefined) {
+        error = "Titre requis";
+      }
+      if (this.content === undefined) {
+        error = "Contenu requis";
+      }
+
+      if (error) {
+        this.msgError = error;
+      } else {
+        // console.log(sessionStorage.getItem("user"));
+        let user = {
+          UserId: sessionStorage.getItem("user"),
+          title: this.title,
+          content: this.content,
+          url_image: this.url_image
+        };
+        // console.log(user);
+        axios({
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + sessionStorage.getItem("key")
+          },
+          method: "post",
+          url: "http://localhost:3000/posts/new/",
+          data: user
+        })
+          .then(response => {
+            if (response.status === 201) {
+              return response;
+            } else {
+              throw response;
+            }
+          })
+          .catch(response => {
+            // console.log(error.response);
+            // try {
+            //   if (error.response.status === 401) throw "Identifiants invalides";
+            //   if (error.response.status !== 401) throw "Une erreur est survenue";
+            // } catch (err) {
+            this.msgError = response;
+          });
+
+        this.$router.go();
+      }
     },
     dashboardLoading() {
-      this.content = "loading...";
+      // this.content = "loading...";
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -70,30 +145,14 @@ export default {
         .catch(error => console.log(error));
     }
   },
-  // mounted: function() {
   mounted() {
     this.dashboardLoading();
+  },
+  created() {
+    if (sessionStorage.getItem("user")) {
+      this.isUserLogged = true;
+    }
   }
-
-  // this.$nextTick(function getmessage() {
-  //   const options = {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: "Bearer " + sessionStorage.getItem("key")
-  //     }
-  //   };
-  //   axios
-  //     .get(
-  //       "http://localhost:3000/user/" + sessionStorage.getItem("user"),
-  //       options
-  //     )
-  //     .then(userInfos => {
-  //       this.userInfos = userInfos.data;
-  //       console.log(userInfos.data);
-  //     })
-  //     .catch(error => console.log(error));
-  // });
-
 };
 </script>
 
@@ -111,15 +170,15 @@ img {
   width: 100%;
 }
 
-// .logo {
-//   max-width: 300px;
-//   height: auto;
-//   margin: auto;
-//   padding: 16px;
-//   p {
-//     color: white;
-//   }
-// }
+.logo {
+  max-width: 300px;
+  height: auto;
+  margin: auto;
+  padding: 16px;
+  p {
+    color: white;
+  }
+}
 .box {
   background-color: $old-background-color;
 }
@@ -145,9 +204,14 @@ img {
       background-color: darken(white, 3%);
       .post_title {
         text-decoration: underline;
+        color: $primary-color;
       }
     }
   }
+
+  // &_delete-link{
+  //   text-decoration: none;
+  // }
 
   &_aside {
     color: $primary-color;
@@ -230,6 +294,54 @@ img {
     &:hover {
       text-decoration: underline;
       color: $primary-color;
+    }
+  }
+}
+
+///item new
+.addContent {
+  padding: 16px;
+  background: white;
+  border: solid lighten($primary-color, 40%) 1px;
+  border-radius: 4px;
+  color: $primary-color;
+  box-sizing: border-box;
+  width: 60%;
+  margin: 8px auto;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &_linkBox {
+    display: flex;
+  }
+
+  &_Link {
+    border: solid lighten($primary-color, 40%) 1px;
+    border-radius: 4px;
+    color: $primary-color;
+    background-color: $background-color;
+    padding: 8px 64px 8px 8px;
+    margin: 0 8px;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  &_logo {
+    width: 40px;
+    border-radius: 100%;
+  }
+
+  &_form {
+    display: flex;
+    flex-direction: column;
+    input {
+      border: solid lighten($primary-color, 40%) 1px;
+      border-radius: 4px;
+      color: $primary-color;
+      background-color: white;
+      margin: 8px 0;
+      padding: 8px;
     }
   }
 }

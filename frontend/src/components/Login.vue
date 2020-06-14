@@ -2,8 +2,19 @@
   <div class="login container">
     <!-- <div class="logo">
       <img src="../assets/icon-left-font-monochrome-white.svg" />
-    </div> -->
-    <LoginForm />
+    </div>-->
+    <form id="form-login" class="form loginForm">
+      <div class="form_field">
+        <label for="mail">Mail</label>
+        <input id="email" type="email" v-model.lazy="mail" placeholder="user@groupomania.com" />
+      </div>
+      <div class="form_field">
+        <label for="mdp">Pass</label>
+        <input id="password" type="password" v-model.lazy="password" placeholder="******" />
+      </div>
+      <button class="button button-login" @click="login">Se connecter</button>
+      <p id="alert">{{msgError}}</p>
+    </form>
 
     <div class="auth">
       <router-link to="/signup">Signup</router-link>
@@ -12,27 +23,99 @@
 </template>
 
 <script>
-
 // @ is an alias to /src
-import LoginForm from "@/components/LoginForm.vue";
+// import LoginForm from "@/components/LoginForm.vue";
+const axios = require("axios");
 
 export default {
   name: "Login",
-  components: {
-     LoginForm
+  // components: {
+  //    LoginForm
+  // }
+  props: {
+    mail: {
+      type: String
+    },
+    password: {
+      type: String
+    },
+
+    msgError: {
+      type: String
+    },
+    isUserLogged: {
+      type: String
+    }
+  },
+  methods: {
+    login: function(e) {
+      e.preventDefault();
+      let mailRegex = /.+@.+\..+/;
+      // regex mdp: au moins une lettre majuscule, au moins une lettre minuscule, au moins un chiffre ou un caractere spécial suivant -+!*$@%_ , longeur entre 8 et 15 caracteres.
+      let mdpRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/;
+      // interdit les les chiffres et les caracteres spéciaux, longeur minimum de 3.
+      // let nameRegex = /^((?=.*[A-Z])|(?=.*[a-z]))([- 'éàèùêûiîàça-zA-Z]{3,})$/;
+      this.msgError = "";
+      let error;
+      if (!mdpRegex.test(this.password)) {
+        error = "Mot de passe invalide";
+      }
+      if (!this.mail) {
+        error = "Mail requis";
+      }
+      if (!this.password) {
+        error = "Mot de passe requis";
+      }
+      if (!mailRegex.test(this.mail)) {
+        error = "Mail invalide";
+      }
+
+      if (error) {
+        this.msgError = error;
+      } else {
+        axios
+          .post("http://localhost:3000/user/login/", {
+            mail: this.mail,
+            mdp: this.password
+          })
+          .then(response => {
+            if (response.status === 200) {
+              return response;
+            } else {
+              throw (error = response);
+            }
+          })
+          .then(response => {
+            // console.log(response);
+            sessionStorage.setItem("key", response.data.token);
+            sessionStorage.setItem("user", response.data.userId);
+            this.$router.push({ name: "dashboard" });
+            this.isUserLogged = true;
+          })
+          .catch(error => {
+            // console.log(error.response);
+            try {
+              if (error.response.status === 401) throw "Identifiants invalides";
+              if (error.response.status !== 401)
+                throw "Une erreur est survenue";
+            } catch (err) {
+              this.msgError = err;
+            }
+          });
+      }
+    }
   }
 };
 </script>
 
 <style lang="scss">
-
 $primary-color: #747474;
 $main-color: #264672;
 $background-color: rgb(206, 206, 206);
-$old-background-color: #F7F7F7;
-$important-color: #FF4A4A;
-$second-color: #407AC9;
-$font-family: 'Jost', sans-serif;
+$old-background-color: #f7f7f7;
+$important-color: #ff4a4a;
+$second-color: #407ac9;
+$font-family: "Jost", sans-serif;
 
 .form {
   padding: 32px;
@@ -59,11 +142,12 @@ $font-family: 'Jost', sans-serif;
       text-decoration: underline;
     }
   }
-  input, label{
+  input,
+  label {
     padding: 8px;
     font-size: 16px;
   }
-  input{
+  input {
     border-radius: 8px;
     border: solid 1px;
     color: lighten($primary-color, 20%);
@@ -87,7 +171,6 @@ $font-family: 'Jost', sans-serif;
   }
 }
 
-
 .button-login {
   padding: 12px 128px;
   margin: 8px auto;
@@ -95,7 +178,6 @@ $font-family: 'Jost', sans-serif;
   background-color: #407ac9;
   font-size: 16px;
 }
-
 </style>
 
 

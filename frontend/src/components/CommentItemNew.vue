@@ -22,7 +22,7 @@ export default {
 
       this.msgError = "";
       let error;
-      
+
       if (this.comment === undefined) {
         error = "Commentaire requis";
       }
@@ -55,9 +55,11 @@ export default {
               throw (error = response);
             }
           })
-          .then(function() {
-            this.$router.push({ name: "dashboard" + this.id });
+          .catch(error => {
+            this.msgError = error;
           });
+
+        this.$router.go();
       }
     }
   }

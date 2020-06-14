@@ -2,13 +2,13 @@
   <header id="header">
     <div class="header_image">
       <img src="../assets/icon-left-font-monochrome-white.svg" />
-      <p class="header_links">{{isUserLogged}}</p>
     </div>
     <div>
-      <router-link to="/login" class="header_links">Login | </router-link>
-      <router-link to="/signup" class="header_links">Signup | </router-link>
-      <a href="#" @click="logOut()" class="header_links" v-if="isUserLogged === true">Se deconnecter</a> |
-      <a href="#" class="header_links" v-if="isUserLogged === true">Supprimer mon compte</a> |
+      <router-link to="/login" v-if="!isUserLogged" class="header_links">Login |</router-link>
+      <router-link to="/signup" v-if="!isUserLogged" class="header_links">Signup |</router-link>
+      <router-link to="/dashboard" v-if="isUserLogged" class="header_links">Forum |</router-link>
+      <a href="#" @click="logOut()" class="header_links" v-if="isUserLogged">Se deconnecter |</a>
+      <a href="#" class="header_links" v-if="isUserLogged">Supprimer mon compte |</a>
       <a href="#/admin/" v-if="role == 1" class="header_links">Page admin</a>
 
       <a
@@ -40,14 +40,23 @@ export default {
     logOut: function() {
       sessionStorage.clear("user");
       sessionStorage.clear("key");
-      this.$router.push({ name: "/" });
+      this.$router.go();
     }
   },
-  created() {
-    if (sessionStorage.getItem("user")) {
-      this.isUserLogged = true;
+  mounted() {
+    if (sessionStorage.user) {
+      this.isUserLogged = sessionStorage.user;
     }
-
   },
+  destroyed() {
+    if (sessionStorage.user) {
+      this.isUserLogged = sessionStorage.user;
+    }
+  },
+  watch: {
+    isUserLogged(newvalue) {
+      sessionStorage.user = newvalue;
+    }
+  }
 };
 </script>

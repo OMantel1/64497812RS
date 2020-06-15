@@ -51,18 +51,25 @@ $font-family: "Jost", sans-serif;
     }
   }
 
-  .logout {
-    color: white;
-    text-decoration: none;
-    .fa-user,
+  // .logout {
+  //   color: white;
+  //   text-decoration: none;
+  //   .fa-user,
+  //   .fa-users-cog {
+  //     font-size: 1.2em;
+  //   }
+
+  //   &:hover {
+  //     color: $important-color;
+  //   }
+  // }
+
+  .fa-user,
     .fa-users-cog {
       font-size: 1.2em;
+      color: white;
     }
 
-    &:hover {
-      color: $important-color;
-    }
-  }
 }
 
 .auth {

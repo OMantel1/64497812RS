@@ -24,7 +24,7 @@ exports.getUsername = (req, res, next) => {
       where: {
         id: req.params.id
       },
-      attributes: ["firstname", "lastname", "admin"]
+      attributes: ["id", "firstname", "lastname", "admin"]
     })
     .then(user => {
       console.log(user);
@@ -122,7 +122,6 @@ exports.deleteAccount = (req, res, next) => {
       error: error
     });
   }
-
   //recherche de l'utilisateur
   sequelize.User.findOne({
       where: {
@@ -143,7 +142,7 @@ exports.deleteAccount = (req, res, next) => {
               error: "pass invalide"
             })
           }
-          //suppression de l'utilisateu
+          //suppression de l'utilisateur
           sequelize.User.destroy({
               where: {
                 mail: req.body.mail
@@ -158,6 +157,41 @@ exports.deleteAccount = (req, res, next) => {
         })
         .catch(error => res.status(500).json({
           error: "erreur bcrypt"
+        }));
+    })
+    .catch(error => console.log(error));
+}
+
+
+
+
+/***** USER Auth admin delete *****/
+exports.deleteAccountAuth = (req, res, next) => {
+  //vérification des inputs
+
+  //recherche de l'utilisateur
+  sequelize.User.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(user => {
+      if (!user) {
+        return res.status(401).json({
+          error: "Utilisateur non trouvé"
+        })
+      }
+      //utlisateur est trouvé, suppression de l'utilisateur
+      sequelize.User.destroy({
+          where: {
+            id: user.id
+          }
+        })
+        .then(() => res.status(201).json({
+          message: "utilisateur bien supprimé"
+        }))
+        .catch(error => res.status(400).json({
+          error: "Utilisateur n'a pas pu  etre supprimé"
         }));
     })
     .catch(error => console.log(error));

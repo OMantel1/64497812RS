@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div v-if="usersList" class="admin_error">
+    <div v-if="usersList.length <1 " class="admin_error">
       <p>Acces non authorisé</p>
     </div>
-    <div v-else class="admin" >
-      <h1 class="admin_title">ma page admin</h1>
+    <div class="admin" v-if="usersList.length >1 ">
+      <h1 class="admin_title" v-if="usersList">ma page admin</h1>
       <h2>liste des utilisateurs</h2>
       <ul>
         <li v-for="users in usersList" :key="users.id" class="admin_userList">
           <p>{{users.firstname}} {{users.lastname}}</p>
           <a href="#" @click="getUserPosts(users.id)">Afficher les derniers posts</a>
           <a href="#" @click="getUserComments(users.id)">Afficher les dernieres commentaires</a>
-          <!-- <a href="#" @click="deleteUser(users.id)">Supprimer l'utilisateur {{users.id}}</a> -->
+          <a href="#" @click="deleteUser(users.id)">Supprimer l'utilisateur {{users.id}}</a>
         </li>
       </ul>
       <div>
@@ -168,26 +168,26 @@ export default {
           console.log(response.data);
         })
         .catch(error => console.log(error));
-    }
+    },
 
     //suppression d'un utilisateur
-    // deleteUser(element){
-    //   axios({
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: "Bearer " + sessionStorage.getItem("key")
-    //       },
-    //       method: "DELETE",
-    //       url: "http://localhost:3000/user/admin/" + element
-    //     })
-    //     .then(response => {
-    //       // this.user = response.data;
-    //       // this.comments = response.data.Comments;
-    //       console.log(response.data);
-
-    //     })
-    //     .catch(error => console.log(error));
-    // }
+    deleteUser(element) {
+      console.log(element);
+      axios({
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + sessionStorage.getItem("key")
+        },
+        method: "delete",
+        url: "http://localhost:3000/user/delete/" + element
+      })
+        .then(response => {
+          // this.user = response.data;
+          // this.comments = response.data.Comments;
+          console.log(response.data);
+        })
+        .catch(error => console.log(error));
+    }
   },
   mounted() {
     this.getUsersList();
@@ -226,7 +226,7 @@ $font-family: "Jost", sans-serif;
 
   &_userList {
     @include adminList;
-    grid-template-columns: repeat(3, 300px [col-start]);
+    grid-template-columns: repeat(4, 300px [col-start]);
   }
 
   &_postsList {
@@ -244,7 +244,7 @@ $font-family: "Jost", sans-serif;
     font-weight: 500;
     text-align: left;
   }
-  &_error{
+  &_error {
     color: black;
     text-align: center;
     font-weight: bolder;

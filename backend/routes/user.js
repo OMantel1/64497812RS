@@ -19,6 +19,6 @@ router.post('/signup', user.signup);
 router.delete('/delete', auth, user.deleteAccount);
 
 router.get('/', auth, authRole, user.getAllUsers); //ajouter middleware Admin
-// router.delete('/admin/:id', auth, user.deleteAccount); //ajouter middleware Admin
+router.delete('/delete/:id', auth, authRole, user.deleteAccountAuth); //ajouter middleware Admin
 
 module.exports = router;

@@ -52,20 +52,25 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhd
 
 
 ##################### USER ##########################################
+### DELETE ONE USER WITH ADMIN AUTH
+DELETE http://localhost:3000/user/delete/3
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJSb2xlIjowLCJpYXQiOjE1OTIyMjYyMDYsImV4cCI6MTU5MjMxMjYwNn0.xa6LGF9m0f9WHuwuT6ZKvGy0uu8uBZz5gvwovB1tC3M
+
 ### ONE USER
 GET http://localhost:3000/user/6
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MjA1MzcyMSwiZXhwIjoxNTkyMTQwMTIxfQ.D9LreAnqzgOFQmktjeFYPofTrYEsDNSM8-eK2eHvlDY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoxLCJpYXQiOjE1OTIyMjU2MzYsImV4cCI6MTU5MjMxMjAzNn0.46MxjKHUvKdgVbP0Y1Ol-mtGhPMWdvNZMlT7pSZAI_8
 
 ### ALL USERS
 GET http://localhost:3000/user/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MjA1MzcyMSwiZXhwIjoxNTkyMTQwMTIxfQ.D9LreAnqzgOFQmktjeFYPofTrYEsDNSM8-eK2eHvlDY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoxLCJpYXQiOjE1OTIyMjU2MzYsImV4cCI6MTU5MjMxMjAzNn0.46MxjKHUvKdgVbP0Y1Ol-mtGhPMWdvNZMlT7pSZAI_8
 
 ### USER ALL CONTENT
 GET http://localhost:3000/user/content/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU5MjA1MzcyMSwiZXhwIjoxNTkyMTQwMTIxfQ.D9LreAnqzgOFQmktjeFYPofTrYEsDNSM8-eK2eHvlDY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoxLCJpYXQiOjE1OTIyMjU2MzYsImV4cCI6MTU5MjMxMjAzNn0.46MxjKHUvKdgVbP0Y1Ol-mtGhPMWdvNZMlT7pSZAI_8
 
 
 ###
@@ -129,7 +134,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhd
 ### 
 DELETE http://localhost:3000/comments/7
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTU5MTUzNTkzMCwiZXhwIjoxNTkxNjIyMzMwfQ.uwgG8WoQlxYTV8ozEwZhqOs3PPMXHNN4PklzrvD2jV8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJSb2xlIjoxLCJpYXQiOjE1OTIyMjU2MzYsImV4cCI6MTU5MjMxMjAzNn0.46MxjKHUvKdgVbP0Y1Ol-mtGhPMWdvNZMlT7pSZAI_8
 
 
 

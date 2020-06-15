@@ -13,10 +13,10 @@ const db = require('../models');
 
 //recherche de l'utilisateur
 let mailRegex = /.+@.+\..+/;
-//regex mdp: au moins une lettre majuscule, au moins une lettre minuscule, au moins un chiffre ou un caractere spécial suivant -+!*$@%_ , longeur entre 8 et 15 caracteres.
-let mdpRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/;
-// interdit les les chiffres et les caracteres spéciaux, longeur minimum de 3.
-let nameRegex = /^((?=.*[A-Z])|(?=.*[a-z]))([- 'éàèùêûiîàça-zA-Z]{3,})$/;
+let nameRegex = /^[^=*'<>{}0-9]{3,}$/;
+let passwordRegex = /^[^=*'<>{}]{5,}$/;
+let textRegex = /^[^=*<>{}]+$/;
+
 
 /**** find one user ****/
 exports.getUsername = (req, res, next) => {
@@ -52,11 +52,11 @@ exports.login = (req, res, next) => {
   try {
     if (req.body.mail === "") throw "Veuillez renseigner un mail";
     if (req.body.mdp === "") throw "Veuillez renseigner un mot de passe";
-    if (!mdpRegex.test(req.body.mdp)) {
-      throw "Veuillez vérifier votre mot de passe "
+    if (!passwordRegex.test(req.body.mdp)) {
+      throw "Le mot de passe doit contenir au moins 5 caracteres et ne doit pas contenir les cracteres suivants: =*<>{}"
     }
     if (!mailRegex.test(req.body.mail)) {
-      throw "Veuillez vérifier votre adresse mail";
+      throw "Veuillez entrer une adresse mail valide";
     }
   } catch (error) {
     return res.status(400).json({
@@ -111,8 +111,8 @@ exports.deleteAccount = (req, res, next) => {
   try {
     if (req.body.mail === "") throw "Veuillez renseigner un mail";
     if (req.body.mdp === "") throw "Veuillez renseigner un mot de passe";
-    if (!mdpRegex.test(req.body.mdp)) {
-      throw "Veuillez vérifier votre mot de passe "
+    if (!passwordRegex.test(req.body.mdp)) {
+      throw "Mot de passe incorrect"
     }
     if (!mailRegex.test(req.body.mail)) {
       throw "Veuillez vérifier votre adresse mail";
@@ -186,11 +186,11 @@ exports.signup = (req, res, next) => {
             if (!nameRegex.test(req.body.firstname)) throw "Prénom non valide (trop court ou utilise chiffres, caracteres spéciaux)";
             if (!nameRegex.test(req.body.lastname)) throw "Nom non valide (trop court ou utilise chiffres, caracteres spéciaux)";
             if (req.body.mail === "") throw "Veuillez renseigner un mail";
-            if (!mdpRegex.test(req.body.mdp)) {
-              throw "Le mot de passe n'est pas assez fort, seul les carateres spéciaux  -+!*$@%_  sont authorisés "
+            if (!passwordRegex.test(req.body.mdp)) {
+              throw "Le mot de passe doit contenir au moins 5 caracteres et ne doit pas contenir les cracteres suivants: =*'<>{}"
             }
             if (!mailRegex.test(req.body.mail)) {
-              throw "Veuillez vérifier votre adresse mail";
+              throw "Veuillez entrer une adresse mail valide";
             }
           } catch (error) {
             return res.status(400).json({

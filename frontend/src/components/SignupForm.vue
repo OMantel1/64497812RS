@@ -22,34 +22,50 @@ export default {
   methods: {
     signup: function(e) {
       e.preventDefault();
+      let nameRegex = /^[^=*'<>{}0-9]{3,}$/;
       let mailRegex = /.+@.+\..+/;
+      // let textRegex = /^[^=*<>{}]+$/; //interdit certains caracteres spéciaux
       // regex mdp: au moins une lettre majuscule, au moins une lettre minuscule, au moins un chiffre ou un caractere spécial suivant -+!*$@%_ , longeur entre 8 et 15 caracteres.
-      let mdpRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/;
-      // interdit les les chiffres et les caracteres spéciaux, longeur minimum de 3.
-      let nameRegex = /^((?=.*[A-Z])|(?=.*[a-z]))([- 'éàèùêûiîàça-zA-Z]{3,})$/;
-
+      // let mdpRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/;
+      let passwordRegex = /^[^=*'<>{}]{5,}$/;
       this.msgError = "";
       let error;
-      
-      if (!mdpRegex.test(this.password)) {
-        error = "Password invalide";
+      //check password
+      if (this.password === "" || this.password == null) {
+        error = "Password requis";
+      } else if (this.password.length < 5) {
+        error = "Un password de 5 caractères minimum est demandé";
+      } else if (!passwordRegex.test(this.password)) {
+        error =
+          "les caractères spéciaux suivants sont interdits = ' * < > { } ";
       }
 
-      if (!mailRegex.test(this.mail)) {
+      //check mail
+      if (this.mail === "" || this.mail == null) {
+        error = "Mail requis";
+      } else if (!mailRegex.test(this.mail)) {
         error = "Mail invalide";
       }
-      if (!nameRegex.test(this.lastname)) {
+
+      //check lastname
+      if (this.lastname === "" || this.lastname == null) {
+        error = "Nom requis";
+      } else if (this.firstname.length < 3) {
+        error = "un nom de 3 caracteres minimum est demandé";
+      } else if (!nameRegex.test(this.lastname)) {
         error =
-          "Nom invalide";
-      }
-      if (!nameRegex.test(this.firstname)) {
-        error =
-          "Prenom invalide";
-      }
-      if (!this.lastname || !this.firstname || !this.password || !this.mail) {
-        error = "Tous les champs sont requis";
+          "Les chiffres et Les caractères suivants sont interdits: = ' * < > { }";
       }
       
+      //check firstname
+      if (this.firstname === "" || this.firstname == null) {
+        error = "Prénom requis";
+      } else if (this.firstname.length < 3) {
+        error = "un prenom de 3 caracteres minimum est demandé";
+      } else if (!nameRegex.test(this.firstname)) {
+        error =
+          "Les chiffres et les caractères suivants sont interdits: = ' * < > { }";
+      }
 
       if (error) {
         this.msgError = error;
@@ -70,7 +86,7 @@ export default {
           })
           .then(response => {
             console.log(response);
-            this.$router.push({ name: 'login' });
+            this.$router.push({ name: "login" });
             // sessionStorage.setItem("key", response.data.token);
             // sessionStorage.setItem("user", response.data.userId);
           })
@@ -78,14 +94,8 @@ export default {
           //   this.$router.push({ name: 'dashboard' })
           // })
           .catch(error => {
-            // console.log(error.response);
-            try {
-              if (error.response.status === 401) throw "Ce mail est deja pris";
-              if (error.response.status == 400) throw "Erreur de données";
-              throw "Une erreur est survenue";
-            } catch (err) {
-              this.msgError = err;
-            }
+            console.log(error.response.data.error);
+            this.msgError = error.response.data.error;
           });
       }
     }

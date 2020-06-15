@@ -20,11 +20,17 @@ export default {
     sendNewComment: function(e) {
       e.preventDefault();
 
+      let textRegex = /^[^=*<>{}]+$/;
       this.msgError = "";
       let error;
 
-      if (this.comment === undefined) {
+      //test input comment
+      if (this.comment === "" || this.comment == null) {
         error = "Commentaire requis";
+      // } else if (this.comment.length < 2) {
+      //   error = "Un minimum de 2 caracteres est requis";
+      } else if (!textRegex.test(this.comment)) {
+        error = "les caractères suivants sont interdits: = * < > { }";
       }
 
       if (error) {
@@ -56,7 +62,8 @@ export default {
             }
           })
           .catch(error => {
-            this.msgError = error;
+            console.log(error.response.data.error);
+            this.msgError = error.response.data.error;
           });
 
         this.$router.go();

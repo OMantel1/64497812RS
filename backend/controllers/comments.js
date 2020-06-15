@@ -10,6 +10,7 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const Comment = require('../models/Comment');
 const db = require('../models');
+let textRegex = /^[^=*<>{}]+$/;
 
 
 /***** CREATE COMMENT *****/
@@ -17,6 +18,8 @@ exports.newComment = (req, res, next) => {
   //vérification des données
   try {
     if (req.body.content === "") throw "Veuillez renseigner un contenu";
+    if (req.body.content.length < 2) throw "Votre commentaire doit contenir au moins 2 caracteres";
+    if (!textRegex.test(req.body.content)) throw "Caracteres spéciaux utilisés interdits  * < > { }";
   } catch (error) {
     return res.status(400).json({
       error: error

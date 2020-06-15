@@ -11,7 +11,7 @@ const User = require('../models/User');
 const Comment = require('../models/Comment');
 const db = require('../models');
 
-// let textRegex = /^((?=.*[A-Z])|(?=.*[a-z]))([- !?"()@:;,.'aéàèùêûiîçàa-zA-Z]{1,2000})$/;
+let textRegex = /^[^=*<>{}]+$/;
 // let titleRegex = /((?=.*[A-Z])|(?=.*[a-z]))([- !?"()@:;,.'aéàèùêûiîçàa-zA-Z]{1,300})$/;
 
 
@@ -45,10 +45,12 @@ exports.getUserWall = (req, res, next) => {
 exports.newPost = (req, res, next) => {
   //vérifications des données
   try {
-    if (req.body.content === "") throw "Veuillez renseigner un contenu";
-    if (req.body.title === "") throw "Veuillez renseigner un titre";
-    // if (!textRegex.test(req.body.content)) throw "Caracteres utilisés interdits";
-    // if (!titleRegex.test(req.body.title)) throw "Caracteres utilisés interdits"
+    if (req.body.content === "" || req.body.content == null) throw "Veuillez renseigner un contenu";
+    if (req.body.title === "" || req.body.content == null) throw "Veuillez renseigner un titre";
+    if (req.body.title.length <3) throw "titre de 3 caracteres minimum";
+    if (req.body.content.length <3) throw "Contenu de 3 caracteres minimum";
+    if (!textRegex.test(req.body.content)) throw "Caracteres spéciaux utilisés interdits  * < > { }";
+    if (!textRegex.test(req.body.title)) throw "Caracteres spéciaux utilisés interdits  * < > { }"
   } catch (error) {
     return res.status(400).json({
       error: error

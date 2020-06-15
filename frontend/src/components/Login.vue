@@ -52,14 +52,14 @@ export default {
       e.preventDefault();
       let mailRegex = /.+@.+\..+/;
       // regex mdp: au moins une lettre majuscule, au moins une lettre minuscule, au moins un chiffre ou un caractere spécial suivant -+!*$@%_ , longeur entre 8 et 15 caracteres.
-      let mdpRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/;
+      // let mdpRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/;
       // interdit les les chiffres et les caracteres spéciaux, longeur minimum de 3.
       // let nameRegex = /^((?=.*[A-Z])|(?=.*[a-z]))([- 'éàèùêûiîàça-zA-Z]{3,})$/;
       this.msgError = "";
       let error;
-      if (!mdpRegex.test(this.password)) {
-        error = "Mot de passe invalide";
-      }
+      // if (!mdpRegex.test(this.password)) {
+      //   error = "Mot de passe invalide";
+      // }
       if (!this.mail) {
         error = "Mail requis";
       }
@@ -90,17 +90,11 @@ export default {
             sessionStorage.setItem("key", response.data.token);
             sessionStorage.setItem("user", response.data.userId);
             this.$router.push({ name: "dashboard" });
-            this.isUserLogged = true;
+            this.$emit('isUserLogged');
           })
           .catch(error => {
-            // console.log(error.response);
-            try {
-              if (error.response.status === 401) throw "Identifiants invalides";
-              if (error.response.status !== 401)
-                throw "Une erreur est survenue";
-            } catch (err) {
-              this.msgError = err;
-            }
+            console.log(error.response.data.error);
+            this.msgError = error.response.data.error;
           });
       }
     }

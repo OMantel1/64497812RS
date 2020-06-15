@@ -40,23 +40,27 @@ export default {
     logOut: function() {
       sessionStorage.clear("user");
       sessionStorage.clear("key");
-      this.$router.go();
+      this.isUserLogged = "";
+      this.$router.push({ name: "login" });
+    },
+    logIn: function(){
+      this.isUserLogged = sessionStorage.user;
     }
   },
   mounted() {
     if (sessionStorage.user) {
       this.isUserLogged = sessionStorage.user;
     }
-  },
-  destroyed() {
-    if (sessionStorage.user) {
-      this.isUserLogged = sessionStorage.user;
-    }
-  },
-  watch: {
-    isUserLogged(newvalue) {
-      sessionStorage.user = newvalue;
-    }
   }
+  // destroyed() {
+  //   if (sessionStorage.user) {
+  //     this.isUserLogged = sessionStorage.user;
+  //   }
+  // },
+  // watch: {
+  //   isUserLogged() {
+  //     this.isUserLogged = sessionStorage.user;
+  //   }
+  // }
 };
 </script>

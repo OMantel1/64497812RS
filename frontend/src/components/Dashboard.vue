@@ -1,5 +1,6 @@
 <template>
   <div class="box">
+    <!-- New post container-->
     <div class="DashboardItemNew addContent" v-if="isUserLogged">
       <!-- Form new post button-->
       <div class="addContent_linkBox">
@@ -21,7 +22,7 @@
     <!-- posts list -->
     <DashboardItems
       v-for="message in messageContent"
-      v-bind:key="message.UserId"
+      v-bind:key="message.id"
       v-bind:firstname="message.User.firstname"
       v-bind:lastname="message.User.lastname"
       v-bind:title="message.title"
@@ -59,46 +60,63 @@ export default {
   },
   props: {
     title: {
-      type: String,
-      required: true
+      type: String
     },
     content: {
-      type: String,
-      required: true
+      type: String
     },
     url_image: {
-      type: String,
-      required: false
+      type: String
     },
     msgError: {
-      type: String,
-      required: true
+      type: String
     }
   },
   methods: {
-    sendNewContent: function(e) {
-      e.preventDefault();
+    // checkInputText: function() {
+    //   this.msgError = "";
+    //   let error;
+    //   if (this.title.length < 3 ||this.content.length < 3) {
+    //     error = "Un minimum de 3 caracteres est requis";
+    //   }
+    //   this.msgError = error;
+    // },
 
+    //Envoi du formulaire
+    sendNewContent: function(e) {
+      let textRegex = /^[^=*<>{}]+$/;
       this.msgError = "";
       let error;
-      if (this.title === undefined) {
+
+      //test input title
+      if (this.title === "" || this.title == null) {
         error = "Titre requis";
-      }
-      if (this.content === undefined) {
-        error = "Contenu requis";
+      } else if (this.title.length < 3) {
+        error = "Un minimum de 3 caracteres est requis";
+      } else if (!textRegex.test(this.title)) {
+        error = "les caractères suivants sont interdits: = * < > { }";
       }
 
+      //test input content
+      if (this.content === "" || this.content == null) {
+        error = "Contenu requis";
+      } else if (this.content.length < 3) {
+        error = "Un minimum de 3 caracteres est requis";
+      } else if (!textRegex.test(this.content)) {
+        error = "les caractères suivants sont interdits: = * < > { }";
+      }
+
+      //si pas d'erreur, envoi du formulaire
       if (error) {
         this.msgError = error;
+        e.preventDefault();
       } else {
-        // console.log(sessionStorage.getItem("user"));
         let user = {
           UserId: sessionStorage.getItem("user"),
           title: this.title,
           content: this.content,
           url_image: this.url_image
         };
-        // console.log(user);
         axios({
           headers: {
             "Content-Type": "application/json",
@@ -112,18 +130,13 @@ export default {
             if (response.status === 201) {
               return response;
             } else {
-              throw response;
+              throw (error = response);
             }
           })
-          .catch(response => {
-            // console.log(error.response);
-            // try {
-            //   if (error.response.status === 401) throw "Identifiants invalides";
-            //   if (error.response.status !== 401) throw "Une erreur est survenue";
-            // } catch (err) {
-            this.msgError = response;
+          .catch(error => {
+            // console.log(error.response.data.error);
+            this.msgError = error.response.data.error;
           });
-
         this.$router.go();
       }
     },

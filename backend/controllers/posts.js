@@ -10,6 +10,7 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const Comment = require('../models/Comment');
 const db = require('../models');
+const fs = require('fs');
 
 let textRegex = /^[^=*<>{}]+$/;
 // let titleRegex = /((?=.*[A-Z])|(?=.*[a-z]))([- !?"()@:;,.'aéàèùêûiîçàa-zA-Z]{1,300})$/;
@@ -59,7 +60,7 @@ exports.newPost = (req, res, next) => {
   // console.log(req.body);
   // console.log(req.body.content);
   // console.log(req.file);
-  
+
   //creation d 'un nouveau post
   sequelize.Post.create({
       UserId: req.body.UserId,
@@ -110,18 +111,31 @@ exports.getOnePost = (req, res, next) => {
 
 /***** DELETE ON POST *****/
 exports.deleteOnePost = (req, res, next) => {
-  sequelize.Post.destroy({
+  sequelize.Post.findOne({
       where: {
         id: req.params.id
       }
     })
     .then(post => {
-      console.log(post);
-      res.status(200).json({
-        message: "post bien supprimé"
-      });
+      const filename = post.url_image.split('/images/')[1];
+      fs.unlink(`images/${filename}`, () => {
+        sequelize.Post.destroy({
+            where: {
+              id: req.params.id
+            }
+          })
+          .then(post => {
+            console.log(post);
+            res.status(200).json({
+              message: "post bien supprimé"
+            });
+          })
+          .catch(error => res.status(400).json({
+            error
+          }));
+      })
     })
-    .catch(error => res.status(400).json({
+    .catch(error => res.status(500).json({
       error
     }));
 }

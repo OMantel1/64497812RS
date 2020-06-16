@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <Header/>
+    <Header />
     <!-- New post container-->
     <div class="DashboardItemNew addContent" v-if="isUserLogged">
       <!-- Form new post button-->
@@ -15,7 +15,7 @@
         <input type="text" v-model.lazy="title" placeholder="TITRE" />
         <input type="text" v-model.lazy="content" placeholder="VOTRE MESSAGE" />
         <!-- <input type="text" v-model.lazy="url_image" placeholder="Lien vers une image ou gif" /> -->
-        <input type="file" ref='file' @change="onFileSelected" placeholder="upload image"/>
+        <input type="file" @change="onFileSelected" placeholder="upload image" />
         <button v-on:click="sendNewContent" class="button button-login">Envoyer</button>
         <p id="alert">{{msgError}}</p>
       </form>
@@ -59,7 +59,6 @@ export default {
       userFirstname: "",
       hover: false,
       isHidden: true
-      // selectedFile:  ""
     };
   },
   props: {
@@ -78,15 +77,21 @@ export default {
     msgError: {
       type: String
     }
+    // imageSelected: {
+    //   type: {}
+    // }
   },
   methods: {
     // onSelect(){
     //   const file = this.$refs.file.file[0];
     //   this.file = file;
     // },
-    onFileSelected(event){
+    onFileSelected(event) {
       this.selectedFile = event.target.files[0];
-      console.log(event.target.files[0]);
+      // console.log(event.target.files[0]);
+
+      console.log(this.selectedFile);
+      // console.log(...imageSelected);
     },
     // checkInputText: function() {
     //   this.msgError = "";
@@ -126,25 +131,22 @@ export default {
         this.msgError = error;
         e.preventDefault();
       } else {
+        // console.log(...imageSelected);
 
-        // const selectedIimage = {
-        //   filename: this.selectedFile.name
-        // }
-        // selectedIimage.append('image', this.selectedFile, this.selectedFile.name)
-        const imageSelected = new FormData();
-        imageSelected.append('image', this.selectedFile);
-        
-        console.log(...imageSelected);
-        let user = {
-          UserId: sessionStorage.getItem("user"),
-          title: this.title,
-          content: this.content,
-          imageSelected
-          // imageSelected
-          // url_image: this.url_image
-          // url_image: this.selectedFile
-        };
-        // console.log(user);
+        // let post = {
+        //   UserId: sessionStorage.getItem("user"),
+        //   title: this.title,
+        //   content: this.content
+        // };
+
+        const postData = new FormData();
+        postData.append("image", this.selectedFile);
+        postData.append("title", this.title);
+        postData.append("content", this.content);
+        postData.append("UserId", sessionStorage.getItem("user"));
+
+        console.log(...postData);
+        // console.log(...imageSelected);
         axios({
           headers: {
             "Content-Type": "application/json",
@@ -152,7 +154,7 @@ export default {
           },
           method: "post",
           url: "http://localhost:3000/posts/new/",
-          data: user
+          data: postData
         })
           .then(response => {
             if (response.status === 201) {

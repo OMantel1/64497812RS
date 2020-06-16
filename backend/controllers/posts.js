@@ -47,8 +47,8 @@ exports.newPost = (req, res, next) => {
   try {
     if (req.body.content === "" || req.body.content == null) throw "Veuillez renseigner un contenu";
     if (req.body.title === "" || req.body.content == null) throw "Veuillez renseigner un titre";
-    if (req.body.title.length <3) throw "titre de 3 caracteres minimum";
-    if (req.body.content.length <3) throw "Contenu de 3 caracteres minimum";
+    if (req.body.title.length < 3) throw "titre de 3 caracteres minimum";
+    if (req.body.content.length < 3) throw "Contenu de 3 caracteres minimum";
     if (!textRegex.test(req.body.content)) throw "Caracteres spéciaux utilisés interdits  * < > { }";
     if (!textRegex.test(req.body.title)) throw "Caracteres spéciaux utilisés interdits  * < > { }"
   } catch (error) {
@@ -56,17 +56,17 @@ exports.newPost = (req, res, next) => {
       error: error
     });
   }
-  console.log(req.body);
-  console.log(req.file);
-  // const postObject = JSON.parse(req.body.object);
-  console.log(...postObject)
-  //creation d'un nouveau post
+  // console.log(req.body);
+  // console.log(req.body.content);
+  // console.log(req.file);
+  
+  //creation d 'un nouveau post
   sequelize.Post.create({
       UserId: req.body.UserId,
       title: req.body.title,
       content: req.body.content,
       // url_image: req.body.url_image
-      url_image: `${req.protocol}://${req.get('host')}/images/${req.file.name}`
+      url_image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     })
     .then(response => res.status(200).json({
       message: "Post bien crée"

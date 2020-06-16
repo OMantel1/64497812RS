@@ -33,7 +33,7 @@ $font-family: "Jost", sans-serif;
   justify-content: space-between;
   align-items: center;
   background-color: $main-color;
-  padding: 8px 8px;
+  padding: 16px 8px;
   color: white;
   font-weight: 200;
   border-bottom: solid 2px white;

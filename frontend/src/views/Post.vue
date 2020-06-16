@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div class="post_container">
+    <Header />
+
+    <!-- Aside du post -->
     <div id="post" class="post post-width">
-      <div class="post_aside">
+      <aside class="post_aside">
         <p id="post_user_id">
           Posté par
           <br />
@@ -13,18 +16,20 @@
           @click="deletePost(postId)"
           class="post_delete-link"
         >Supprimer ce post</a>
-      </div>
+      </aside>
 
-      <div class="post_main" :id="user.id">
+      <!-- Contenu du post -->
+      <section class="post_main" :id="user.id">
         <p id="post_title" class="post_title">{{user.title}}</p>
         <p id="post_content" class="post_content">{{user.content}}</p>
         <img class="post_image" :src="user.url_image" />
+
         <div class="post_comments">
           <ul v-if="comments.length">
             <li v-for="comment in comments" v-bind:key="comment.UserId">
               {{comment.User.firstname}} {{comment.User.lastname}} dit: {{comment.content}} {{comment.UserId}} {{userLoggedId}}
               <a
-              class="post_delete-link"
+                class="post_delete-link"
                 id="commentIdClicked"
                 href="#"
                 @click="deleteComment(comment.id)"
@@ -34,10 +39,15 @@
             </li>
           </ul>
           <p v-else>Pas de commentaires</p>
+
+          <!-- Formulaire nouveau commentaire -->
           <CommentItemNew :postId="user.id" />
         </div>
-      </div>
+      </section>
     </div>
+
+    <!-- AJOUTER LIEN DE RETOUR VERS DASHBOARD -->
+    <a href="http://localhost:8080/?#/dashboard" class="backLink">Retour vers le forum</a>
   </div>
 </template>
 
@@ -46,10 +56,11 @@
 <script>
 const axios = require("axios");
 import CommentItemNew from "@/components/CommentItemNew.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   name: "Post",
-  components: { CommentItemNew },
+  components: { CommentItemNew, Header },
   data() {
     return {
       postId: "",
@@ -111,11 +122,10 @@ export default {
         url: "http://localhost:3000/posts/" + element
       })
         .then(response => {
-          this.$router.push({ name: 'dashboard' });
+          this.$router.push({ name: "dashboard" });
           console.log(response.data);
         })
         .catch(error => console.log(error));
-        
     }
   }
 };
@@ -150,7 +160,17 @@ img {
   color: $primary-color;
   text-decoration: none;
 
-  &:hover{
+  &:hover {
+    color: red;
+    text-decoration: underline;
+  }
+}
+
+//A recentrer
+.backLink {
+  color: $primary-color;
+  text-decoration: none;
+  &:hover {
     color: red;
     text-decoration: underline;
   }

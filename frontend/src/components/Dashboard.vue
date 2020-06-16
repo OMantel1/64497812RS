@@ -1,5 +1,6 @@
 <template>
   <div class="box">
+    <Header/>
     <!-- New post container-->
     <div class="DashboardItemNew addContent" v-if="isUserLogged">
       <!-- Form new post button-->
@@ -38,17 +39,18 @@
 const axios = require("axios");
 
 import DashboardItems from "@/components/DashboardItems.vue";
-// import Header from "@/components/Header.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   name: "Dashboard",
   components: {
+    Header,
     DashboardItems
     // Header
   },
   data() {
     return {
-      isUserLogged: "",
+      // isUserLogged: "",
       messageContent: [],
       comments: [],
       actualUser: "",

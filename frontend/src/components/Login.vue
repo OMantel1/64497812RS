@@ -9,7 +9,7 @@
         <input id="email" type="email" v-model.lazy="mail" placeholder="user@groupomania.com" />
       </div>
       <div class="form_field">
-        <label for="mdp">Pass</label>
+        <label for="mdp">Password</label>
         <input id="password" type="password" v-model.lazy="password" placeholder="******" />
       </div>
       <button class="button button-login" @click="login">Se connecter</button>
@@ -90,7 +90,7 @@ export default {
             sessionStorage.setItem("key", response.data.token);
             sessionStorage.setItem("user", response.data.userId);
             this.$router.push({ name: "dashboard" });
-            this.$emit('isUserLogged');
+            this.$emit("isUserLogged");
           })
           .catch(error => {
             console.log(error.response.data.error);
@@ -99,6 +99,9 @@ export default {
       }
     }
   }
+  // created() {
+  //   this.isUserLogged = sessionStorage.user;
+  // }
 };
 </script>
 

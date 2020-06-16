@@ -14,7 +14,8 @@
         <a href="#" class="close-button" v-on:click="isHidden = true">×</a>
         <input type="text" v-model.lazy="title" placeholder="TITRE" />
         <input type="text" v-model.lazy="content" placeholder="VOTRE MESSAGE" />
-        <input type="text" v-model.lazy="url_image" placeholder="Lien vers une image ou gif" />
+        <!-- <input type="text" v-model.lazy="url_image" placeholder="Lien vers une image ou gif" /> -->
+        <input type="file" ref='file' @change="onFileSelected" placeholder="upload image"/>
         <button v-on:click="sendNewContent" class="button button-login">Envoyer</button>
         <p id="alert">{{msgError}}</p>
       </form>
@@ -58,6 +59,7 @@ export default {
       userFirstname: "",
       hover: false,
       isHidden: true
+      // selectedFile:  ""
     };
   },
   props: {
@@ -70,11 +72,22 @@ export default {
     url_image: {
       type: String
     },
+    selectedFile: {
+      type: String
+    },
     msgError: {
       type: String
     }
   },
   methods: {
+    // onSelect(){
+    //   const file = this.$refs.file.file[0];
+    //   this.file = file;
+    // },
+    onFileSelected(event){
+      this.selectedFile = event.target.files[0];
+      console.log(event.target.files[0]);
+    },
     // checkInputText: function() {
     //   this.msgError = "";
     //   let error;
@@ -113,12 +126,24 @@ export default {
         this.msgError = error;
         e.preventDefault();
       } else {
+
+        // const selectedIimage = {
+        //   filename: this.selectedFile.name
+        // }
+        // selectedIimage.append('image', this.selectedFile, this.selectedFile.name)
+        const imageSelected = new FormData();
+        imageSelected.append('image', this.selectedFile);
+        console.log(...imageSelected);
         let user = {
           UserId: sessionStorage.getItem("user"),
           title: this.title,
           content: this.content,
-          url_image: this.url_image
+          imageSelected
+          // imageSelected
+          // url_image: this.url_image
+          // url_image: this.selectedFile
         };
+        // console.log(user);
         axios({
           headers: {
             "Content-Type": "application/json",
@@ -139,7 +164,7 @@ export default {
             // console.log(error.response.data.error);
             this.msgError = error.response.data.error;
           });
-        this.$router.go();
+        // this.$router.go();
       }
     },
     dashboardLoading() {

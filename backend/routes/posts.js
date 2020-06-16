@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const authRole = require('../middleware/authRole');
+const multer = require('../middleware/multer-config');
+
 const posts = require('../controllers/posts');
 const db = require('../models');
 
@@ -14,7 +16,7 @@ const {
 
 router.get('/', auth, posts.getUserWall);
 router.get('/:id', auth, posts.getOnePost);
-router.post('/new',auth, posts.newPost);
+router.post('/new',auth, multer, posts.newPost);
 router.put('/:id', auth, posts.updateOnePost);
 router.delete('/:id', auth, posts.deleteOnePost);
 

@@ -56,12 +56,17 @@ exports.newPost = (req, res, next) => {
       error: error
     });
   }
+  console.log(req.body);
+  console.log(req.file);
+  // const postObject = JSON.parse(req.body.object);
+  console.log(...postObject)
   //creation d'un nouveau post
   sequelize.Post.create({
       UserId: req.body.UserId,
       title: req.body.title,
       content: req.body.content,
-      url_image: req.body.url_image
+      // url_image: req.body.url_image
+      url_image: `${req.protocol}://${req.get('host')}/images/${req.file.name}`
     })
     .then(response => res.status(200).json({
       message: "Post bien crée"

@@ -1,11 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const Sequelize = require('sequelize');
 const sequelize = require('./models/index.js');
 const User = require('./models/User');
 const Post = require('./models/Post');
 const Comment = require('./models/Comment');
 const db = require('./models');
+
 
 /********************/
 /********** USERs **********/
@@ -179,6 +181,7 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // //enregistre routers
 app.use('/user', require('./routes/user'));

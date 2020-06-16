@@ -1,34 +1,48 @@
 <template>
-  <div class="profile">
-    <h2 class="profile_title">Gerer mon profile</h2>
-    <ul>
-      <li>profile id: {{userLogged.id}}</li>
-      <li>Prenom: {{userLogged.firstname}}</li>
-      <li>nom: {{userLogged.lastname}}</li>
-      <li>
-        <button v-on:click="isHidden = false">Supprimer mon compte</button>
-      </li>
-    </ul>
-    <form v-if="!isHidden" class="profile_DeleteDialog form loginForm">
-      <div class="form_field">
-        <label for="mail">Mail</label>
-        <input id="email" type="email" v-model.lazy="mail" placeholder="user@groupomania.com" />
-      </div>
-      <div class="form_field">
-        <label for="mdp">Pass</label>
-        <input id="password" type="password" v-model.lazy="password" placeholder="password" />
-      </div>
-      <button class="button button-login" @click="deleteUserProfile">Confirmation de suppression</button>
-      <p id="alert">{{msgError}}</p>
-    </form>
+  <div>
+    <!-- Header -->
+    <Header />
+
+    <!-- Profile utilisateur-->
+
+    <!-- Si utilisateur non authorisé-->
+    <div v-if="!userLogged" class="unauthorizedMessage">Acces non authorisé</div>
+
+    <!-- Si utilisateur authorisé-->
+    <div v-else class="profile">
+      <!-- Informations du compte utilisateur-->
+      <i class="fas fa-user-edit"></i>
+      <h2 class="profile_title">Gérer mon profil</h2>
+      <p>Id de profile N°{{userLogged.id}}</p>
+      <p>{{userLogged.firstname}} {{userLogged.lastname}}</p>
+      <button v-on:click="isHidden = false" class="profile_button">Supprimer mon compte</button>
+
+      <!-- Form de confirmation de suppression de compte-->
+      <form v-if="!isHidden" class="profile_DeleteDialog form loginForm">
+        <div class="form_field">
+          <label for="mail">Mail</label>
+          <input id="email" type="email" v-model.lazy="mail" placeholder="user@groupomania.com" />
+        </div>
+        <div class="form_field">
+          <label for="mdp">Pass</label>
+          <input id="password" type="password" v-model.lazy="password" placeholder="password" />
+        </div>
+        <button class="button button-login" @click="deleteUserProfile">Confirmation de suppression</button>
+        <p id="alert">{{msgError}}</p>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 const axios = require("axios");
+import Header from "@/components/Header.vue";
 
 export default {
   name: "Profile",
+  components: {
+    Header
+  },
   data() {
     return {
       userLogged: "",
@@ -80,7 +94,6 @@ export default {
             sessionStorage.clear("key");
             this.isUserLogged = "";
             this.$router.push({ name: "login" });
-
           })
           .catch(error => {
             console.log(error.response.data.error);
@@ -109,7 +122,41 @@ export default {
 </script>
 
 <style lang="scss">
+$primary-color: #747474;
+$main-color: #264672;
+$background-color: rgb(235, 235, 235);
+$old-background-color: #f7f7f7;
+$important-color: #ff4a4a;
+$second-color: #407ac9;
+$font-family: "Jost", sans-serif;
+
 .profile {
-  color: black;
+  color: $primary-color;
+  font-weight: lighter;
+  text-align: center;
+  padding-top: 32px;
+  ul,
+  li {
+    margin: 0;
+  }
+  li {
+    list-style: none;
+  }
+  .fa-user-edit {
+    font-size: 2em;
+  }
+
+  &_button {
+    border-radius: 16px;
+    border: none;
+    padding: 16px;
+    background-color: white;
+    border: $primary-color solid 1px;
+    &:hover {
+      background-color: red;
+      color: white;
+      box-shadow: $primary-color 0px 0px 8px 4px;
+    }
+  }
 }
 </style>

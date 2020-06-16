@@ -133,6 +133,7 @@ export default {
         // selectedIimage.append('image', this.selectedFile, this.selectedFile.name)
         const imageSelected = new FormData();
         imageSelected.append('image', this.selectedFile);
+        
         console.log(...imageSelected);
         let user = {
           UserId: sessionStorage.getItem("user"),

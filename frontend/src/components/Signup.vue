@@ -1,33 +1,32 @@
 <template>
-  <div class="signup container">
+  <div class="user-signup container">
     <!-- <div class="logo">
       <p>Welcome to</p>
       <img src="../assets/icon-left-font-monochrome-white.svg" />
     </div>-->
 
-    <form id="form-signup" class="form loginForm">
-      <div class="form_field">
-        <label for="firstname">Prénom</label>
-        <input type="text" name="prenom" v-model.lazy="firstname" placeholder="marc" />
+    <form class="user-signup_form" id="form-signup">
+      <div class="user-signup_form-field">
+        <label class="user-signup_label" for="firstname">Prénom</label>
+        <input class="user-signup_input" type="text" name="prenom" v-model.lazy="firstname" placeholder="marc" />
       </div>
-      <div class="form_field">
-        <label for="lastname">Nom</label>
-        <input type="text" name="nom" v-model.lazy="lastname" placeholder="dupond" />
+      <div class="user-signup_form-field">
+        <label class="user-signup_label" for="lastname">Nom</label>
+        <input class="user-signup_input" type="text" name="nom" v-model.lazy="lastname" placeholder="dupond" />
       </div>
-      <div class="form_field">
-        <label for="mail">Mail</label>
-        <input type="email" name="mail" v-model.lazy="mail" placeholder="mail@groupomania.com" />
+      <div class="user-signup_form-field">
+        <label class="user-signup_label" for="mail">Mail</label>
+        <input class="user-signup_input" type="email" name="mail" v-model.lazy="mail" placeholder="mail@groupomania.com" />
       </div>
-      <div class="form_field">
-        <label for="mdp">Password</label>
-        <input type="password" name="mot de passe" v-model.lazy="password" />
+      <div class="user-signup_form-field">
+        <label class="user-signup_label" for="mdp">Password</label>
+        <input class="user-signup_input" type="password" name="mot de passe" v-model.lazy="password" placeholder="password" />
       </div>
       <button
-        class="button button-login"
+        class="user-signup_button"
         id="submitButton"
         type="submit"
-        @click="signup"
-      >Inscription</button>
+        @click="signup">Inscription</button>
       <p id="alert">{{msgError}}</p>
     </form>
 
@@ -146,30 +145,53 @@ export default {
 </script>
 
 <style lang="scss">
-.form {
-  padding: 32px;
-  border-radius: 8px;
-  background-color: #f7f7f7;
+@import "../styles/_variables.scss"; 
 
-  .form_field {
-    width: 95%;
+.user-signup,
+.user-login {
+  color: $main-color;
+  font-weight: lighter;
+  // text-align: center;
+  padding-top: 32px;
+  &_form {
+    color: $main-color;
+    font-weight: lighter;
+    padding: 16px;
+  }
+
+  &_form-field {
     padding: 8px;
     display: flex;
-    justify-content: space-between;
-    color: #747474;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-}
+  &_input {
+    width: 250px;
+    border: none;
+    border-bottom: solid $main-color 1px;
+    line-height: 30px;
+  }
 
-.loginForm {
-  display: grid;
-  justify-content: center;
-  font-size: 16px;
-  .signupLink {
-    text-decoration: none;
-    color: #747474;
-    text-align: center;
+  &_label {
+    width: 250px;
+    text-align: left;
+    line-height: 30px;
+  }
+
+  &_button{
+    color: white;
+    border-radius: 16px;
+    border: none;
+    padding: 16px;
+    background-color: $main-color;
+    border: $main-color solid 1px;
+    width: 250px;
     &:hover {
-      text-decoration: underline;
+      background-color: lighten($main-color, 10%);
+      color: white;
+      // box-shadow: $second-color 0px 0px 8px 4px;
+      border: $second-color solid 1px;
     }
   }
 }

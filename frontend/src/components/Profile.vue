@@ -6,28 +6,44 @@
     <!-- Profile utilisateur-->
 
     <!-- Si utilisateur non authorisé-->
-    <div v-if="!userLogged" class="unauthorizedMessage">Acces non authorisé</div>
-
+    <div v-if="!userLogged" class="unauthorizedMessage">
+      <p>Acces non authorisé</p>
+    </div>
     <!-- Si utilisateur authorisé-->
-    <div v-else class="profile">
+    <div v-else class="user-profile">
       <!-- Informations du compte utilisateur-->
-      <i class="fas fa-user-edit"></i>
-      <h2 class="profile_title">Gérer mon profil</h2>
+      <i class="fas fa-user-edit user-profile_icon"></i>
+      <h2 class="user-profile_title">Gérer mon profil</h2>
       <p>Id de profile N°{{userLogged.id}}</p>
       <p>{{userLogged.firstname}} {{userLogged.lastname}}</p>
-      <button v-on:click="isHidden = false" class="profile_button">Supprimer mon compte</button>
+      <button v-on:click="isHidden = false" class="user-profile_delete-link">Supprimer mon compte</button>
 
       <!-- Form de confirmation de suppression de compte-->
-      <form v-if="!isHidden" class="profile_DeleteDialog form loginForm">
-        <div class="form_field">
-          <label for="mail">Mail</label>
-          <input id="email" type="email" v-model.lazy="mail" placeholder="user@groupomania.com" />
+      <form v-if="!isHidden" class="user-profile_form">
+        <div class="user-profile_form-field">
+          <label for="mail" class="user-profile_label">Mail</label>
+          <input
+            id="email"
+            class="user-profile_input"
+            type="email"
+            v-model.lazy="mail"
+            placeholder="user@groupomania.com"
+          />
         </div>
-        <div class="form_field">
-          <label for="mdp">Pass</label>
-          <input id="password" type="password" v-model.lazy="password" placeholder="password" />
+        <div class="user-profile_form-field">
+          <label for="mdp" class="user-profile_label">Pass</label>
+          <input
+            id="password"
+            class="user-profile_input"
+            type="password"
+            v-model.lazy="password"
+            placeholder="password"
+          />
         </div>
-        <button class="button button-login" @click="deleteUserProfile">Confirmation de suppression</button>
+        <button
+          class="user-profile_delete-confirm"
+          @click="deleteUserProfile"
+        >Confirmation de suppression</button>
         <p id="alert">{{msgError}}</p>
       </form>
     </div>
@@ -122,16 +138,10 @@ export default {
 </script>
 
 <style lang="scss">
-$primary-color: #747474;
-$main-color: #264672;
-$background-color: rgb(235, 235, 235);
-$old-background-color: #f7f7f7;
-$important-color: #ff4a4a;
-$second-color: #407ac9;
-$font-family: "Jost", sans-serif;
+@import "../styles/_variables.scss"; 
 
-.profile {
-  color: $primary-color;
+.user-profile {
+  color: $main-color;
   font-weight: lighter;
   text-align: center;
   padding-top: 32px;
@@ -139,24 +149,68 @@ $font-family: "Jost", sans-serif;
   li {
     margin: 0;
   }
-  li {
-    list-style: none;
-  }
-  .fa-user-edit {
+  // li {
+  //   list-style: none;
+  // }
+  &_icon {
     font-size: 2em;
   }
 
-  &_button {
+  &_delete-link {
+    color: $main-color;
     border-radius: 16px;
     border: none;
     padding: 16px;
     background-color: white;
-    border: $primary-color solid 1px;
+    border: $main-color solid 1px;
     &:hover {
-      background-color: red;
+      background-color: $important-color;
       color: white;
       box-shadow: $primary-color 0px 0px 8px 4px;
     }
   }
+  //user-profile_form, user-profile_form-field, user-profile_delete-confirm, user-profile_input , label
+  &_form {
+    color: $main-color;
+    font-weight: lighter;
+    padding: 32px;
+  }
+
+  &_form-field {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  &_input{
+    width: 250px;
+    border: none;
+    border-bottom: solid $main-color 1px;
+    line-height: 30px;
+  }
+
+  &_label{
+    width: 250px;
+    text-align: left;
+    line-height: 30px;
+  }
+
+  &_delete-confirm{
+    color: white;
+    border-radius: 16px;
+    border: none;
+    padding: 16px;
+    background-color: $main-color;
+    border: $main-color solid 1px;
+    width: 250px;
+    &:hover {
+      background-color: $important-color;
+      color: white;
+      box-shadow: $primary-color 0px 0px 8px 4px;
+    }
+  }
+
 }
 </style>

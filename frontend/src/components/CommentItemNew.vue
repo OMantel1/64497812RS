@@ -90,13 +90,7 @@ export default {
 </template>
 
 <style lang="scss">
-$primary-color: #747474;
-$main-color: #264672;
-$background-color: rgb(232, 230, 230);
-$old-background-color: #f7f7f7;
-$important-color: #ff4a4a;
-$second-color: #407ac9;
-$font-family: "Jost", sans-serif;
+@import "../styles/_variables.scss"; 
 
 .newComment {
   padding: 8px;
@@ -105,6 +99,7 @@ $font-family: "Jost", sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
   &_input {
     flex: 1;
     padding: 8px;
@@ -113,6 +108,7 @@ $font-family: "Jost", sans-serif;
     border-radius: 4px;
     color: $primary-color;
     margin: 0 8px;
+    
   }
   .far {
     font-size: 16px;
@@ -125,6 +121,10 @@ $font-family: "Jost", sans-serif;
     border: solid lighten($primary-color, 40%) 1px;
     padding: 8px;
     margin: 8px;
+    &:hover{
+      background-color: $main-color;
+      color: white;
+    }
   }
 }
 </style>

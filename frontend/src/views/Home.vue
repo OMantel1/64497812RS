@@ -46,21 +46,3 @@ export default {
   }
 };
 </script>
-
-
-
-<style lang="scss">
-img {
-  width: 100%;
-}
-
-.logo {
-  width: 300px;
-  height: auto;
-  margin: auto;
-  padding: 16px;
-  p {
-    color: white;
-  }
-}
-</style>

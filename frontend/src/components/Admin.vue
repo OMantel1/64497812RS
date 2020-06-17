@@ -7,60 +7,74 @@
       <p>Acces non authorisé</p>
     </div>
 
-    <!-- page admin -->
     <div class="adminPage" v-if="usersList.length >1 ">
-      <h1 class="adminPage_title" v-if="usersList">Page admin</h1>
+      <!-- page admin -->
+      <section class="users-list">
+        <!-- titres -->
+        <!-- <h1 class="users-list_heading" v-if="usersList">Bonjour admin</h1> -->
+        <h1 class="users-list_heading">Liste des utilisateurs</h1>
+        <!-- Liste des utilisateurs -->
+        <ul>
+          <li v-for="users in usersList" :key="users.id" class="users-list_items">
+            <p class="users-list_name">{{users.firstname}} {{users.lastname}}</p>
+            <a href="#/admin" @click="getUserPosts(users.id)">
+              <i class="fas fa-sticky-note"></i>Posts
+            </a>
+            <a href="#/admin" @click="getUserComments(users.id)">
+              <i class="fas fa-comments"></i>Commentaires
+            </a>
+            <a href="#/admin" class="users-list_delete-link" @click="deleteUser(users.id)">
+              <i class="fas fa-user-times"></i>
+              Supp {{users.id}}
+            </a>
+          </li>
+        </ul>
+      </section>
 
-      <!-- Liste des utilisateurs -->
-      <h2 class="adminPage_title">liste des utilisateurs</h2>
-      <ul>
-        <li v-for="users in usersList" :key="users.id" class="adminPage_userList">
-          <p>{{users.firstname}} {{users.lastname}}</p>
-          <a href="#/admin" @click="getUserPosts(users.id)">Afficher les derniers posts</a>
-          <a href="#/admin" @click="getUserComments(users.id)">Afficher les dernieres commentaires</a>
-          <a href="#/admin" @click="deleteUser(users.id)">Supprimer l'utilisateur {{users.id}}</a>
-        </li>
-      </ul>
-
-      <div>
+      <!-- Contenu des utilisateur -->
+      <section class="users-content">
         <!-- Liste des posts -->
-        <div class="adminPage_posts">
-          <h3 class="adminPage_postsTitle">Derniers posts</h3>
+        <div class="users-posts" v-if="posts">
+          <h2 class="users-posts_title">Derniers posts</h2>
+          <p v-if="posts.length < 1">Aucuns posts</p>
           <ul>
-            <li class="adminPage_postsList listTitle">
-              <p>Id</p>
-              <p>Titre</p>
-              <p>Post</p>
-              <p>Action</p>
-            </li>
-            <li v-for="post in posts" :key="post" class="adminPage_postsList">
-              <p>{{post.id}}</p>
-              <p>{{post.title}}</p>
-              <p>{{post.content}}</p>
-              <p>
-                <a href="#/admin" @click="deletePost(post.id)">supprimer</a>
+            <li v-for="post in posts" :key="post" class="users-posts_items">
+              <p class="users-posts_id">Id : {{post.id}}, le: {{post.updatedAt.slice(0,10)}}</p>
+              <p>Titre : {{post.title}}</p>
+              <p>Contenu : {{post.content}}</p>
+              <p class="users-posts_image">
+                <img v-if="post.url_image" :src="post.url_image" alt />
               </p>
+              <a
+                href="#/admin"
+                class="users-posts_delete-link"
+                @click="deletePost(post.id)"
+              >supprimer</a>
             </li>
           </ul>
         </div>
 
         <!-- Liste des commentaires -->
-        <div class="adminPage_comments">
-          <h3 class="adminPage_commentsTitle">Derniers commentaires</h3>
-          <ul>
-            <li class="adminPage_commentsList listTitle">
-              <p>Id</p>
-              <p>Contenu</p>
-              <p>Action</p>
-            </li>
-            <li v-for="comment in comments" :key="comment" class="adminPage_commentsList">
+        <div class="users-comments" v-if="comments">
+          <h2 class="users-comments_title">Derniers commentaires</h2>
+          <p v-if="comments.length < 1">Aucuns commentaires</p>
+          <ul v-else>
+            <li v-for="comment in comments" :key="comment" class="users-comments_items">
+              <p
+                class="users-comments_id"
+              >Id : {{comment.id}}, le: {{comment.updatedAt.slice(0,10)}}</p>
+              <p>Contenu : {{comment.content}}</p>
               <p>
-                <a href="#/admin" @click="deleteComment(comment.id)">supprimer</a>
+                <a
+                  href="#/admin"
+                  class="users-comments_delete-link"
+                  @click="deleteComment(comment.id)"
+                >supprimer</a>
               </p>
             </li>
           </ul>
         </div>
-      </div>
+      </section>
     </div>
   </div>
 </template>
@@ -83,6 +97,11 @@ export default {
       posts: ""
     };
   },
+  computed: {
+    commentDate: function() {
+      return this.comment.slice(0, 5);
+    }
+  },
   methods: {
     //recupere la liste des utilisateurs
     getUsersList() {
@@ -103,7 +122,7 @@ export default {
 
     //recupere tous les posts d'un user.
     getUserPosts(element) {
-      console.log(element);
+      // console.log(element);
 
       axios({
         headers: {
@@ -123,7 +142,7 @@ export default {
 
     //recupere tous les commentaires d'un user.
     getUserComments(element) {
-      console.log(element);
+      // console.log(element);
       axios({
         headers: {
           "Content-Type": "application/json",
@@ -181,21 +200,24 @@ export default {
 
     //suppression d'un utilisateur
     deleteUser(element) {
-      console.log(element);
-      axios({
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("key")
-        },
-        method: "delete",
-        url: "http://localhost:3000/user/delete/" + element
-      })
-        .then(response => {
-          // this.user = response.data;
-          // this.comments = response.data.Comments;
-          console.log(response.data);
+      if (confirm("Supprimer l'utilisateur?")) {
+        console.log(element);
+        axios({
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + sessionStorage.getItem("key")
+          },
+          method: "delete",
+          url: "http://localhost:3000/user/delete/" + element
         })
-        .catch(error => console.log(error));
+          .then(response => {
+            // this.user = response.data;
+            // this.comments = response.data.Comments;
+            console.log(response.data);
+            this.$router.go();
+          })
+          .catch(error => console.log(error));
+      }
     }
   },
   mounted() {
@@ -210,113 +232,126 @@ export default {
 
 
 <style lang="scss">
-$primary-color: #747474;
-$main-color: #264672;
-$background-color: rgb(235, 235, 235);
-$old-background-color: #f7f7f7;
-$important-color: #ff4a4a;
-$second-color: #407ac9;
-$font-family: "Jost", sans-serif;
-
-@mixin adminList {
-  color: $primary-color;
-  border: solid lighten($primary-color, 40%) 1px;
-  border-radius: 4px;
-  margin: 2px;
-  box-sizing: border-box;
-  background-color: white;
-  display: grid;
-  flex-direction: column;
-  grid-gap: 1rem;
-  align-items: center;
-  justify-content: center;
-  text-align: left;
-}
+@import "../styles/_variables.scss";
 
 .adminPage {
   color: black;
-  width: 100%;
+  font-size: 14px;
+  // text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  width: 90%;
   margin: auto;
-  text-align: center;
+  @media screen and (max-width: 525px) {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
 
-  &_title {
-    font-weight: 00px;
+.users-list {
+  width: 200px;
+  min-width: 200px;
+  color: black;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  @media screen and (max-width: 525px) {
+    width: 90%;
   }
 
-  a {
-    color: $primary-color;
+  &_heading {
+    color: $main-color;
+    font-size: 16px;
+    border-bottom: solid lighten($primary-color, 40%) 1px;
+    @media screen and (max-width: 525px) {
+      text-align: center;
+      border-bottom: none;
+    }
+  }
+  &_name {
+    border-bottom: solid lighten($primary-color, 40%) 1px;
+    padding-top: 16px;
+    font-weight: 500;
+  }
+
+  &_items {
+    display: flex;
+    flex-direction: column;
+    a,
+    p,
+    i {
+      color: $main-color;
+      font-size: 14px;
+      padding-right: 16px;
+      text-decoration: none;
+    }
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .fas {
+    color: $main-color;
+    width: 18px;
+  }
+
+  &_delete-link {
+    &:hover {
+      color: $important-color;
+    }
+  }
+}
+
+.users-comments,
+.users-posts {
+  min-width: 70%;
+  color: $main-color;
+  font-size: 16px;
+  padding: 8px;
+
+  &_id {
+    border-bottom: solid lighten($primary-color, 40%) 1px;
+    padding-top: 16px;
+  }
+  &_title {
+    font-size: 16px;
+  }
+  &_image {
+    max-width: 300px;
+    margin: auto;
+  }
+
+  &_delete-link {
     text-decoration: none;
+    color: $main-color;
     &:hover {
       color: $important-color;
       text-decoration: underline;
     }
   }
-  ul {
-    margin: 0;
-    padding: 0;
-  }
+}
 
-  &_posts {
-    margin: 0;
-  }
-  &_comments {
-    width: 100%;
-    margin: auto;
-  }
 
-  &_userList {
-    @include adminList;
-    width: 80%;
-    margin: auto;
-    grid-template-columns: repeat(4, 20% [col-start]);
-  }
-
-  &_postsList {
-    @include adminList;
-    width: 80%;
-    margin: auto;
-    grid-template-columns: repeat(4, 20%[col-start]);
-    p {
-      width: 100%;
-      margin: auto;
-      padding: 8px;
-    }
-  }
-
-  &_commentsList {
-    @include adminList;
-    width: 80%;
-    margin: auto;
-    p {
-      width: 100%;
-      margin: auto;
-      padding: 8px;
-    }
-    grid-template-columns: repeat(3, 20%[col-start]);
-  }
-
-  .listTitle {
-    color: black;
-    text-align: left;
-  }
-  &_error {
-    color: black;
-    text-align: center;
-    font-weight: bolder;
-    font-size: 2em;
-    // display: flex;
-    // flex: 1;
+.users-content {
+  border-left: solid lighten($primary-color, 40%) 1px;
+  @media screen and (max-width: 525px) {
+    border-top: solid $main-color 2px;
+    border-left: none;
+    padding: 8px;
+    width: 90%;
+    // border-left: none;
   }
 }
 
 .unauthorizedMessage {
   color: $main-color;
-  font-size: 2em;
+  font-size: 1em;
   font-weight: 100;
   display: flex;
   justify-content: center;
   text-align: center;
-  padding: 100px;
   background-image: url("../assets/icon.svg");
   background-repeat: no-repeat;
   background-position: center;

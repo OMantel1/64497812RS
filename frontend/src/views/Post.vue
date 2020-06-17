@@ -2,55 +2,51 @@
   <div class="post_container">
     <Header />
 
-    <!-- Aside du post -->
-    <div id="post" class="post post-width">
-      <aside class="post_aside">
-        <p id="post_user_id">
-          Posté par
-          <br />
-          {{user.User.firstname}} {{user.User.lastname}}
-        </p>
-        <a
-          v-if="user.UserId == userLoggedId"
-          href="#"
-          @click="deletePost(postId)"
-          class="post_delete-link"
-        >Supprimer ce post</a>
-      </aside>
-
-      <!-- Contenu du post -->
-      <section class="post_main" :id="user.id">
-        <p id="post_title" class="post_title">{{user.title}}</p>
-        <p id="post_content" class="post_content">{{user.content}}</p>
-        <img class="post_image" :src="user.url_image" />
-
-        <div class="post_comments">
-          <ul v-if="comments.length">
-            <li v-for="comment in comments" v-bind:key="comment.UserId">
-              {{comment.User.firstname}} {{comment.User.lastname}} dit: {{comment.content}} {{comment.UserId}} {{userLoggedId}}
-              <a
-                class="post_delete-link"
-                id="commentIdClicked"
-                href="#"
-                @click="deleteComment(comment.id)"
-              >
-                <i class="far fa-trash-alt" v-if="comment.UserId == userLoggedId"></i>
-              </a>
-            </li>
-          </ul>
-          <p v-else>Pas de commentaires</p>
-
-          <!-- Formulaire nouveau commentaire -->
-          <CommentItemNew :postId="user.id" />
+    <div class="dashboard-Items">
+      <div id="post" class="post">
+        <div class="post_name">
+          <i class="fas fa-user-circle"></i>
+          <p id="post_user_id">{{user.User.firstname}} {{user.User.lastname}}</p>
         </div>
-      </section>
-    </div>
 
-    <!-- AJOUTER LIEN DE RETOUR VERS DASHBOARD -->
-    <a href="http://localhost:8080/?#/dashboard" class="backLink">Retour vers le forum</a>
+        <!-- Contenu du post -->
+        <div class="post_main">
+          <p id="post_title" class="post_title">"{{user.title}}"</p>
+          <p id="post_content" class="post_content">{{user.content}}</p>
+          <img class="post_image" :src="user.url_image" />
+
+          <!-- Commentaires -->
+          <div class="post_comments">
+            <ul v-if="comments.length">
+              <li v-for="comment in comments" v-bind:key="comment.UserId">
+                {{comment.User.firstname}} {{comment.User.lastname}} dit: {{comment.content}} {{comment.UserId}} {{userLoggedId}}
+                <!-- suppression commentaire -->
+                <a
+                  class="post_delete-link"
+                  id="commentIdClicked"
+                  href="#"
+                  @click="deleteComment(comment.id)"
+                >
+                  <i class="far fa-trash-alt" v-if="comment.UserId == userLoggedId"></i>
+                </a>
+              </li>
+            </ul>
+            <p v-else>Pas de commentaires</p>
+
+            <!-- Formulaire nouveau commentaire  -->
+            <CommentItemNew :postId="user.id" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Retour vers dashboard  -->
+    <div>
+      <a href="http://localhost:8080/?#/dashboard" class="backlink">
+        <i class="far fa-arrow-alt-circle-left backlink_icon"></i>
+      </a>
+    </div>
   </div>
 </template>
-
 
 
 <script>
@@ -112,20 +108,22 @@ export default {
     },
 
     deletePost(element) {
-      console.log(element);
-      axios({
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("key")
-        },
-        method: "DELETE",
-        url: "http://localhost:3000/posts/" + element
-      })
-        .then(response => {
-          this.$router.push({ name: "dashboard" });
-          console.log(response.data);
+      if (confirm("Supprimer ce post?")) {
+        console.log(element);
+        axios({
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + sessionStorage.getItem("key")
+          },
+          method: "DELETE",
+          url: "http://localhost:3000/posts/" + element
         })
-        .catch(error => console.log(error));
+          .then(response => {
+            this.$router.push({ name: "dashboard" });
+            console.log(response.data);
+          })
+          .catch(error => console.log(error));
+      }
     }
   }
 };
@@ -134,27 +132,7 @@ export default {
 
 
 <style lang="scss">
-$primary-color: #747474;
-$main-color: #264672;
-$background-color: rgb(235, 235, 235);
-$old-background-color: #f7f7f7;
-$important-color: #ff4a4a;
-$second-color: #407ac9;
-$font-family: "Jost", sans-serif;
-
-img {
-  width: 100%;
-}
-
-.logo {
-  width: 300px;
-  height: auto;
-  margin: auto;
-  padding: 16px;
-  p {
-    color: white;
-  }
-}
+@import "../styles/_variables.scss";
 
 .post_delete-link {
   color: $primary-color;
@@ -167,12 +145,20 @@ img {
 }
 
 //A recentrer
-.backLink {
+.backlink {
   color: $primary-color;
   text-decoration: none;
-  &:hover {
-    color: red;
-    text-decoration: underline;
+  padding: 16px;
+  width: 20px;
+  display: flex;
+  margin: auto;
+  &_icon {
+    font-size: 30px;
+    font-weight: 100;
+    &:hover {
+    color: $main-color;
   }
+  }
+
 }
 </style>

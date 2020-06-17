@@ -5,13 +5,8 @@
 </template>
 
 <style lang="scss">
-$primary-color: #747474;
-$main-color: #264672;
-$background-color: rgb(206, 206, 206);
-$old-background-color: #f7f7f7;
-$important-color: #ff4a4a;
-$second-color: #407ac9;
-$font-family: "Jost", sans-serif;
+@import "/styles/_variables.scss"; 
+
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -21,55 +16,28 @@ $font-family: "Jost", sans-serif;
   color: white;
 }
 
+
+body {
+  margin: 0;
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    list-style: none;
+  }
+}
+
+img{
+  width: 100%;
+}
+
 .container {
   min-height: 100vh;
   display: grid;
   justify-content: center;
   align-content: center;
-  background-color: #264672;
-}
-#header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: $main-color;
-  padding: 16px 8px;
-  color: white;
-  font-weight: 200;
-  border-bottom: solid 2px white;
-
-  .header_image {
-    width: 190px;
-  }
-  .header_links {
-    color: white;
-    font-size: 0.8em;
-    text-decoration: none;
-    padding-right: 4px;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  // .logout {
-  //   color: white;
-  //   text-decoration: none;
-  //   .fa-user,
-  //   .fa-users-cog {
-  //     font-size: 1.2em;
-  //   }
-
-  //   &:hover {
-  //     color: $important-color;
-  //   }
-  // }
-
-  .fa-user,
-    .fa-users-cog {
-      font-size: 1.2em;
-      color: white;
-    }
-
+  // background-color: #264672;
 }
 
 .auth {
@@ -78,11 +46,11 @@ $font-family: "Jost", sans-serif;
   text-align: center;
   a {
     font-weight: bold;
-    color: rgb(212, 211, 211);
+    color: $main-color;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
-      color: white;
+      color: $important-color;
     }
 
     &.router-link-exact-active {

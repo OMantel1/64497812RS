@@ -1,18 +1,30 @@
 <template>
-  <div class="login container">
+  <div class="user-login container">
     <!-- <div class="logo">
       <img src="../assets/icon-left-font-monochrome-white.svg" />
     </div>-->
-    <form id="form-login" class="form loginForm">
-      <div class="form_field">
-        <label for="mail">Mail</label>
-        <input id="email" type="email" v-model.lazy="mail" placeholder="user@groupomania.com" />
+    <form class="user-login_form" id="form-login" >
+      <div class="user-login_form-field">
+        <label class="user-login_label" for="mail">Mail</label>
+        <input
+          class="user-login_input"
+          id="email"
+          type="email"
+          v-model.lazy="mail"
+          placeholder="user@groupomania.com"
+        />
       </div>
-      <div class="form_field">
-        <label for="mdp">Password</label>
-        <input id="password" type="password" v-model.lazy="password" placeholder="******" />
+      <div class="user-login_form-field">
+        <label class="user-login_label" for="mdp" >Mot de passe</label>
+        <input
+          class="user-login_input"
+          id="password"
+          type="password"
+          v-model.lazy="password"
+          placeholder="Password"
+        />
       </div>
-      <button class="button button-login" @click="login">Se connecter</button>
+      <button class="user-login_button" @click="login">Se connecter</button>
       <p id="alert">{{msgError}}</p>
     </form>
 
@@ -106,48 +118,53 @@ export default {
 </script>
 
 <style lang="scss">
-$primary-color: #747474;
-$main-color: #264672;
-$background-color: rgb(206, 206, 206);
-$old-background-color: #f7f7f7;
-$important-color: #ff4a4a;
-$second-color: #407ac9;
-$font-family: "Jost", sans-serif;
+@import "../styles/_variables.scss"; 
 
-.form {
-  padding: 32px;
-  border-radius: 8px;
-  background-color: #f7f7f7;
-  .form_field {
-    width: 95%;
+.user-login {
+  color: $main-color;
+  font-weight: lighter;
+  text-align: center;
+  padding-top: 32px;
+  &_form {
+    color: $main-color;
+    font-weight: lighter;
+    padding: 16px;
+  }
+
+  &_form-field {
     padding: 8px;
     display: flex;
-    justify-content: space-between;
-    color: #747474;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-}
+  &_input {
+    width: 250px;
+    border: none;
+    border-bottom: solid $main-color 1px;
+    line-height: 30px;
+  }
 
-.loginForm {
-  display: grid;
-  justify-content: center;
-  font-size: 16px;
-  .signupLink {
-    text-decoration: none;
-    color: #747474;
-    text-align: center;
+  &_label {
+    width: 250px;
+    text-align: left;
+    line-height: 30px;
+  }
+
+  &_button{
+    color: white;
+    border-radius: 16px;
+    border: none;
+    padding: 16px;
+    background-color: $main-color;
+    border: $main-color solid 1px;
+    width: 250px;
     &:hover {
-      text-decoration: underline;
+      background-color: lighten($main-color, 10%);
+      color: white;
+      // box-shadow: $second-color 0px 0px 8px 4px;
+      border: $second-color solid 1px;
     }
-  }
-  input,
-  label {
-    padding: 8px;
-    font-size: 16px;
-  }
-  input {
-    border-radius: 8px;
-    border: solid 1px;
-    color: lighten($primary-color, 20%);
   }
 }
 
@@ -156,25 +173,16 @@ $font-family: "Jost", sans-serif;
   text-align: center;
 }
 
-.button {
-  background-color: white;
-  border-radius: 8px;
-  border: solid 1px;
-  padding: 12px;
+// .logo {
+//   width: 300px;
+//   height: auto;
+//   margin: auto;
+//   padding: 16px;
+//   p {
+//     color: white;
+//   }
+// }
 
-  &:hover {
-    background-color: lighten(#407ac9, 10%);
-    color: white;
-  }
-}
-
-.button-login {
-  padding: 12px 128px;
-  margin: 8px auto;
-  color: white;
-  background-color: #407ac9;
-  font-size: 16px;
-}
 </style>
 
 

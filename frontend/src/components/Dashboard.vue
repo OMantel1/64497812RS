@@ -156,8 +156,12 @@ export default {
         //   content: this.content
         // };
 
+        //test si image upload
         const postData = new FormData();
-        postData.append("image", this.selectedFile);
+        if (this.selectedFile !== undefined) {
+          postData.append("image", this.selectedFile);
+        }
+
         postData.append("title", this.title);
         postData.append("content", this.content);
         postData.append("UserId", sessionStorage.getItem("user"));
@@ -184,7 +188,7 @@ export default {
             // console.log(error.response.data.error);
             this.msgError = error.response.data.error;
           });
-        // this.$router.go();
+        this.$router.go();
       }
     },
     dashboardLoading() {
@@ -345,10 +349,9 @@ export default {
 }
 
 .fade-enter-active {
-  transition: opacity .5s;
+  transition: opacity 0.5s;
 }
 .fade-enter {
   opacity: 0;
 }
-
 </style>

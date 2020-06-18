@@ -57,17 +57,20 @@ exports.newPost = (req, res, next) => {
       error: error
     });
   }
-  // console.log(req.body);
-  // console.log(req.body.content);
-  // console.log(req.file);
 
-  //creation d 'un nouveau post
+  //test si image, si pas d'image, imageUrl null
+  let imageUrl = null;
+  if (req.file) {
+    imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  }
+// console.log(imageUrl);
+  // creation d 'un nouveau post
   sequelize.Post.create({
       UserId: req.body.UserId,
       title: req.body.title,
       content: req.body.content,
       // url_image: req.body.url_image
-      url_image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      url_image: imageUrl
     })
     .then(response => res.status(200).json({
       message: "Post bien crée"

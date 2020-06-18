@@ -115,28 +115,35 @@ exports.getOnePost = (req, res, next) => {
 /***** DELETE ON POST *****/
 exports.deleteOnePost = (req, res, next) => {
   sequelize.Post.findOne({
-      where: {
-        id: req.params.id
-      }
-    })
+      where: {id: req.params.id}})
     .then(post => {
-      const filename = post.url_image.split('/images/')[1];
-      fs.unlink(`images/${filename}`, () => {
-        sequelize.Post.destroy({
-            where: {
-              id: req.params.id
-            }
-          })
-          .then(post => {
-            console.log(post);
-            res.status(200).json({
+
+      //if post.url_image === null
+      if(post.url_image === null){
+        sequelize.Post.destroy({where: {id: req.params.id}})
+          .then(post => {res.status(200).json({
               message: "post bien supprimé"
             });
           })
           .catch(error => res.status(400).json({
             error
           }));
-      })
+          //if post.url_image
+      }else {
+        const filename = post.url_image.split('/images/')[1];
+        fs.unlink(`images/${filename}`, () => {
+          sequelize.Post.destroy({where: {id: req.params.id}})
+            .then(post => {res.status(200).json({
+                message: "post bien supprimé"
+              });
+            })
+            .catch(error => res.status(400).json({
+              error
+            }));
+          })
+      }
+      
+      
     })
     .catch(error => res.status(500).json({
       error

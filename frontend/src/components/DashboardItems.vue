@@ -24,7 +24,7 @@ export default {
       required: true
     },
     comments: {
-      type: [],
+      type: Array,
       required: true
     }
     // commentLength: {

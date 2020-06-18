@@ -1,7 +1,8 @@
 <template>
   <header class="header">
     <div class="header-image">
-      <img src="../assets/icon-left-font-monochrome-white.svg" />
+      <router-link to="/dashboard">
+      <img src="../assets/icon-left-font-monochrome-white.svg" /> </router-link>
     </div>
     <!-- <i class="fas fa-bars" @click="displaymenu = true"></i> -->
     <nav class="header-nav">
@@ -9,11 +10,10 @@
       <router-link to="/signup" v-if="!userInfos" class="header_links">Signup |</router-link>-->
       <router-link to="/dashboard" v-if="userInfos" class="header-nav_links line">Forum</router-link>
       <a href="#/admin/" v-if="userInfos.admin == 1" class="header-nav_links line">Page admin</a>
-      <a href="#" @click="logOut()" class="header-nav_links" v-if="userInfos">Se deconnecter</a>
-      <a href="#/profile/" v-if="userInfos.admin == 0" class="header-nav_links">Gerer mon profil</a>
+      <a href="#/profile/" v-if="userInfos.admin == 0" class="header-nav_links line">Gerer mon profil</a>
+      <a href="#" @click="logOut()" class="header-nav_links" v-if="isUserLogged">Se deconnecter</a>
+      <i class="fas fa-user profile-icon"></i>
 
-      <i class="fas fa-users-cog profile-icon" v-if="role == 1"></i>
-      <i class="fas fa-user profile-icon" v-else></i>
     </nav>
   </header>
 </template>
@@ -33,26 +33,22 @@ export default {
       isUserLogged: ""
     };
   },
+  mounted() {
+    this.getuserData();
+    if (sessionStorage.user) {
+    this.isUserLogged = sessionStorage.user;
+  }
+    // this.logOut();
+  },
   methods: {
-    logOut: function() {
+    logOut() {
       sessionStorage.clear("user");
       sessionStorage.clear("key");
       // this.isUserLogged = "";
-      this.$router.push({ name: "login" });
+      // this.getuserData();
+      window.location.href = "/login";
     },
-    logIn: function() {
-      this.isUserLogged = sessionStorage.user;
-      console.log(this.isUserLogged);
-    }
-  },
-  // mounted() {
-  // if (sessionStorage.user) {
-  //   this.isUserLogged = sessionStorage.user;
-  // }
-  // this.login();
-  // this.logOut();
-  created: function() {
-    this.$nextTick(function getmessage() {
+    getuserData() {
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -69,19 +65,18 @@ export default {
           console.log(userInfos.data);
         })
         .catch(error => console.log(error));
-    });
-  }
+    }
+    // logIn: function() {
+    //   this.isUserLogged = sessionStorage.user;
+    //   console.log(this.isUserLogged);
+    // }
+  },
 
-  // destroyed() {
-  //   if (sessionStorage.user) {
-  //     this.isUserLogged = sessionStorage.user;
-  //   }
-  // },
-  // watch: {
-  //   isUserLogged() {
-  //     this.isUserLogged = sessionStorage.user;
-  //   }
-  // }
+  watch: {
+    isUserLogged() {
+      this.isUserLogged = sessionStorage.user;
+    }
+  }
 };
 </script>
 
@@ -94,7 +89,6 @@ export default {
   align-items: center;
   background-color: $main-color;
   padding: 16px 8px;
-  margin-bottom: 32px;
   color: white;
   font-weight: 200;
   border-bottom: solid 2px white;
@@ -126,7 +120,7 @@ export default {
 }
 
 @media screen and (max-width: 525px) {
-  .header{
+  .header {
     display: flex;
     flex-direction: column;
   }
@@ -136,7 +130,7 @@ export default {
     width: 100%;
     text-align: center;
   }
-  .profile-icon{
+  .profile-icon {
     display: none;
   }
 }

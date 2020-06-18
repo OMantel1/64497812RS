@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header />
+    <!-- <Header /> -->
 
     <!-- Message d'acces non authorisé -->
     <div v-if="usersList.length <1 " class="unauthorizedMessage">
@@ -38,7 +38,7 @@
           <h2 class="users-posts_title">Derniers posts</h2>
           <p v-if="posts.length < 1">Aucuns posts</p>
           <ul>
-            <li v-for="post in posts" :key="post" class="users-posts_items">
+            <li v-for="post in posts" :key="post.id" class="users-posts_items">
               <p class="users-posts_id">Id : {{post.id}}, le: {{post.updatedAt.slice(0,10)}}</p>
               <p>Titre : {{post.title}}</p>
               <p>Contenu : {{post.content}}</p>
@@ -59,7 +59,7 @@
           <h2 class="users-comments_title">Derniers commentaires</h2>
           <p v-if="comments.length < 1">Aucuns commentaires</p>
           <ul v-else>
-            <li v-for="comment in comments" :key="comment" class="users-comments_items">
+            <li v-for="comment in comments" :key="comment.id" class="users-comments_items">
               <p
                 class="users-comments_id"
               >Id : {{comment.id}}, le: {{comment.updatedAt.slice(0,10)}}</p>
@@ -68,7 +68,7 @@
                 <a
                   href="#/admin"
                   class="users-comments_delete-link"
-                  @click="deleteComment(comment.id)"
+                  @click="deleteComment(comment.id, comment.UserId)"
                 >supprimer</a>
               </p>
             </li>
@@ -82,12 +82,12 @@
 
 <script>
 const axios = require("axios");
-import Header from "@/components/Header.vue";
+// import Header from "@/components/Header.vue";
 
 export default {
   name: "Admin",
   components: {
-    Header
+    // Header
   },
   data() {
     return {
@@ -160,7 +160,7 @@ export default {
     },
 
     //suppression d'un post
-      async deletePost(element, userElement) {
+      deletePost(element, userElement) {
       console.log(element);
       console.log(userElement);
       axios({
@@ -172,6 +172,7 @@ export default {
         url: "http://localhost:3000/posts/admin/" + element
       })
         .then(response => {
+          this.getUserPosts(userElement);
           // this.user = response.data;
           // this.comments = response.data.Comments;
           console.log(response.data);
@@ -179,11 +180,10 @@ export default {
           // this.$router.go();
         })
         .catch(error => console.log(error));
-        await this.getUserPosts();
     },
 
     //suppression d'un commentaire
-    deleteComment(element) {
+    deleteComment(element, userElement) {
       console.log(element);
       axios({
         headers: {
@@ -194,6 +194,7 @@ export default {
         url: "http://localhost:3000/comments/admin/" + element
       })
         .then(response => {
+          this.getUserComments(userElement);
           // this.user = response.data;
           this.comments = response.data.Comments;
           console.log(response.data);
@@ -244,6 +245,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   width: 90%;
+  padding-top: 16px;
   margin: auto;
   @media screen and (max-width: 525px) {
     flex-direction: column;

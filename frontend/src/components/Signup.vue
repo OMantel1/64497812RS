@@ -127,7 +127,7 @@ export default {
           })
           .then(response => {
             console.log(response);
-            this.$router.push({ name: "login" });
+            window.location.href = "/#/"
             // sessionStorage.setItem("key", response.data.token);
             // sessionStorage.setItem("user", response.data.userId);
           })

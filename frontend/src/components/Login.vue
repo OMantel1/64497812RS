@@ -101,8 +101,9 @@ export default {
             // console.log(response);
             sessionStorage.setItem("key", response.data.token);
             sessionStorage.setItem("user", response.data.userId);
-            this.$router.push({ name: "dashboard" });
+            // this.$router.push({ name: "dashboard" });
             this.$emit("isUserLogged");
+            window.location.href = "/#/dashboard/"
           })
           .catch(error => {
             console.log(error.response.data.error);

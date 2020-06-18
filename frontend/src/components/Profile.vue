@@ -1,7 +1,6 @@
 <template>
   <div>
     <!-- Header -->
-    <Header />
 
     <!-- Profile utilisateur-->
 
@@ -52,12 +51,10 @@
 
 <script>
 const axios = require("axios");
-import Header from "@/components/Header.vue";
 
 export default {
   name: "Profile",
   components: {
-    Header
   },
   data() {
     return {
@@ -109,7 +106,7 @@ export default {
             sessionStorage.clear("user");
             sessionStorage.clear("key");
             this.isUserLogged = "";
-            this.$router.push({ name: "login" });
+            window.location.href = "/#/"
           })
           .catch(error => {
             console.log(error.response.data.error);

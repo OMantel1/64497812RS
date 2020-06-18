@@ -27,8 +27,6 @@ export default {
       //test input comment
       if (this.comment === "" || this.comment == null) {
         error = "Commentaire requis";
-      // } else if (this.comment.length < 2) {
-      //   error = "Un minimum de 2 caracteres est requis";
       } else if (!textRegex.test(this.comment)) {
         error = "les caractères suivants sont interdits: = * < > { }";
       }
@@ -43,8 +41,7 @@ export default {
           content: this.comment,
           PostId: this.postId
         };
-        // console.log(options);
-        console.log(comment);
+        // console.log(comment);
         axios({
           headers: {
             "Content-Type": "application/json",
@@ -55,6 +52,7 @@ export default {
           data: comment
         })
           .then(response => {
+            this.$router.go();
             if (response.status === 201) {
               return response;
             } else {
@@ -62,11 +60,11 @@ export default {
             }
           })
           .catch(error => {
-            console.log(error.response.data.error);
+            // console.log(error.response.data.error);
             this.msgError = error.response.data.error;
           });
 
-        this.$router.go();
+        
       }
     }
   }

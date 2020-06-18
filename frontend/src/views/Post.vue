@@ -1,6 +1,6 @@
 <template>
   <div class="post_container">
-    <Header />
+    <!-- <Header /> -->
 
     <div class="dashboard-Items">
       <div id="post" class="post">
@@ -61,11 +61,11 @@
 <script>
 const axios = require("axios");
 import CommentItemNew from "@/components/CommentItemNew.vue";
-import Header from "@/components/Header.vue";
+// import Header from "@/components/Header.vue";
 
 export default {
   name: "Post",
-  components: { CommentItemNew, Header },
+  components: { CommentItemNew },
   data() {
     return {
       postId: "",
@@ -76,8 +76,12 @@ export default {
     };
   },
   mounted() {
-    this.content = "loading...";
-    this.userLoggedId = sessionStorage.getItem("user");
+    this.getPostElements();
+    
+  },
+  methods: {
+    getPostElements(){
+      this.userLoggedId = sessionStorage.getItem("user");
     const options = {
       headers: {
         "Content-Type": "application/json",
@@ -94,10 +98,9 @@ export default {
         // console.log(response.data.id);
       })
       .catch(error => console.log(error));
-  },
-  methods: {
+    },
     deleteComment(element) {
-      console.log(element);
+      // console.log(element);
       axios({
         headers: {
           "Content-Type": "application/json",
@@ -153,7 +156,7 @@ export default {
   }
 }
 
-.post-header{
+.post-header {
   display: flex;
   justify-content: space-between;
 }

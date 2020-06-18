@@ -1,19 +1,19 @@
 <template>
   <div>
-    <!-- <Header :prenom="userInfos.firstname" :role="userInfos.admin" /> -->
+    <Header/>
     <router-view></router-view>
   </div>
 </template>
 
 
 <script>
-// import Header from "@/components/Header.vue";
+import Header from "@/components/Header.vue";
 const axios = require("axios");
 
 export default {
   name: "Home",
   components: {
-    // Header
+    Header
   },
   data() {
     return {

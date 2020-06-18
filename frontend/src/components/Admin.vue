@@ -48,7 +48,7 @@
               <a
                 href="#/admin"
                 class="users-posts_delete-link"
-                @click="deletePost(post.id)"
+                @click="deletePost(post.id, post.UserId)"
               >supprimer</a>
             </li>
           </ul>
@@ -160,8 +160,9 @@ export default {
     },
 
     //suppression d'un post
-    deletePost(element) {
+      async deletePost(element, userElement) {
       console.log(element);
+      console.log(userElement);
       axios({
         headers: {
           "Content-Type": "application/json",
@@ -174,9 +175,11 @@ export default {
           // this.user = response.data;
           // this.comments = response.data.Comments;
           console.log(response.data);
-          this.$router.go();
+          
+          // this.$router.go();
         })
         .catch(error => console.log(error));
+        await this.getUserPosts();
     },
 
     //suppression d'un commentaire

@@ -4,9 +4,18 @@
 
     <div class="dashboard-Items">
       <div id="post" class="post">
-        <div class="post_name">
-          <i class="fas fa-user-circle"></i>
-          <p id="post_user_id">{{user.User.firstname}} {{user.User.lastname}}</p>
+        <div class="post-header">
+          <div class="post_name">
+            <i class="fas fa-user-circle"></i>
+            <p id="post_user_id">{{user.User.firstname}} {{user.User.lastname}}</p>
+          </div>
+          <!-- boutton supprimer post a replacer -->
+          <a
+            v-if="user.UserId == userLoggedId"
+            href="#"
+            @click="deletePost(postId)"
+            class="post_delete-link"
+          >Supprimer ce post</a>
         </div>
 
         <!-- Contenu du post -->
@@ -137,11 +146,16 @@ export default {
 .post_delete-link {
   color: $primary-color;
   text-decoration: none;
-
+  font-size: 12px;
   &:hover {
     color: red;
     text-decoration: underline;
   }
+}
+
+.post-header{
+  display: flex;
+  justify-content: space-between;
 }
 
 //A recentrer
@@ -156,9 +170,8 @@ export default {
     font-size: 30px;
     font-weight: 100;
     &:hover {
-    color: $main-color;
+      color: $main-color;
+    }
   }
-  }
-
 }
 </style>

@@ -156,7 +156,6 @@ export default {
     color: $main-color;
     font-weight: lighter;
     padding: 16px;
-    border: solid red 2px;
     width: 300px;
     margin: auto;
   }

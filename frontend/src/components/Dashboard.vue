@@ -11,7 +11,7 @@
       <!-- Form new post Hidden-->
       <transition name="fade">
         <form v-if="!isHidden" class="new-post_form">
-          <a href="#" class="new-post_close-button" v-on:click="isHidden = true">×</a>
+          <a href="#" class="new-post_close-button" v-on:click.prevent="isHidden = true">×</a>
           <input
             class="new-post_form-input"
             type="text"

@@ -147,16 +147,18 @@ export default {
 <style lang="scss">
 @import "../styles/_variables.scss"; 
 
-.user-signup,
-.user-login {
+.user-signup{
   color: $main-color;
   font-weight: lighter;
-  // text-align: center;
+  text-align: center;
   padding-top: 32px;
   &_form {
     color: $main-color;
     font-weight: lighter;
     padding: 16px;
+    border: solid red 2px;
+    width: 300px;
+    margin: auto;
   }
 
   &_form-field {

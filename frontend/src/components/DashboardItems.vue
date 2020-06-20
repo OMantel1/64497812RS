@@ -55,7 +55,7 @@ export default {
           <p id="post_title" class="post_title">"{{title}}"</p>
           <p id="post_content" class="post_content">{{content}}</p>
           <img class="post_image" :src="image" />
-          <p class="post_comments-icon">{{commentLength}} commentaires</p>
+          <p class="post_comments-icon bold">{{commentLength}} commentaires</p>
         </div>
       </div>
     </router-link>

@@ -29,7 +29,7 @@
           <div class="post_comments">
             <ul v-if="comments.length">
               <li v-for="comment in comments" v-bind:key="comment.UserId">
-                {{comment.User.firstname}} {{comment.User.lastname}} dit: {{comment.content}}
+                <span class="bold"> {{comment.User.firstname}} {{comment.User.lastname}} </span> dit: {{comment.content}}
                 <!-- suppression commentaire -->
                 <a
                   class="post_delete-link"
@@ -171,5 +171,8 @@ export default {
       color: $main-color;
     }
   }
+}
+.bold{
+  font-weight: bolder;
 }
 </style>

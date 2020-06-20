@@ -26,8 +26,7 @@
             </a>
              <!-- Lien suprression utilisateur-->
             <a href="#/admin" class="users-list_delete-link" @click="deleteUser(users.id)">
-              <i class="fas fa-user-times"></i>
-              Supp {{users.id}}
+              <i class="fas fa-user-times"></i>Supprimer
             </a>
           </li>
         </ul>

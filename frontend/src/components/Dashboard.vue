@@ -1,16 +1,16 @@
 <template>
   <div class="box">
-
     <Header />
-    <!-- New post container-->
+    <!-- Posts -->
     <div class="DashboardItemNew new-post" v-if="isUserLogged">
-      <!-- Form new post button-->
+
+      <!-- Lien pour afficher form nouveau post-->
       <div class="new-post_linkBox">
         <img src="../assets/icon.svg" class="new-post_logo" />
         <button v-on:click="isHidden = false" class="new-post_Link">Créer un nouveau post</button>
       </div>
 
-      <!-- Form new post Hidden-->
+      <!-- Form nouveau post -->
       <transition name="fade">
         <form v-if="!isHidden" class="new-post_form">
           <a href="#" class="new-post_close-button" v-on:click.prevent="isHidden = true">×</a>
@@ -32,13 +32,14 @@
             @change="onFileSelected"
             placeholder="upload image"
           />
+          <!-- form submit -->
           <button class="new-post_form-button" v-on:click="sendNewContent">Envoyer</button>
           <p id="alert">{{msgError}}</p>
         </form>
       </transition>
     </div>
 
-    <!-- posts list -->
+    <!-- Affichage de tous les derniers posts -->
     <DashboardItems
       v-for="message in messageContent"
       v-bind:key="message.id"
@@ -56,9 +57,7 @@
 <script>
 const axios = require("axios");
 import Header from "@/components/Header.vue";
-
 import DashboardItems from "@/components/DashboardItems.vue";
-
 export default {
   name: "Dashboard",
   components: {
@@ -95,18 +94,16 @@ export default {
     }
   },
   methods: {
+    // Empeche l'affichage du formulaire de nouveau post si utilisateur non connecté
     userLogged(){
       if (sessionStorage.getItem("user")) {
       this.isUserLogged = true;
     }
     },
+    //Selection image
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
-      // console.log(event.target.files[0]);
-      console.log(this.selectedFile);
-      // console.log(...imageSelected);
     },
-
     //Envoi du formulaire
     sendNewContent(e) {
       let textRegex = /^[^=*<>{}]+$/;
@@ -137,7 +134,7 @@ export default {
         this.msgError = error;
       } else {
 
-        //test si image upload
+        //test si image upload, si image, l'ajoute à postData
         const postData = new FormData();
         if (this.selectedFile !== undefined) {
           postData.append("image", this.selectedFile);
@@ -147,8 +144,7 @@ export default {
         postData.append("content", this.content);
         postData.append("UserId", sessionStorage.getItem("user"));
 
-        console.log(...postData);
-        // console.log(...imageSelected);
+        //requete
         axios({
           headers: {
             "Content-Type": "application/json",
@@ -167,11 +163,11 @@ export default {
             }
           })
           .catch(error => {
-            // console.log(error.response.data.error);
             this.msgError = error.response.data.error;
           });
       }
     },
+    //Récupération des posts
     dashboardLoading() {
       const options = {
         headers: {
@@ -183,18 +179,11 @@ export default {
         .get("http://localhost:3000/posts/", options)
         .then(response => {
           this.messageContent = response.data;
-          console.log(response.data);
         })
         .catch(error => console.log(error));
     }
   },
-  // created: function() {
-  //   this.dashboardLoading();
-  // },
   mounted() {
-    // if (sessionStorage.getItem("user")) {
-    //   this.isUserLogged = true;
-    // }
     this.dashboardLoading();
     this.userLogged();
   }
@@ -211,7 +200,6 @@ export default {
 
 .box {
   background-color: $background-color;
-  // padding-top: 16px;
 }
 
 .dashboard-Items {
@@ -306,7 +294,6 @@ export default {
     &-file {
       font-size: 12px;
       border: none;
-      // border-bottom: solid $main-color 1px;
       padding: 16px 0;
     }
 

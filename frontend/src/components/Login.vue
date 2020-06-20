@@ -1,8 +1,6 @@
 <template>
   <div class="user-login container">
-    <!-- <div class="logo">
-      <img src="../assets/icon-left-font-monochrome-white.svg" />
-    </div>-->
+    <!-- login form -->
     <form class="user-login_form" id="form-login" >
       <div class="user-login_form-field">
         <label class="user-login_label" for="mail">Mail</label>
@@ -24,10 +22,11 @@
           placeholder="Password"
         />
       </div>
+      <!-- form submit -->
       <button class="user-login_button" @click="login">Se connecter</button>
       <p id="alert">{{msgError}}</p>
     </form>
-
+    <!-- signup link -->
     <div class="auth">
       <router-link to="/signup">Signup</router-link>
     </div>
@@ -35,15 +34,9 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import LoginForm from "@/components/LoginForm.vue";
 const axios = require("axios");
-
 export default {
   name: "Login",
-  // components: {
-  //    LoginForm
-  // }
   props: {
     mail: {
       type: String
@@ -55,23 +48,16 @@ export default {
     msgError: {
       type: String
     }
-    // isUserLogged: {
-    //   type: String
-    // }
   },
   methods: {
+    //connexion
     login: function(e) {
       e.preventDefault();
       let mailRegex = /.+@.+\..+/;
-      // regex mdp: au moins une lettre majuscule, au moins une lettre minuscule, au moins un chiffre ou un caractere spécial suivant -+!*$@%_ , longeur entre 8 et 15 caracteres.
-      // let mdpRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/;
-      // interdit les les chiffres et les caracteres spéciaux, longeur minimum de 3.
-      // let nameRegex = /^((?=.*[A-Z])|(?=.*[a-z]))([- 'éàèùêûiîàça-zA-Z]{3,})$/;
       this.msgError = "";
       let error;
-      // if (!mdpRegex.test(this.password)) {
-      //   error = "Mot de passe invalide";
-      // }
+      
+      //check inputs
       if (!this.mail) {
         error = "Mail requis";
       }
@@ -85,6 +71,7 @@ export default {
       if (error) {
         this.msgError = error;
       } else {
+        //si validation ok
         axios
           .post("http://localhost:3000/user/login/", {
             mail: this.mail,
@@ -98,31 +85,25 @@ export default {
             }
           })
           .then(response => {
-            console.log(response.data);
-            console.log(response.data.userRole);
+            //stockage des données utilisateur dans session storage et local storage
             sessionStorage.setItem("key", response.data.token);
             sessionStorage.setItem("user", response.data.userId);
             localStorage.setItem("role", response.data.userRole);
-            // this.$router.push({ name: "Dashboard" });
-            // this.$emit("isUserLogged");
             window.location.href = "#/dashboard"
           })
           .catch(error => {
-            // console.log(error.response.data.error);
             this.msgError = error.response.data.error;
           });
       }
     }
   }
-  // created() {
-  //   this.isUserLogged = sessionStorage.user;
-  // }
 };
 </script>
 
 <style lang="scss">
 @import "../styles/_variables.scss"; 
 
+//form login
 .user-login {
   color: $main-color;
   font-weight: lighter;
@@ -171,20 +152,11 @@ export default {
   }
 }
 
+//messages d'erreurs
 #alert {
   color: red;
   text-align: center;
 }
-
-// .logo {
-//   width: 300px;
-//   height: auto;
-//   margin: auto;
-//   padding: 16px;
-//   p {
-//     color: white;
-//   }
-// }
 
 </style>
 

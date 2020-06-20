@@ -27,16 +27,9 @@ export default {
       type: Array,
       required: true
     }
-    // commentLength: {
-    //   type: String
-    // }
   },
-  // data(){
-  //   return {
-  //     commentLength: ""
-  //   }
-  // },
   computed: {
+    //Récupération du nombre de commentaires
     commentLength: function() {
       return this.comments.length;
     }
@@ -46,14 +39,18 @@ export default {
 
 
 <template>
+  <!-- Post -->
   <div class="dashboard-Items">
+    <!-- Lien vers post selectionné -->
     <router-link :to="{ name: 'post', params: { id: postId }} " class="underline-disable">
       <div id="post" class="post post_link">
+        <!-- nom de l'utilisateur-->
         <div class="post_name">
           <i class="fas fa-user-circle"></i>
           <p id="post_user_id">{{firstname}} {{lastname}}</p>
         </div>
 
+        <!-- Contenu du post, titre, nombre de commentaires -->
         <div class="post_main">
           <p id="post_title" class="post_title">"{{title}}"</p>
           <p id="post_content" class="post_content">{{content}}</p>
@@ -120,7 +117,6 @@ export default {
   &_comments {
     font-size: 12px;
     li {
-      // list-style: none
       padding: 8px;
       margin: 8px 0;
       background-color: $background-color;
@@ -147,5 +143,4 @@ export default {
 
   }
 }
-
 </style>

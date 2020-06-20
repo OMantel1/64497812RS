@@ -7,22 +7,24 @@
       <p>Acces non authorisé</p>
     </div>
 
+    <!-- page admin -->
     <div class="adminPage" v-if="usersList.length >1 ">
-      <!-- page admin -->
       <section class="users-list">
-        <!-- titres -->
-        <!-- <h1 class="users-list_heading" v-if="usersList">Bonjour admin</h1> -->
+        <!-- Utilisateurs -->
         <h1 class="users-list_heading">Liste des utilisateurs</h1>
-        <!-- Liste des utilisateurs -->
         <ul>
+           <!-- liste des utilisateurs-->
           <li v-for="users in usersList" :key="users.id" class="users-list_items">
             <p class="users-list_name">{{users.firstname}} {{users.lastname}}</p>
+            <!-- Lien derniers posts utilisateurs-->
             <a href="#/admin" @click="getUserPosts(users.id)">
               <i class="fas fa-sticky-note"></i>Posts
             </a>
+            <!-- Lien derniers commentaires utilisateurs-->
             <a href="#/admin" @click="getUserComments(users.id)">
               <i class="fas fa-comments"></i>Commentaires
             </a>
+             <!-- Lien suprression utilisateur-->
             <a href="#/admin" class="users-list_delete-link" @click="deleteUser(users.id)">
               <i class="fas fa-user-times"></i>
               Supp {{users.id}}
@@ -79,11 +81,9 @@
   </div>
 </template>
 
-
 <script>
 const axios = require("axios");
 import Header from "@/components/Header.vue";
-
 export default {
   name: "Admin",
   components: {
@@ -97,13 +97,8 @@ export default {
       posts: ""
     };
   },
-  computed: {
-    commentDate: function() {
-      return this.comment.slice(0, 5);
-    }
-  },
   methods: {
-    //recupere la liste des utilisateurs
+    //récupere la liste des utilisateurs
     getUsersList() {
       const options = {
         headers: {
@@ -115,15 +110,12 @@ export default {
         .get("http://localhost:3000/user/", options)
         .then(response => {
           this.usersList = response.data;
-          console.log(response.data);
         })
         .catch(error => console.log(error));
     },
 
-    //recupere tous les posts d'un user.
+    //récupere tous les posts d'un utilisateur.
     getUserPosts(element) {
-      // console.log(element);
-
       axios({
         headers: {
           "Content-Type": "application/json",
@@ -135,14 +127,12 @@ export default {
         .then(response => {
           this.posts = response.data;
           this.comments = "";
-          console.log(response.data);
         })
         .catch(error => console.log(error));
     },
 
-    //recupere tous les commentaires d'un user.
+    //récupère tous les commentaires d'un utilisateur.
     getUserComments(element) {
-      // console.log(element);
       axios({
         headers: {
           "Content-Type": "application/json",
@@ -154,15 +144,12 @@ export default {
         .then(response => {
           this.comments = response.data;
           this.posts = "";
-          console.log(response.data);
         })
         .catch(error => console.log(error));
     },
 
     //suppression d'un post
       deletePost(element, userElement) {
-      console.log(element);
-      console.log(userElement);
       axios({
         headers: {
           "Content-Type": "application/json",
@@ -171,13 +158,9 @@ export default {
         method: "DELETE",
         url: "http://localhost:3000/posts/admin/" + element
       })
-        .then(response => {
+        .then(() => {
+          //mise a jour de la liste des posts
           this.getUserPosts(userElement);
-          // this.user = response.data;
-          // this.comments = response.data.Comments;
-          console.log(response.data);
-          
-          // this.$router.go();
         })
         .catch(error => console.log(error));
     },
@@ -193,11 +176,9 @@ export default {
         method: "DELETE",
         url: "http://localhost:3000/comments/admin/" + element
       })
-        .then(response => {
+        .then(() => {
+          //mise a jour de la liste des commentaires
           this.getUserComments(userElement);
-          // this.user = response.data;
-          this.comments = response.data.Comments;
-          console.log(response.data);
         })
         .catch(error => console.log(error));
     },
@@ -205,7 +186,6 @@ export default {
     //suppression d'un utilisateur
     deleteUser(element) {
       if (confirm("Supprimer l'utilisateur?")) {
-        console.log(element);
         axios({
           headers: {
             "Content-Type": "application/json",
@@ -214,10 +194,7 @@ export default {
           method: "delete",
           url: "http://localhost:3000/user/delete/" + element
         })
-          .then(response => {
-            // this.user = response.data;
-            // this.comments = response.data.Comments;
-            console.log(response.data);
+          .then(() => {
             this.$router.go();
           })
           .catch(error => console.log(error));
@@ -228,8 +205,6 @@ export default {
     this.getUsersList();
     this.getUserPosts();
     this.getUserComments();
-    // this.deleteUser();
-    // this.deletePost();
   }
 };
 </script>
@@ -241,7 +216,6 @@ export default {
 .adminPage {
   color: black;
   font-size: 14px;
-  // text-align: center;
   box-sizing: border-box;
   display: flex;
   width: 90%;
@@ -346,7 +320,6 @@ export default {
     border-left: none;
     padding: 8px;
     width: 90%;
-    // border-left: none;
   }
 }
 

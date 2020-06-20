@@ -7,7 +7,6 @@
 <style lang="scss">
 @import "/styles/_variables.scss"; 
 
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   // -webkit-font-smoothing: antialiased;
@@ -15,7 +14,6 @@
   font-size: 16px;
   color: white;
 }
-
 
 body {
   margin: 0;
@@ -37,7 +35,6 @@ img{
   display: grid;
   justify-content: center;
   align-content: center;
-  // background-color: #264672;
 }
 
 .auth {

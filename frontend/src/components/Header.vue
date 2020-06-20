@@ -1,14 +1,14 @@
 <template>
   <header class="header">
+    <!-- logo -->
     <div class="header-image">
       <router-link to="/dashboard">
         <img src="../assets/icon-left-font-monochrome-white.svg" />
       </router-link>
     </div>
-    <!-- <i class="fas fa-bars" @click="displaymenu = true"></i> -->
+
+    <!-- liens -->
     <nav class="header-nav">
-      <!-- <router-link to="/login" v-if="!userInfos" class="header_links">Login |</router-link>
-      <router-link to="/signup" v-if="!userInfos" class="header_links">Signup |</router-link>-->
       <router-link to="/dashboard" v-if="isUserLogged" class="header-nav_links line">Forum</router-link>
       <a href="#/admin/" v-if="userRole == 1" class="header-nav_links line">Page admin</a>
       <a
@@ -23,8 +23,6 @@
 </template>
 
 <script>
-// const axios = require("axios");
-
 export default {
   name: "Header",
   props: {
@@ -39,49 +37,23 @@ export default {
     };
   },
   mounted() {
-    // this.getuserData();
+    //récupère informations pour personnalisation header
     if (sessionStorage.user) {
       this.isUserLogged = sessionStorage.user;
-      console.log(this.isUserLogged)
     }
     if(localStorage.role) {
       this.userRole = localStorage.role;
     }
-    // this.logOut();
   },
   methods: {
+    //Deconnexion, suppression des données stockées
     logOut() {
       sessionStorage.clear("user");
       sessionStorage.clear("key");
       localStorage.clear("role");
-      // this.isUserLogged = "";
-      // this.getuserData();
       window.location.href = "/login";
     }
-    // getuserData() {
-    //   const options = {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Authorization: "Bearer " + sessionStorage.getItem("key")
-    //     }
-    //   };
-    //   axios
-    //     .get(
-    //       "http://localhost:3000/user/" + sessionStorage.getItem("user"),
-    //       options
-    //     )
-    //     .then(userInfos => {
-    //       this.userInfos = userInfos.data;
-    //       console.log(userInfos.data);
-    //     })
-    //     .catch(error => console.log(error));
-    // }
-    // logIn: function() {
-    //   this.isUserLogged = sessionStorage.user;
-    //   console.log(this.isUserLogged);
-    // }
   },
-
   watch: {
     isUserLogged() {
       this.isUserLogged = sessionStorage.user;
@@ -98,6 +70,7 @@ export default {
 <style lang="scss">
 @import "../styles/_variables.scss";
 
+//Header
 .header {
   display: flex;
   justify-content: space-between;
@@ -149,23 +122,4 @@ export default {
     display: none;
   }
 }
-
-// @media screen and (max-width: 525px) {
-// .header-nav {
-//   display: flex;
-//   flex-direction: column;
-//   position: absolute;
-//   top: 68px;
-//   left: 0;
-//   background-color: $main-color;
-//   padding-left: 4px;
-//   border-bottom: white solid 1Px;
-//   &_links{
-//     border-bottom: white solid 1Px;
-//   }
-// }
-// .profile-icon{
-//   display: none;
-// }
-// }
 </style>

@@ -17,6 +17,7 @@ export default {
     }
   },
   methods: {
+    //Envoi nouveau commantaire
     sendNewComment: function(e) {
       e.preventDefault();
 
@@ -31,17 +32,15 @@ export default {
         error = "les caractères suivants sont interdits: = * < > { }";
       }
 
+      //si validation ok, requete
       if (error) {
         this.msgError = error;
       } else {
-        console.log(sessionStorage.getItem("user"));
-
         let comment = {
           UserId: sessionStorage.getItem("user"),
           content: this.comment,
           PostId: this.postId
         };
-        // console.log(comment);
         axios({
           headers: {
             "Content-Type": "application/json",
@@ -60,11 +59,8 @@ export default {
             }
           })
           .catch(error => {
-            // console.log(error.response.data.error);
             this.msgError = error.response.data.error;
           });
-
-        
       }
     }
   }
@@ -73,6 +69,7 @@ export default {
 
 <template>
   <div>
+    <!-- form nouveau commentaire-->
     <form class="newComment">
       <i class="far fa-edit"></i>
       <input
@@ -83,6 +80,7 @@ export default {
       />
       <button v-on:click="sendNewComment" class="newComment_button">Envoyer</button>
     </form>
+    
     <p id="alert">{{msgError}}</p>
   </div>
 </template>

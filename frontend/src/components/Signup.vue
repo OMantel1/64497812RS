@@ -1,10 +1,6 @@
 <template>
   <div class="user-signup container">
-    <!-- <div class="logo">
-      <p>Welcome to</p>
-      <img src="../assets/icon-left-font-monochrome-white.svg" />
-    </div>-->
-
+    <!-- form-->
     <form class="user-signup_form" id="form-signup">
       <div class="user-signup_form-field">
         <label class="user-signup_label" for="firstname">Prénom</label>
@@ -22,6 +18,7 @@
         <label class="user-signup_label" for="mdp">Password</label>
         <input class="user-signup_input" type="password" name="mot de passe" v-model.lazy="password" placeholder="password" />
       </div>
+      <!-- form submit-->
       <button
         class="user-signup_button"
         id="submitButton"
@@ -29,7 +26,7 @@
         @click="signup">Inscription</button>
       <p id="alert">{{msgError}}</p>
     </form>
-
+    <!-- login link -->
     <div class="auth">
       <router-link to="/">Login</router-link>
     </div>
@@ -37,10 +34,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import SignupForm from "@/components/SignupForm.vue";
 const axios = require("axios");
-
 export default {
   name: "Signup",
   props: {
@@ -61,16 +55,15 @@ export default {
     }
   },
   methods: {
+    //Creation d'un compte utilisateur
     signup: function(e) {
       e.preventDefault();
-      let nameRegex = /^[^=*'<>{}0-9]{3,}$/;
+      let nameRegex = /^[^=*'<>{}0-9]{3,}$/; //interdit chiffres et caractères  = ' * < > { } " 
       let mailRegex = /.+@.+\..+/;
-      // let textRegex = /^[^=*<>{}]+$/; //interdit certains caracteres spéciaux
-      // regex mdp: au moins une lettre majuscule, au moins une lettre minuscule, au moins un chiffre ou un caractere spécial suivant -+!*$@%_ , longeur entre 8 et 15 caracteres.
-      // let mdpRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})$/;
-      let passwordRegex = /^[^=*'<>{}]{5,}$/;
+      let passwordRegex = /^[^=*'<>{}]{5,}$/; //Au moins 5 caractères, caractères  suivants interdits = ' * < > { } " 
       this.msgError = "";
       let error;
+
       //check password
       if (this.password === "" || this.password == null) {
         error = "Password requis";
@@ -111,6 +104,7 @@ export default {
       if (error) {
         this.msgError = error;
       } else {
+        //si validation ok, requete.
         axios
           .post("http://localhost:3000/user/signup/", {
             firstname: this.firstname,
@@ -128,14 +122,8 @@ export default {
           .then(response => {
             console.log(response);
             window.location.href = "/login"
-            // sessionStorage.setItem("key", response.data.token);
-            // sessionStorage.setItem("user", response.data.userId);
           })
-          // .then(function() {
-          //   this.$router.push({ name: 'dashboard' })
-          // })
           .catch(error => {
-            console.log(error.response.data.error);
             this.msgError = error.response.data.error;
           });
       }
@@ -147,6 +135,7 @@ export default {
 <style lang="scss">
 @import "../styles/_variables.scss"; 
 
+//form signup
 .user-signup{
   color: $main-color;
   font-weight: lighter;
@@ -197,6 +186,7 @@ export default {
   }
 }
 
+//msg alert error
 #alert {
   color: red;
   text-align: center;

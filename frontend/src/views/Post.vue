@@ -1,15 +1,16 @@
 <template>
   <div class="post_container">
     <Header />
-
     <div class="dashboard-Items">
+
+      <!-- Post -->
       <div id="post" class="post">
+        <!-- Auteur du post -->
         <div class="post-header">
           <div class="post_name">
             <i class="fas fa-user-circle"></i>
             <p id="post_user_id">{{user.User.firstname}} {{user.User.lastname}}</p>
           </div>
-          <!-- boutton supprimer post a replacer -->
           <a
             v-if="user.UserId == userLoggedId"
             href="#"
@@ -28,7 +29,7 @@
           <div class="post_comments">
             <ul v-if="comments.length">
               <li v-for="comment in comments" v-bind:key="comment.UserId">
-                {{comment.User.firstname}} {{comment.User.lastname}} dit: {{comment.content}} {{comment.UserId}} {{userLoggedId}}
+                {{comment.User.firstname}} {{comment.User.lastname}} dit: {{comment.content}}
                 <!-- suppression commentaire -->
                 <a
                   class="post_delete-link"
@@ -94,13 +95,11 @@ export default {
         this.user = response.data;
         this.comments = response.data.Comments;
         this.postId = response.data.id;
-        // console.log(response.data);
-        // console.log(response.data.id);
       })
       .catch(error => console.log(error));
     },
+
     deleteComment(element) {
-      // console.log(element);
       axios({
         headers: {
           "Content-Type": "application/json",
@@ -110,10 +109,7 @@ export default {
         url: "http://localhost:3000/comments/" + element
       })
         .then(response => {
-          // this.user = response.data;
-          // this.comments = response.data.Comments;
           console.log(response.data);
-          // this.$router.go();
         })
         .catch(error => console.log(error));
       this.$router.go();
@@ -161,7 +157,6 @@ export default {
   justify-content: space-between;
 }
 
-//A recentrer
 .backlink {
   color: $primary-color;
   text-decoration: none;

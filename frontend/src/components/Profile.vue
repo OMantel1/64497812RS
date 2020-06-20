@@ -6,7 +6,8 @@
     <!-- Si utilisateur non authorisé-->
     <div v-if="!userLogged" class="unauthorizedMessage">
       <p>Acces non authorisé</p>
-    </div>
+    </div> 
+    
     <!-- Si utilisateur authorisé-->
     <div v-else class="user-profile">
       <!-- Informations du compte utilisateur-->
@@ -63,11 +64,13 @@ export default {
     };
   },
   methods: {
+    //suppression du compte utilisateur
     deleteUserProfile() {
       let mailRegex = /.+@.+\..+/;
       this.msgError = "";
       let error;
 
+      //vérification des champs
       if (!this.mail) {
         error = "Mail requis";
       }
@@ -81,6 +84,7 @@ export default {
       if (error) {
         this.msgError = error;
       } else {
+        //si validation ok, requete
         axios({
           headers: {
             "Content-Type": "application/json",
@@ -101,14 +105,13 @@ export default {
             }
           })
           .then(() => {
-            // console.log(response.data);
+            //suppression des données stockées
             sessionStorage.clear("user");
             sessionStorage.clear("key");
             this.isUserLogged = "";
             window.location.href = "/#/";
           })
           .catch(error => {
-            console.log(error.response.data.error);
             this.msgError = error.response.data.error;
           });
       }
@@ -116,6 +119,7 @@ export default {
   },
   mounted() {
     this.content = "loading...";
+    //Récupere les données de l'utilisateur connecté
     let userLoggedId = sessionStorage.getItem("user");
     const options = {
       headers: {
@@ -136,6 +140,8 @@ export default {
 <style lang="scss">
 @import "../styles/_variables.scss";
 
+
+//user profile
 .user-profile {
   color: $main-color;
   font-weight: lighter;
@@ -145,9 +151,6 @@ export default {
   li {
     margin: 0;
   }
-  // li {
-  //   list-style: none;
-  // }
   &_icon {
     font-size: 2em;
   }
@@ -165,7 +168,6 @@ export default {
       box-shadow: $primary-color 0px 0px 8px 4px;
     }
   }
-  //user-profile_form, user-profile_form-field, user-profile_delete-confirm, user-profile_input , label
   &_form {
     color: $main-color;
     font-weight: lighter;

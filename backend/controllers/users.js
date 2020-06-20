@@ -63,7 +63,7 @@ exports.login = (req, res, next) => {
       error: error
     });
   }
-  //les inputs correspondent aux données attendues, recher de l'utilisateur
+  //les inputs correspondent aux données attendues, recherche de l'utilisateur
   sequelize.User.findOne({
       where: {
         mail: req.body.mail

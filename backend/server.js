@@ -1,7 +1,6 @@
 const http = require('http');
 const app = require('./app');
 
-
 //renvoi un port valide, qu'il soit fourni sous la form d'un numero ou d'une chaine
 const normalizePort = val => {
     const port = parseInt(val, 10);
@@ -17,7 +16,6 @@ const normalizePort = val => {
 const port = normalizePort(process.env.PORT || 3000);
 
 app.set('port', port);
-
 
 //recherche et gere les erreurs
 const errorHandler = error => {

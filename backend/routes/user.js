@@ -13,12 +13,11 @@ const {
   } = require('sequelize');
 
 router.get('/:id', auth, user.getUsername);
-// router.get('/content/:id', auth, user.getuserContent); //auth admin a ajouter
 router.post('/login', user.login);
 router.post('/signup', user.signup);
 router.delete('/delete', auth, user.deleteAccount);
 
-router.get('/', auth, authRole, user.getAllUsers); //ajouter middleware Admin
-router.delete('/delete/:id', auth, authRole, user.deleteAccountAuth); //ajouter middleware Admin
+router.get('/', auth, authRole, user.getAllUsers);
+router.delete('/delete/:id', auth, authRole, user.deleteAccountAuth);
 
 module.exports = router;

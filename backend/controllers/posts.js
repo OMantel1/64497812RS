@@ -13,8 +13,6 @@ const db = require('../models');
 const fs = require('fs');
 
 let textRegex = /^[^=*<>{}]+$/;
-// let titleRegex = /((?=.*[A-Z])|(?=.*[a-z]))([- !?"()@:;,.'aéàèùêûiîçàa-zA-Z]{1,300})$/;
-
 
 /***** FIND ALL POSTS *****/
 exports.getUserWall = (req, res, next) => {
@@ -40,7 +38,6 @@ exports.getUserWall = (req, res, next) => {
       error
     }));
 }
-
 
 /***** NEW POSTS *****/
 exports.newPost = (req, res, next) => {
@@ -79,7 +76,6 @@ exports.newPost = (req, res, next) => {
       error: "Ce post n'as pas pu etre crée"
     }));
 }
-
 
 
 /***** GET ONE POSTS *****/
@@ -128,7 +124,7 @@ exports.deleteOnePost = (req, res, next) => {
           .catch(error => res.status(400).json({
             error
           }));
-          //if post.url_image
+      //if post.url_image
       }else {
         const filename = post.url_image.split('/images/')[1];
         fs.unlink(`images/${filename}`, () => {
@@ -142,8 +138,6 @@ exports.deleteOnePost = (req, res, next) => {
             }));
           })
       }
-      
-      
     })
     .catch(error => res.status(500).json({
       error

@@ -20,8 +20,8 @@ router.post('/new',auth, multer, posts.newPost);
 router.put('/:id', auth, posts.updateOnePost);
 router.delete('/:id', auth, posts.deleteOnePost);
 
-router.get('/user/:id', auth, authRole, posts.getUserPosts); //aujouter middleware admin
-router.delete('/admin/:id', auth, authRole, posts.deleteOnePost); //aujouter middleware admin
+router.get('/user/:id', auth, authRole, posts.getUserPosts); 
+router.delete('/admin/:id', auth, authRole, posts.deleteOnePost);
 
 
 module.exports = router;

@@ -1,6 +1,6 @@
 <template>
   <div class="post_container">
-    <!-- <Header /> -->
+    <Header />
 
     <div class="dashboard-Items">
       <div id="post" class="post">
@@ -61,11 +61,11 @@
 <script>
 const axios = require("axios");
 import CommentItemNew from "@/components/CommentItemNew.vue";
-// import Header from "@/components/Header.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   name: "Post",
-  components: { CommentItemNew },
+  components: { CommentItemNew, Header },
   data() {
     return {
       postId: "",

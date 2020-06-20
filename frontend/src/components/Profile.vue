@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- Header -->
-
+    <Header />
     <!-- Profile utilisateur-->
 
     <!-- Si utilisateur non authorisé-->
@@ -51,11 +50,11 @@
 
 <script>
 const axios = require("axios");
+import Header from "@/components/Header.vue";
 
 export default {
   name: "Profile",
-  components: {
-  },
+  components: {Header},
   data() {
     return {
       userLogged: "",
@@ -106,7 +105,7 @@ export default {
             sessionStorage.clear("user");
             sessionStorage.clear("key");
             this.isUserLogged = "";
-            window.location.href = "/#/"
+            window.location.href = "/#/";
           })
           .catch(error => {
             console.log(error.response.data.error);
@@ -135,7 +134,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../styles/_variables.scss"; 
+@import "../styles/_variables.scss";
 
 .user-profile {
   color: $main-color;
@@ -179,22 +178,21 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  
   }
-  &_input{
+  &_input {
     width: 250px;
     border: none;
     border-bottom: solid $main-color 1px;
     line-height: 30px;
   }
 
-  &_label{
+  &_label {
     width: 250px;
     text-align: left;
     line-height: 30px;
   }
 
-  &_delete-confirm{
+  &_delete-confirm {
     color: white;
     border-radius: 16px;
     border: none;
@@ -208,6 +206,5 @@ export default {
       box-shadow: $primary-color 0px 0px 8px 4px;
     }
   }
-
 }
 </style>

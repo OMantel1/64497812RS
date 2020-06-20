@@ -31,7 +31,7 @@
     </form>
 
     <div class="auth">
-      <router-link to="/login">Login</router-link>
+      <router-link to="/">Login</router-link>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@
 const axios = require("axios");
 
 export default {
-  name: "signup",
+  name: "Signup",
   props: {
     firstname: {
       type: String
@@ -127,7 +127,7 @@ export default {
           })
           .then(response => {
             console.log(response);
-            window.location.href = "/#/"
+            window.location.href = "/login"
             // sessionStorage.setItem("key", response.data.token);
             // sessionStorage.setItem("user", response.data.userId);
           })

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <Header /> -->
+    <Header />
 
     <!-- Message d'acces non authorisé -->
     <div v-if="usersList.length <1 " class="unauthorizedMessage">
@@ -82,12 +82,12 @@
 
 <script>
 const axios = require("axios");
-// import Header from "@/components/Header.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   name: "Admin",
   components: {
-    // Header
+    Header
   },
   data() {
     return {

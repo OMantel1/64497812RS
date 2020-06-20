@@ -2,24 +2,28 @@
   <header class="header">
     <div class="header-image">
       <router-link to="/dashboard">
-      <img src="../assets/icon-left-font-monochrome-white.svg" /> </router-link>
+        <img src="../assets/icon-left-font-monochrome-white.svg" />
+      </router-link>
     </div>
     <!-- <i class="fas fa-bars" @click="displaymenu = true"></i> -->
     <nav class="header-nav">
       <!-- <router-link to="/login" v-if="!userInfos" class="header_links">Login |</router-link>
       <router-link to="/signup" v-if="!userInfos" class="header_links">Signup |</router-link>-->
-      <router-link to="/dashboard" v-if="userInfos" class="header-nav_links line">Forum</router-link>
-      <a href="#/admin/" v-if="userInfos.admin == 1" class="header-nav_links line">Page admin</a>
-      <a href="#/profile/" v-if="userInfos.admin == 0" class="header-nav_links line">Gerer mon profil</a>
+      <router-link to="/dashboard" v-if="isUserLogged" class="header-nav_links line">Forum</router-link>
+      <a href="#/admin/" v-if="userRole == 1" class="header-nav_links line">Page admin</a>
+      <a
+        href="#/profile/"
+        v-if="userRole == 0"
+        class="header-nav_links line"
+      >Gerer mon profil</a>
       <a href="#" @click="logOut()" class="header-nav_links" v-if="isUserLogged">Se deconnecter</a>
       <i class="fas fa-user profile-icon"></i>
-
     </nav>
   </header>
 </template>
 
 <script>
-const axios = require("axios");
+// const axios = require("axios");
 
 export default {
   name: "Header",
@@ -30,42 +34,48 @@ export default {
   },
   data() {
     return {
-      isUserLogged: ""
+      isUserLogged: "",
+      userRole: ""
     };
   },
   mounted() {
-    this.getuserData();
+    // this.getuserData();
     if (sessionStorage.user) {
-    this.isUserLogged = sessionStorage.user;
-  }
+      this.isUserLogged = sessionStorage.user;
+      console.log(this.isUserLogged)
+    }
+    if(localStorage.role) {
+      this.userRole = localStorage.role;
+    }
     // this.logOut();
   },
   methods: {
     logOut() {
       sessionStorage.clear("user");
       sessionStorage.clear("key");
+      localStorage.clear("role");
       // this.isUserLogged = "";
       // this.getuserData();
       window.location.href = "/login";
-    },
-    getuserData() {
-      const options = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + sessionStorage.getItem("key")
-        }
-      };
-      axios
-        .get(
-          "http://localhost:3000/user/" + sessionStorage.getItem("user"),
-          options
-        )
-        .then(userInfos => {
-          this.userInfos = userInfos.data;
-          console.log(userInfos.data);
-        })
-        .catch(error => console.log(error));
     }
+    // getuserData() {
+    //   const options = {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization: "Bearer " + sessionStorage.getItem("key")
+    //     }
+    //   };
+    //   axios
+    //     .get(
+    //       "http://localhost:3000/user/" + sessionStorage.getItem("user"),
+    //       options
+    //     )
+    //     .then(userInfos => {
+    //       this.userInfos = userInfos.data;
+    //       console.log(userInfos.data);
+    //     })
+    //     .catch(error => console.log(error));
+    // }
     // logIn: function() {
     //   this.isUserLogged = sessionStorage.user;
     //   console.log(this.isUserLogged);
@@ -75,6 +85,11 @@ export default {
   watch: {
     isUserLogged() {
       this.isUserLogged = sessionStorage.user;
+    },
+    userRole(){
+      if(localStorage.role) {
+      this.userRole = localStorage.role;
+    }
     }
   }
 };

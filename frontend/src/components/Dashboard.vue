@@ -1,5 +1,7 @@
 <template>
   <div class="box">
+
+    <Header />
     <!-- New post container-->
     <div class="DashboardItemNew new-post" v-if="isUserLogged">
       <!-- Form new post button-->
@@ -53,13 +55,15 @@
 
 <script>
 const axios = require("axios");
+import Header from "@/components/Header.vue";
 
 import DashboardItems from "@/components/DashboardItems.vue";
 
 export default {
   name: "Dashboard",
   components: {
-    DashboardItems
+    DashboardItems,
+    Header
   },
   data() {
     return {
@@ -91,6 +95,11 @@ export default {
     }
   },
   methods: {
+    userLogged(){
+      if (sessionStorage.getItem("user")) {
+      this.isUserLogged = true;
+    }
+    },
     onFileSelected(event) {
       this.selectedFile = event.target.files[0];
       // console.log(event.target.files[0]);
@@ -103,6 +112,7 @@ export default {
       let textRegex = /^[^=*<>{}]+$/;
       this.msgError = "";
       let error;
+      e.preventDefault();
 
       //test input title
       if (this.title === "" || this.title == null) {
@@ -125,7 +135,6 @@ export default {
       //si pas d'erreur, envoi du formulaire
       if (error) {
         this.msgError = error;
-        e.preventDefault();
       } else {
 
         //test si image upload
@@ -179,13 +188,15 @@ export default {
         .catch(error => console.log(error));
     }
   },
-  created: function() {
-    this.dashboardLoading();
-  },
+  // created: function() {
+  //   this.dashboardLoading();
+  // },
   mounted() {
-    if (sessionStorage.getItem("user")) {
-      this.isUserLogged = true;
-    }
+    // if (sessionStorage.getItem("user")) {
+    //   this.isUserLogged = true;
+    // }
+    this.dashboardLoading();
+    this.userLogged();
   }
 };
 </script>
@@ -200,7 +211,7 @@ export default {
 
 .box {
   background-color: $background-color;
-  padding-top: 16px;
+  // padding-top: 16px;
 }
 
 .dashboard-Items {

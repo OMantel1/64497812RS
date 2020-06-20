@@ -54,10 +54,10 @@ export default {
 
     msgError: {
       type: String
-    },
-    isUserLogged: {
-      type: String
     }
+    // isUserLogged: {
+    //   type: String
+    // }
   },
   methods: {
     login: function(e) {
@@ -98,15 +98,17 @@ export default {
             }
           })
           .then(response => {
-            // console.log(response);
+            console.log(response.data);
+            console.log(response.data.userRole);
             sessionStorage.setItem("key", response.data.token);
             sessionStorage.setItem("user", response.data.userId);
-            // this.$router.push({ name: "dashboard" });
-            this.$emit("isUserLogged");
-            window.location.href = "/#/dashboard/"
+            localStorage.setItem("role", response.data.userRole);
+            // this.$router.push({ name: "Dashboard" });
+            // this.$emit("isUserLogged");
+            window.location.href = "#/dashboard"
           })
           .catch(error => {
-            console.log(error.response.data.error);
+            // console.log(error.response.data.error);
             this.msgError = error.response.data.error;
           });
       }

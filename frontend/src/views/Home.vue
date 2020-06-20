@@ -1,19 +1,25 @@
 <template>
   <div>
-    <Header/>
-    <router-view></router-view>
+    <!-- <Header/> -->
+    <router-view>
+    </router-view>
   </div>
 </template>
 
 
 <script>
-import Header from "@/components/Header.vue";
+// import Header from "@/components/Header.vue";
 const axios = require("axios");
 
 export default {
   name: "Home",
   components: {
-    Header
+    // Header
+  },
+  props: {
+    UserLogged:{
+      type: String
+    }
   },
   data() {
     return {

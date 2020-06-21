@@ -133,6 +133,7 @@ export default {
     }
     &-icon{
       font-size: 12px;
+      letter-spacing: 0.4px;
     }
     &-icon:before {
       font-family: "Font Awesome\ 5 Free";

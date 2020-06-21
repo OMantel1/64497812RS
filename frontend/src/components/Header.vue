@@ -90,6 +90,7 @@ export default {
     font-size: 0.8em;
     text-decoration: none;
     padding-right: 4px;
+    letter-spacing: 1.2px;
 
     &:hover {
       text-decoration: underline;
@@ -114,7 +115,8 @@ export default {
   }
   .header-nav {
     border-top: solid 1px white;
-    margin-top: 16px;
+    margin-top: 2px;
+    padding-top: 4px;
     width: 100%;
     text-align: center;
   }

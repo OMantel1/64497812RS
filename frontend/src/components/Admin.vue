@@ -292,9 +292,12 @@ export default {
   &_id {
     border-bottom: solid lighten($primary-color, 40%) 1px;
     padding-top: 16px;
+    font-weight: bold;
+    margin: 0;
   }
   &_title {
     font-size: 16px;
+    text-decoration: underline;
   }
   &_image {
     max-width: 300px;

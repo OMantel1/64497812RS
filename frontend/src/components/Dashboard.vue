@@ -251,7 +251,7 @@ export default {
   box-sizing: border-box;
   width: 60%;
   height: auto;
-  margin: 0 auto;
+  margin: 16px auto;
   padding-left: 16px;
   display: flex;
   flex-direction: column;
@@ -305,6 +305,7 @@ export default {
       background-color: white;
       border: $main-color solid 1px;
       width: 250px;
+      margin: auto;
       &:hover {
         background-color: lighten($main-color, 10%);
         color: white;

@@ -23,7 +23,7 @@
         <div class="post_main">
           <p id="post_title" class="post_title">"{{user.title}}"</p>
           <p id="post_content" class="post_content">{{user.content}}</p>
-          <img class="post_image" :src="user.url_image" />
+          <img v-if="user.url_image" class="post_image" :src="user.url_image" alt="image" />
 
           <!-- Commentaires -->
           <div class="post_comments">
@@ -52,6 +52,7 @@
     <!-- Retour vers dashboard  -->
     <div>
       <a href="http://localhost:8080/?#/dashboard" class="backlink">
+      
         <i class="far fa-arrow-alt-circle-left backlink_icon"></i>
       </a>
     </div>

@@ -22,7 +22,7 @@
         <div class="user-profile_form-field">
           <label for="mail" class="user-profile_label">Mail</label>
           <input
-            id="email"
+            id="mail"
             class="user-profile_input"
             type="email"
             v-model.lazy="mail"
@@ -30,7 +30,7 @@
           />
         </div>
         <div class="user-profile_form-field">
-          <label for="mdp" class="user-profile_label">Pass</label>
+          <label for="password" class="user-profile_label">Pass</label>
           <input
             id="password"
             class="user-profile_input"
@@ -56,6 +56,14 @@ import Header from "@/components/Header.vue";
 export default {
   name: "Profile",
   components: {Header},
+  props: {
+    password: {
+      type: String
+    },
+    mail: {
+      type: String
+    }
+  },
   data() {
     return {
       userLogged: "",

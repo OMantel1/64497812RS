@@ -3,7 +3,7 @@
     <!-- logo -->
     <div class="header-image">
       <router-link to="/dashboard">
-        <img src="../assets/icon-left-font-monochrome-white.svg" />
+        <img src="../assets/icon-left-font-monochrome-white.svg" alt="groupomania-logo"/>
       </router-link>
     </div>
 

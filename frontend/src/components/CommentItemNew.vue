@@ -2,19 +2,25 @@
 const axios = require("axios");
 export default {
   name: "CommentItemNew",
+  data(){
+    return{
+      msgError: "",
+      comment: "",
+    }
+  },
   props: {
-    comment: {
-      type: String,
-      required: true
-    },
+    // comment: {
+    //   type: String,
+    //   required: true
+    // },
     postId: {
       type: Number,
       required: true
-    },
-    msgError: {
-      type: String,
-      required: true
     }
+    // msgError: {
+    //   type: String,
+    //   required: true
+    // }
   },
   methods: {
     //Envoi nouveau commantaire
@@ -29,7 +35,7 @@ export default {
       if (this.comment === "" || this.comment == null) {
         error = "Commentaire requis";
       } else if (!textRegex.test(this.comment)) {
-        error = "les caractères suivants sont interdits: = * < > { }";
+        error = "Les caractères suivants sont interdits: = * < > { }";
       }
 
       //si validation ok, requete
@@ -71,43 +77,53 @@ export default {
   <div>
     <!-- form nouveau commentaire-->
     <form class="newComment">
-      <i class="far fa-edit"></i>
-      <input
-        type="text"
-        v-model="comment"
-        class="newComment_input"
-        placeholder="Votre commentaire..."
-      />
-      <button v-on:click="sendNewComment" class="newComment_button">Envoyer</button>
+      <div class="newComment_part">
+        <i class="far fa-edit"></i>
+        <label for="newcomment">Ecrire un commentaire</label>
+      </div>
+      <div class="newComment_part">
+        <input type="text" id="newcomment" v-model="comment" class="newComment_input" />
+        <button v-on:click="sendNewComment" class="newComment_button">Envoyer</button>
+      </div>
     </form>
-    
+
     <p id="alert">{{msgError}}</p>
   </div>
 </template>
 
 <style lang="scss">
-@import "../styles/_variables.scss"; 
+@import "../styles/_variables.scss";
 
 .newComment {
   padding: 8px;
-  width: 100%;
-  box-sizing: border-boxs;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
+  // width: 80%;
+  box-sizing: border-box;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+
+  &_part{
+    padding: 8px;
+    display: flex;
+  }
   &_input {
     flex: 1;
+    // width: 100%;
     padding: 8px;
     background: white;
     border: solid lighten($primary-color, 40%) 1px;
     border-radius: 4px;
     color: $primary-color;
-    margin: 0 8px;
-    
+    // margin: 0 8px;
   }
+  // label{
+  //   position: relative;
+  //   left: 20px;
+  // }
   .far {
     font-size: 16px;
+    padding-left: 2px;
+    padding-right: 8px;
   }
 
   &_button {
@@ -117,7 +133,7 @@ export default {
     border: solid lighten($primary-color, 40%) 1px;
     padding: 8px;
     margin: 8px;
-    &:hover{
+    &:hover {
       background-color: $main-color;
       color: white;
     }

@@ -3,10 +3,9 @@
     <Header />
     <!-- Posts -->
     <div class="DashboardItemNew new-post" v-if="isUserLogged">
-
       <!-- Lien pour afficher form nouveau post-->
       <div class="new-post_linkBox">
-        <img src="../assets/icon.svg" class="new-post_logo" />
+        <img src="../assets/icon.svg" alt="groupomania-logo-small" class="new-post_logo" />
         <button v-on:click="isHidden = false" class="new-post_Link">Créer un nouveau post</button>
       </div>
 
@@ -14,19 +13,25 @@
       <transition name="fade">
         <form v-if="!isHidden" class="new-post_form">
           <a href="#" class="new-post_close-button" v-on:click.prevent="isHidden = true">×</a>
+          <label for="title" class="new-post_form-label">Titre</label>
           <input
+            id="title"
             class="new-post_form-input"
             type="text"
             v-model.lazy="title"
             placeholder="Votre titre ..."
           />
+          <label for="message" class="new-post_form-label">Message</label>
           <input
+            id="message"
             class="new-post_form-input"
             type="text"
             v-model.lazy="content"
             placeholder="Votre message ..."
           />
+          <label for="image" class="new-post_form-label">Image</label>
           <input
+            id="Image"
             class="new-post_form-file"
             type="file"
             @change="onFileSelected"
@@ -60,6 +65,7 @@ import Header from "@/components/Header.vue";
 import DashboardItems from "@/components/DashboardItems.vue";
 export default {
   name: "Dashboard",
+  title: "Groupomania - Aceuil",
   components: {
     DashboardItems,
     Header
@@ -95,10 +101,10 @@ export default {
   },
   methods: {
     // Empeche l'affichage du formulaire de nouveau post si utilisateur non connecté
-    userLogged(){
+    userLogged() {
       if (sessionStorage.getItem("user")) {
-      this.isUserLogged = true;
-    }
+        this.isUserLogged = true;
+      }
     },
     //Selection image
     onFileSelected(event) {
@@ -115,25 +121,24 @@ export default {
       if (this.title === "" || this.title == null) {
         error = "Titre requis";
       } else if (this.title.length < 3) {
-        error = "Un minimum de 3 caracteres est requis";
+        error = "Un minimum de 3 caractères est requis";
       } else if (!textRegex.test(this.title)) {
-        error = "les caractères suivants sont interdits: = * < > { }";
+        error = "Les caractères suivants sont interdits: = * < > { }";
       }
 
       //test input content
       if (this.content === "" || this.content == null) {
         error = "Contenu requis";
       } else if (this.content.length < 3) {
-        error = "Un minimum de 3 caracteres est requis";
+        error = "Un minimum de 3 caractères est requis";
       } else if (!textRegex.test(this.content)) {
-        error = "les caractères suivants sont interdits: = * < > { }";
+        error = "Les caractères suivants sont interdits: = * < > { }";
       }
 
       //si pas d'erreur, envoi du formulaire
       if (error) {
         this.msgError = error;
       } else {
-
         //test si image upload, si image, l'ajoute à postData
         const postData = new FormData();
         if (this.selectedFile !== undefined) {
@@ -268,12 +273,13 @@ export default {
     border: solid lighten($primary-color, 40%) 1px;
     border-radius: 4px;
     color: $primary-color;
-    background-color: $background-color;
+    background-color: white;
     padding: 8px;
     margin: 0 8px;
     text-decoration: none;
     font-size: 12px;
   }
+
   &_logo {
     width: 30px;
     border-radius: 100%;
@@ -289,6 +295,12 @@ export default {
       border: none;
       border-bottom: solid $main-color 1px;
       line-height: 30px;
+    }
+
+    &-label {
+      padding-top: 8px;
+      color: $main-color;
+      font-weight: 500;
     }
 
     &-file {

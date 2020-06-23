@@ -4,19 +4,19 @@
     <form class="user-signup_form" id="form-signup">
       <div class="user-signup_form-field">
         <label class="user-signup_label" for="firstname">Prénom</label>
-        <input class="user-signup_input" type="text" name="prenom" v-model.lazy="firstname" placeholder="marc" />
+        <input class="user-signup_input" type="text" name="prenom" id="firstname" v-model.lazy="firstname" placeholder="marc" />
       </div>
       <div class="user-signup_form-field">
         <label class="user-signup_label" for="lastname">Nom</label>
-        <input class="user-signup_input" type="text" name="nom" v-model.lazy="lastname" placeholder="dupond" />
+        <input class="user-signup_input" type="text" name="nom" id="lastname"  v-model.lazy="lastname" placeholder="dupond" />
       </div>
       <div class="user-signup_form-field">
         <label class="user-signup_label" for="mail">Mail</label>
-        <input class="user-signup_input" type="email" name="mail" v-model.lazy="mail" placeholder="mail@groupomania.com" />
+        <input class="user-signup_input" type="email" name="mail" id="mail" v-model.lazy="mail" placeholder="mail@groupomania.com" />
       </div>
       <div class="user-signup_form-field">
         <label class="user-signup_label" for="mdp">Password</label>
-        <input class="user-signup_input" type="password" name="mot de passe" v-model.lazy="password" placeholder="password" />
+        <input class="user-signup_input" type="password" name="mot de passe" id="mdp" v-model.lazy="password" placeholder="password" />
       </div>
       <!-- form submit-->
       <button
@@ -66,12 +66,12 @@ export default {
 
       //check password
       if (this.password === "" || this.password == null) {
-        error = "Password requis";
+        error = "Mot de passe requis";
       } else if (this.password.length < 5) {
-        error = "Un password de 5 caractères minimum est demandé";
+        error = "Un mot de passe de 5 caractères minimum est demandé";
       } else if (!passwordRegex.test(this.password)) {
         error =
-          "les caractères spéciaux suivants sont interdits = ' * < > { } ";
+          "Les caractères spéciaux suivants sont interdits = ' * < > { } ";
       }
 
       //check mail
@@ -85,17 +85,17 @@ export default {
       if (this.lastname === "" || this.lastname == null) {
         error = "Nom requis";
       } else if (this.firstname.length < 3) {
-        error = "un nom de 3 caracteres minimum est demandé";
+        error = "Un nom de 3 caractères minimum est demandé";
       } else if (!nameRegex.test(this.lastname)) {
         error =
-          "Les chiffres et Les caractères suivants sont interdits: = ' * < > { }";
+          "Les chiffres et les caractères suivants sont interdits: = ' * < > { }";
       }
 
       //check firstname
       if (this.firstname === "" || this.firstname == null) {
         error = "Prénom requis";
       } else if (this.firstname.length < 3) {
-        error = "un prenom de 3 caracteres minimum est demandé";
+        error = "Un prenom de 3 caractères minimum est demandé";
       } else if (!nameRegex.test(this.firstname)) {
         error =
           "Les chiffres et les caractères suivants sont interdits: = ' * < > { }";

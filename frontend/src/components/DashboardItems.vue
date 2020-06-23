@@ -43,18 +43,19 @@ export default {
   <div class="dashboard-Items">
     <!-- Lien vers post selectionné -->
     <router-link :to="{ name: 'post', params: { id: postId }} " class="underline-disable">
-      <div id="post" class="post post_link">
+      <div class="post post_link">
         <!-- nom de l'utilisateur-->
         <div class="post_name">
           <i class="fas fa-user-circle"></i>
-          <p id="post_user_id">{{firstname}} {{lastname}}</p>
+          <p>{{firstname}} {{lastname}}</p>
         </div>
 
         <!-- Contenu du post, titre, nombre de commentaires -->
         <div class="post_main">
-          <p id="post_title" class="post_title">"{{title}}"</p>
-          <p id="post_content" class="post_content">{{content}}</p>
-          <img class="post_image" :src="image" />
+          <p class="post_title">"{{title}}"</p>
+          <p class="post_content">{{content}}</p>
+          <img v-if="image" class="post_image" :src="image" alt="image-illustration"/>
+          <!-- <img v-else class="post_image" :src="image" > -->
           <p class="post_comments-icon bold">{{commentLength}} commentaires</p>
         </div>
       </div>
@@ -119,7 +120,7 @@ export default {
     li {
       padding: 8px;
       margin: 8px 0;
-      background-color: $background-color;
+      background-color: lighten($background-color, 7%);
       border: solid 1px $background-color;
       border-radius: 4px;
     }

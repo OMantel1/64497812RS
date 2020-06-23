@@ -18,8 +18,8 @@ exports.newComment = (req, res, next) => {
   //vérification des données
   try {
     if (req.body.content === "") throw "Veuillez renseigner un contenu";
-    if (req.body.content.length < 2) throw "Votre commentaire doit contenir au moins 2 caracteres";
-    if (!textRegex.test(req.body.content)) throw "Caracteres spéciaux utilisés interdits  * < > { }";
+    if (req.body.content.length < 2) throw "Votre commentaire doit contenir au moins 2 caractères";
+    if (!textRegex.test(req.body.content)) throw "Caractères spéciaux utilisés interdits  * < > { }";
   } catch (error) {
     return res.status(400).json({
       error: error
@@ -32,10 +32,10 @@ exports.newComment = (req, res, next) => {
       content: req.body.content
     })
     .then(response => res.status(200).json({
-      message: "commentaire bien crée"
+      message: "Commentaire bien crée"
     }))
     .catch(error => res.status(400).json({
-      error: "commentaire n'as pas pu etre crée"
+      error: "Le commentaire n'a pas pu être crée"
     }));
 }
 
@@ -81,7 +81,7 @@ exports.updateOneComment = (req, res, next) => {
       }
     })
     .then(response => res.status(200).json({
-      message: "commentaire bien modifié"
+      message: "Commentaire bien modifié"
     }))
     .catch(error => console.log("ERREUR updateValue"));
 }

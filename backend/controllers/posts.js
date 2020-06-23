@@ -45,10 +45,10 @@ exports.newPost = (req, res, next) => {
   try {
     if (req.body.content === "" || req.body.content == null) throw "Veuillez renseigner un contenu";
     if (req.body.title === "" || req.body.content == null) throw "Veuillez renseigner un titre";
-    if (req.body.title.length < 3) throw "titre de 3 caracteres minimum";
-    if (req.body.content.length < 3) throw "Contenu de 3 caracteres minimum";
-    if (!textRegex.test(req.body.content)) throw "Caracteres spéciaux utilisés interdits  * < > { }";
-    if (!textRegex.test(req.body.title)) throw "Caracteres spéciaux utilisés interdits  * < > { }"
+    if (req.body.title.length < 3) throw "Titre de 3 caractères minimum";
+    if (req.body.content.length < 3) throw "Contenu de 3 caractères minimum";
+    if (!textRegex.test(req.body.content)) throw "Caractères spéciaux utilisés interdits  * < > { }";
+    if (!textRegex.test(req.body.title)) throw "Caractères spéciaux utilisés interdits  * < > { }"
   } catch (error) {
     return res.status(400).json({
       error: error
@@ -73,7 +73,7 @@ exports.newPost = (req, res, next) => {
       message: "Post bien crée"
     }))
     .catch(error => res.status(400).json({
-      error: "Ce post n'as pas pu etre crée"
+      error: "Ce post n'a pas pu être crée"
     }));
 }
 
@@ -118,7 +118,7 @@ exports.deleteOnePost = (req, res, next) => {
       if(post.url_image === null){
         sequelize.Post.destroy({where: {id: req.params.id}})
           .then(post => {res.status(200).json({
-              message: "post bien supprimé"
+              message: "Post bien supprimé"
             });
           })
           .catch(error => res.status(400).json({
@@ -167,7 +167,7 @@ exports.updateOnePost = (req, res, next) => {
       }
     })
     .then(response => res.status(200).json({
-      message: "post bien modifié"
+      message: "Post bien modifié"
     }))
     .catch(error => console.log("ERREUR updateValue"));
 }

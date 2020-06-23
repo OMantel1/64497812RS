@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "newuser1",
-    "password": "password",
+    "password": "User#6789",
     "database": "grp1",
     "host": "localhost",
     "dialect": "mysql",
@@ -9,7 +9,7 @@
   },
   "test": {
     "username": "newuser1",
-    "password": "password",
+    "password": "User#6789",
     "database": "grp1",
     "host": "localhost",
     "dialect": "mysql",
@@ -17,7 +17,7 @@
   },
   "production": {
     "username": "newuser1",
-    "password": "password",
+    "password": "User#6789",
     "database": "grp1",
     "host": "localhost",
     "dialect": "mysql",

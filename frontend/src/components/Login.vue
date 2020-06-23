@@ -3,7 +3,7 @@
     <!-- login form -->
     <form class="user-login_form" id="form-login" >
       <div class="user-login_form-field">
-        <label class="user-login_label" for="mail">Mail</label>
+        <label class="user-login_label" for="email">Mail</label>
         <input
           class="user-login_input"
           id="email"
@@ -13,7 +13,7 @@
         />
       </div>
       <div class="user-login_form-field">
-        <label class="user-login_label" for="mdp" >Mot de passe</label>
+        <label class="user-login_label" for="password" >Mot de passe</label>
         <input
           class="user-login_input"
           id="password"

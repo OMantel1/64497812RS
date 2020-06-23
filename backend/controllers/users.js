@@ -53,7 +53,7 @@ exports.login = (req, res, next) => {
     if (req.body.mail === "") throw "Veuillez renseigner un mail";
     if (req.body.mdp === "") throw "Veuillez renseigner un mot de passe";
     if (!passwordRegex.test(req.body.mdp)) {
-      throw "Le mot de passe doit contenir au moins 5 caracteres et ne doit pas contenir les cracteres suivants: =*<>{}"
+      throw "Le mot de passe doit contenir au moins 5 caractères et ne doit pas contenir les caractères suivants: =*<>{}"
     }
     if (!mailRegex.test(req.body.mail)) {
       throw "Veuillez entrer une adresse mail valide";
@@ -80,7 +80,7 @@ exports.login = (req, res, next) => {
         .then(valid => {
           if (!valid) {
             return res.status(401).json({
-              error: "pass invalide"
+              error: "Password invalide"
             })
           }
           //mdp valide, envoi d'un token d'authentification
@@ -139,7 +139,7 @@ exports.deleteAccount = (req, res, next) => {
         .then(valid => {
           if (!valid) {
             return res.status(401).json({
-              error: "pass invalide"
+              error: "Le mot de passe ne correspond pas"
             })
           }
           //suppression de l'utilisateur
@@ -149,10 +149,10 @@ exports.deleteAccount = (req, res, next) => {
               }
             })
             .then(() => res.status(201).json({
-              message: "utilisateur bien supprimé"
+              message: "Utilisateur bien supprimé"
             }))
             .catch(error => res.status(400).json({
-              error: "Utilisateur n'a pas pu  etre supprimé"
+              error: "l'utilisateur n'a pas pu être supprimé"
             }));
         })
         .catch(error => res.status(500).json({
@@ -188,10 +188,10 @@ exports.deleteAccountAuth = (req, res, next) => {
           }
         })
         .then(() => res.status(201).json({
-          message: "utilisateur bien supprimé"
+          message: "Utilisateur bien supprimé"
         }))
         .catch(error => res.status(400).json({
-          error: "Utilisateur n'a pas pu  etre supprimé"
+          error: "L'utilisateur n'a pas pu être supprimé"
         }));
     })
     .catch(error => console.log(error));
@@ -216,12 +216,12 @@ exports.signup = (req, res, next) => {
           //vérifications des données
           try {
             if (req.body.lastname === "") throw "Veuillez renseigner un nom";
-            if (req.body.firstname === "") throw "Veuillez renseigner un prenom";
-            if (!nameRegex.test(req.body.firstname)) throw "Prénom non valide (trop court ou utilise chiffres, caracteres spéciaux)";
-            if (!nameRegex.test(req.body.lastname)) throw "Nom non valide (trop court ou utilise chiffres, caracteres spéciaux)";
+            if (req.body.firstname === "") throw "Veuillez renseigner un prénom";
+            if (!nameRegex.test(req.body.firstname)) throw "Prénom non valide (trop court ou utilise des chiffres, caractères spéciaux)";
+            if (!nameRegex.test(req.body.lastname)) throw "Nom non valide (trop court ou utilise des chiffres, caractères spéciaux)";
             if (req.body.mail === "") throw "Veuillez renseigner un mail";
             if (!passwordRegex.test(req.body.mdp)) {
-              throw "Le mot de passe doit contenir au moins 5 caracteres et ne doit pas contenir les cracteres suivants: =*'<>{}"
+              throw "Le mot de passe doit contenir au moins 5 caractères et ne doit pas contenir les caractères suivants: =*'<>{}"
             }
             if (!mailRegex.test(req.body.mail)) {
               throw "Veuillez entrer une adresse mail valide";
@@ -254,7 +254,7 @@ exports.signup = (req, res, next) => {
                 admin: admin
               })
               .then(() => res.status(201).json({
-                message: "utilisateur bien crée"
+                message: "Utilisateur bien crée"
               }))
               .catch(error => console.log("erreur"));
           } else {

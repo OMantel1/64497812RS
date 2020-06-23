@@ -44,7 +44,7 @@
               <p>Titre : {{post.title}}</p>
               <p>Contenu : {{post.content}}</p>
               <p class="users-posts_image">
-                <img v-if="post.url_image" :src="post.url_image" alt />
+                <img v-if="post.url_image" :src="post.url_image" alt="image-illustration" />
               </p>
               <a
                 href="#/admin"
@@ -58,7 +58,7 @@
         <!-- Liste des commentaires -->
         <div class="users-comments" v-if="comments">
           <h2 class="users-comments_title">Derniers commentaires</h2>
-          <p v-if="comments.length < 1">Aucuns commentaires</p>
+          <p v-if="comments.length < 1">Aucun commentaire</p>
           <ul v-else>
             <li v-for="comment in comments" :key="comment.id" class="users-comments_items">
               <p

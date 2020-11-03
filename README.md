@@ -1,18 +1,25 @@
 # 64497812RS
-Projet p7
+Social network for company.
 
-# backend - node.js, express, sequelize cli
-# Dans dossiser backend:
+>A user can signup, login, signout, and delete his account.
+A user can create/delete a post, create/delete a comment.
+Admin user can delete any post, comment or user.
+A not admin user can't acces to admin page.
 
+## Backend
+Stack: node.js, express, sequelize cli
+### How to start:
+```
 npm install
 npm start
-
-# frontend - Vue.js cli
-# Dans dossier frontend:
-
+```
+## Frontend
+Stack:  Vue.js cli
+### How to start:
+```
 npm install
 npm run serve
-
-# bdd
-P7Database.sql dans dossier backend.
-Exporté avec MySqlWorckbench, fonctionne avec MySqlWorckbench.
+```
+## Bdd
+Database in backend folder.
+Exported with MySqlWorckbench, works with MySqlWorckbench.
